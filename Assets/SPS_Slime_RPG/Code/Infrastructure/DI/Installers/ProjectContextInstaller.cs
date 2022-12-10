@@ -1,4 +1,5 @@
 using SPS_Slime_RPG.Code.Infrastructure.Services.AssetProvider;
+using SPS_Slime_RPG.Code.Infrastructure.Services.CoroutineRunner;
 using SPS_Slime_RPG.Code.Infrastructure.Services.SceneContext;
 using SPS_Slime_RPG.Code.Infrastructure.Services.SceneLoaderService;
 using SPS_Slime_RPG.Code.Infrastructure.Services.StaticData;
@@ -9,7 +10,7 @@ using Zenject;
 
 namespace SPS_Slime_RPG.Code.Infrastructure.DI.Installers
 {
-    public class ProjectContextInstaller : MonoInstaller
+    public class ProjectContextInstaller : MonoInstaller, ICoroutineRunner
     {
         public override void InstallBindings()
         {
@@ -24,7 +25,8 @@ namespace SPS_Slime_RPG.Code.Infrastructure.DI.Installers
             Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
             Container.Bind<ISceneContextService>().To<SceneContextService>().AsSingle();
             Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
-           
+            Container.Bind<ICoroutineRunner>().FromInstance(this).AsSingle();
+
         }
 
         private void BindGameStateMachine()

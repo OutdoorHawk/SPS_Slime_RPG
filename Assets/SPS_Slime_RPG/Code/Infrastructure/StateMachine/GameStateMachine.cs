@@ -8,7 +8,7 @@ namespace SPS_Slime_RPG.Code.Infrastructure.StateMachine
     {
         private readonly Dictionary<Type, IExitableState> _states;
 
-        public GameStateMachine(ICoroutineRunner coroutineRunner)
+        public GameStateMachine()
         {
             _states = new Dictionary<Type, IExitableState>
             {
