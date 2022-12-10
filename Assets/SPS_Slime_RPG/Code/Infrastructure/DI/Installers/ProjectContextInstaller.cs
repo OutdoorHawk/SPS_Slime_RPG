@@ -1,5 +1,6 @@
 using SPS_Slime_RPG.Code.Infrastructure.Services.AssetProvider;
 using SPS_Slime_RPG.Code.Infrastructure.Services.CoroutineRunner;
+using SPS_Slime_RPG.Code.Infrastructure.Services.SaveLoadService;
 using SPS_Slime_RPG.Code.Infrastructure.Services.SceneContext;
 using SPS_Slime_RPG.Code.Infrastructure.Services.SceneLoaderService;
 using SPS_Slime_RPG.Code.Infrastructure.Services.StaticData;
@@ -26,7 +27,8 @@ namespace SPS_Slime_RPG.Code.Infrastructure.DI.Installers
             Container.Bind<ISceneContextService>().To<SceneContextService>().AsSingle();
             Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
             Container.Bind<ICoroutineRunner>().FromInstance(this).AsSingle();
-
+            Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
+            Container.Bind<IPersistentProgressService>().To<PersistentProgressService>().AsSingle();
         }
 
         private void BindGameStateMachine()
