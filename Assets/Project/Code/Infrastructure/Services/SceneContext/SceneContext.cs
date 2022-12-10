@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SPS_Slime_RPG.Code.Infrastructure.Services.SceneContext
+namespace Project.Code.Infrastructure.Services.SceneContext
 {
     public class SceneContext : MonoBehaviour
     {

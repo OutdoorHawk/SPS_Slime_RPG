@@ -1,17 +1,21 @@
 using System;
 using System.Collections.Generic;
-using SPS_Slime_RPG.Code.Infrastructure.Services.CoroutineRunner;
+using Project.Code.Infrastructure.StateMachine.States;
+using Zenject;
 
-namespace SPS_Slime_RPG.Code.Infrastructure.StateMachine
+namespace Project.Code.Infrastructure.StateMachine
 {
     public class GameStateMachine : IGameStateMachine
     {
         private readonly Dictionary<Type, IExitableState> _states;
 
-        public GameStateMachine()
+        [Inject]
+        public GameStateMachine(BootstrapState bootstrapState, LoadLevelState loadLevelState)
         {
             _states = new Dictionary<Type, IExitableState>
             {
+                { typeof(BootstrapState), bootstrapState },
+                { typeof(LoadLevelState), loadLevelState },
             };
         }
 

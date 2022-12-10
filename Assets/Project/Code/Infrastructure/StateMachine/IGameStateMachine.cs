@@ -1,4 +1,4 @@
-namespace SPS_Slime_RPG.Code.Infrastructure.StateMachine
+namespace Project.Code.Infrastructure.StateMachine
 {
     public interface IGameStateMachine
 

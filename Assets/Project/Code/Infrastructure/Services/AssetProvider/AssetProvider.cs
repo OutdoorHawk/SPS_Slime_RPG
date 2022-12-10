@@ -1,7 +1,7 @@
-using SPS_Slime_RPG.Code.Infrastructure.StaticData;
+using Project.Code.Infrastructure.StaticData;
 using UnityEngine;
 
-namespace SPS_Slime_RPG.Code.Infrastructure.Services.AssetProvider
+namespace Project.Code.Infrastructure.Services.AssetProvider
 {
     public class AssetProvider : IAssetProvider
     {

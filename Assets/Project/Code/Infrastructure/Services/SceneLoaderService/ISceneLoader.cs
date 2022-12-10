@@ -1,6 +1,6 @@
 using System;
 
-namespace SPS_Slime_RPG.Code.Infrastructure.Services.SceneLoaderService
+namespace Project.Code.Infrastructure.Services.SceneLoaderService
 {
     public interface ISceneLoader
     {

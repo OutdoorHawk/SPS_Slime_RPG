@@ -1,4 +1,4 @@
-namespace SPS_Slime_RPG.Code.Infrastructure.Data
+namespace Project.Code.Infrastructure.Data
 {
     public enum WindowID
     {

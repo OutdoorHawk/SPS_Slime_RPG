@@ -1,9 +1,9 @@
-using SPS_Slime_RPG.Code.Infrastructure.Data;
-using SPS_Slime_RPG.Code.Infrastructure.Services.StaticData;
-using SPS_Slime_RPG.Code.Infrastructure.StaticData;
+using Project.Code.Infrastructure.Data;
+using Project.Code.Infrastructure.Services.StaticData;
+using Project.Code.Infrastructure.StaticData;
 using UnityEngine;
 
-namespace SPS_Slime_RPG.Code.Infrastructure.Services.UI
+namespace Project.Code.Infrastructure.Services.UI
 {
     public class UIFactory : IUIFactory
     {

@@ -1,8 +1,8 @@
-using SPS_Slime_RPG.Code.Infrastructure.StateMachine;
+using Project.Code.Infrastructure.StateMachine;
 using UnityEngine;
 using Zenject;
 
-namespace SPS_Slime_RPG.Code.Infrastructure
+namespace Project.Code.Infrastructure
 {
     public class GameBootstrapper : MonoBehaviour
     {

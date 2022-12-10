@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SPS_Slime_RPG.Code.Infrastructure.Services.ZenjectFactory
+namespace Project.Code.Infrastructure.Services.ZenjectFactory
 {
     public interface IZenjectFactory
     {

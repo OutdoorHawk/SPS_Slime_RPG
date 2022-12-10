@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace SPS_Slime_RPG.Code.Infrastructure.Services.ZenjectFactory
+namespace Project.Code.Infrastructure.Services.ZenjectFactory
 {
     public class ZenjectFactory : IZenjectFactory
     {

@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
-using SPS_Slime_RPG.Code.Infrastructure.Services.CoroutineRunner;
+using Project.Code.Infrastructure.Services.CoroutineRunner;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace SPS_Slime_RPG.Code.Infrastructure.Services.SceneLoaderService
+namespace Project.Code.Infrastructure.Services.SceneLoaderService
 {
     public class SceneLoader : ISceneLoader
     {

@@ -1,4 +1,4 @@
-namespace SPS_Slime_RPG.Code.Infrastructure.Services.UI
+namespace Project.Code.Infrastructure.Services.UI
 {
     public interface IUIFactory
     {

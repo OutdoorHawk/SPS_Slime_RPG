@@ -1,15 +1,16 @@
-using SPS_Slime_RPG.Code.Infrastructure.Services.AssetProvider;
-using SPS_Slime_RPG.Code.Infrastructure.Services.CoroutineRunner;
-using SPS_Slime_RPG.Code.Infrastructure.Services.SaveLoadService;
-using SPS_Slime_RPG.Code.Infrastructure.Services.SceneContext;
-using SPS_Slime_RPG.Code.Infrastructure.Services.SceneLoaderService;
-using SPS_Slime_RPG.Code.Infrastructure.Services.StaticData;
-using SPS_Slime_RPG.Code.Infrastructure.Services.UI;
-using SPS_Slime_RPG.Code.Infrastructure.Services.ZenjectFactory;
-using SPS_Slime_RPG.Code.Infrastructure.StateMachine;
+using Project.Code.Infrastructure.Services.AssetProvider;
+using Project.Code.Infrastructure.Services.CoroutineRunner;
+using Project.Code.Infrastructure.Services.SaveLoadService;
+using Project.Code.Infrastructure.Services.SceneContext;
+using Project.Code.Infrastructure.Services.SceneLoaderService;
+using Project.Code.Infrastructure.Services.StaticData;
+using Project.Code.Infrastructure.Services.UI;
+using Project.Code.Infrastructure.Services.ZenjectFactory;
+using Project.Code.Infrastructure.StateMachine;
+using Project.Code.Infrastructure.StateMachine.States;
 using Zenject;
 
-namespace SPS_Slime_RPG.Code.Infrastructure.DI.Installers
+namespace Project.Code.Infrastructure.DI.Installers
 {
     public class ProjectContextInstaller : MonoInstaller, ICoroutineRunner
     {
@@ -33,6 +34,8 @@ namespace SPS_Slime_RPG.Code.Infrastructure.DI.Installers
 
         private void BindGameStateMachine()
         {
+            Container.Bind<BootstrapState>().To<BootstrapState>().AsSingle();
+            Container.Bind<LoadLevelState>().To<LoadLevelState>().AsSingle();
             Container.Bind<IGameStateMachine>().To<GameStateMachine>().AsSingle();
         }
 

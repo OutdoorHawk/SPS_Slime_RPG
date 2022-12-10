@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SPS_Slime_RPG.Code.Extensions
+namespace Project.Code.Extensions
 {
     public static class Utils
     {

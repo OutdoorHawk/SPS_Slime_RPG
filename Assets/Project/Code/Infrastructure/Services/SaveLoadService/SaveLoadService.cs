@@ -1,7 +1,7 @@
-using SPS_Slime_RPG.Code.Extensions;
+using Project.Code.Extensions;
 using UnityEngine;
 
-namespace SPS_Slime_RPG.Code.Infrastructure.Services.SaveLoadService
+namespace Project.Code.Infrastructure.Services.SaveLoadService
 {
     public class SaveLoadService : ISaveLoadService
     {
