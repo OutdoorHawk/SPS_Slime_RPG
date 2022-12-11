@@ -9,6 +9,7 @@ using Project.Code.Infrastructure.Services.UI;
 using Project.Code.Infrastructure.Services.ZenjectFactory;
 using Project.Code.Infrastructure.StateMachine;
 using Project.Code.Infrastructure.StateMachine.States;
+using UnityEngine;
 using Zenject;
 
 namespace Project.Code.Infrastructure.DI.Installers

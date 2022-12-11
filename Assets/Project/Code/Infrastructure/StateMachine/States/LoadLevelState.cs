@@ -3,6 +3,7 @@ using Project.Code.Infrastructure.Services.Factory;
 using Project.Code.Infrastructure.Services.SceneContext;
 using Project.Code.Infrastructure.Services.SceneLoaderService;
 using Project.Code.Infrastructure.Services.StaticData;
+using Project.Code.Infrastructure.Services.UI;
 using Project.Code.Runtime.Roads;
 using Project.Code.Runtime.World;
 using Project.Code.StaticData.Units;
@@ -17,11 +18,13 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private readonly IStaticDataService _staticDataService;
         private readonly ISceneContextService _sceneContextService;
         private readonly IUnitFactory _unitFactory;
+        private readonly IUIFactory _uiFactory;
 
         private LoadLevelState(ISceneLoader sceneLoader, IStaticDataService staticDataService,
-            ISceneContextService sceneContextService, IUnitFactory unitFactory)
+            ISceneContextService sceneContextService, IUnitFactory unitFactory, IUIFactory uiFactory)
         {
             _unitFactory = unitFactory;
+            _uiFactory = uiFactory;
             _sceneContextService = sceneContextService;
             _sceneLoader = sceneLoader;
             _staticDataService = staticDataService;
@@ -46,6 +49,13 @@ namespace Project.Code.Infrastructure.StateMachine.States
             CreatePlayer();
             InitRoads();
             InitEnemySpawner();
+            InitUI();
+        }
+
+        private void InitUI()
+        {
+            _uiFactory.CreateUiRoot();
+            _uiFactory.CreatePlayerHUD();
         }
 
         private void CreatePlayer()

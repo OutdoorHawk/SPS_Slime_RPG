@@ -14,6 +14,6 @@ namespace Project.Code.Infrastructure.Services.StaticData
         WindowConfig GetWindow(WindowID id);
         UnitStaticData GetUnit(UnitID unitID);
         WorldStaticData GetWorldStaticData();
-        StatData GetStatData(StatID id);
+        PlayerStaticData GetPlayerStaticData();
     }
 }

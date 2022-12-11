@@ -16,18 +16,13 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         {
             base.Init(unitStaticData);
             _staticData = unitStaticData as PlayerStaticData;
-            float loadedAttack = GetLoadedStat(statsProgress, StatID.ATK);
-            float loadedAtkSpeed = GetLoadedStat(statsProgress, StatID.ASPD);
-            float loadedHP = GetLoadedStat(statsProgress, StatID.HP);
+            float loadedAttack = statsProgress.GetStatProgress(StatID.ATK).StatValue;
+            float loadedAtkSpeed = statsProgress.GetStatProgress(StatID.ASPD).StatValue;
+            float loadedHP = statsProgress.GetStatProgress(StatID.HP).StatValue;
 
             _damageComponent = GetComponent<PlayerDealDamageComponent>();
             _damageComponent.Init(loadedAttack, loadedAtkSpeed);
             HealthComponent.Init(loadedHP);
-        }
-
-        private float GetLoadedStat(PlayerStatsProgress statsProgress,  StatID id)
-        {
-            return _staticData.GetStatData(id).StatBaseValue + statsProgress.GetStatProgress(id).StatValue;
         }
 
         private void Update()

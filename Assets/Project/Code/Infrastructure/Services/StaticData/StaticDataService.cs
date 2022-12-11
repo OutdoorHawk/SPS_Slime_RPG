@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Project.Code.Infrastructure.Data;
 using Project.Code.Infrastructure.Services.AssetProvider;
 using Project.Code.Infrastructure.StaticData;
-using Project.Code.StaticData;
 using Project.Code.StaticData.Units;
 using Project.Code.StaticData.Units.Player;
 using Project.Code.StaticData.World;
@@ -48,17 +47,25 @@ namespace Project.Code.Infrastructure.Services.StaticData
         private void LoadStats()
         {
             PlayerStaticData staticData = _units[UnitID.Player] as PlayerStaticData;
-            foreach (var config in staticData.StatConfigs) 
+            foreach (var config in staticData.StatConfigs)
                 _stats.Add(config.StatID, config.StatData);
         }
 
         public WindowConfig GetWindow(WindowID id) =>
             _windows.TryGetValue(id, out var windowConfig) ? windowConfig : null;
 
-        public UnitStaticData GetUnit(UnitID unitID) => 
+        public UnitStaticData GetUnit(UnitID unitID) =>
             _units.TryGetValue(unitID, out UnitStaticData unitStaticData) ? unitStaticData : null;
 
-        public WorldStaticData GetWorldStaticData() 
+        public PlayerStaticData GetPlayerStaticData()
+        {
+            UnitStaticData staticData = _units.TryGetValue(UnitID.Player, out UnitStaticData unitStaticData)
+                ? unitStaticData
+                : null;
+            return staticData as PlayerStaticData;
+        }
+
+        public WorldStaticData GetWorldStaticData()
             => _data.WorldStaticData;
 
         public StatData GetStatData(StatID id)

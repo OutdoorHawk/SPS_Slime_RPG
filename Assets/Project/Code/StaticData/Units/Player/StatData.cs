@@ -7,7 +7,8 @@ namespace Project.Code.StaticData.Units.Player
     {
         public float StatBaseValue;
         public int StatBaseUpgradeCost;
-        public float StatUpgradeCostIncrease;
+        
         public float StatValueIncrease;
+        public int StatUpgradeCostIncrease;
     }
 }

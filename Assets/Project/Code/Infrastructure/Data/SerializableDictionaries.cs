@@ -5,7 +5,7 @@ using Project.Code.Infrastructure.Services.SaveLoadService.Progress.Stats;
 namespace Project.Code.Infrastructure.Data
 {
     [Serializable]
-    public class StatsProgression : UnitySerializedDictionary<StatID, StatsProgress>
+    public class StatsProgression : UnitySerializedDictionary<StatID, StatProgress>
     {
     }
 }

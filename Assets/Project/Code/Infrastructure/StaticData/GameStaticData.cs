@@ -17,5 +17,8 @@ namespace Project.Code.Infrastructure.StaticData
         
         public UnitConfig[] Units => _units;
         public WorldStaticData WorldStaticData => _worldStaticData;
+        
+        [ContextMenu("EraseProgress")]
+        private void EraseProgress() => PlayerPrefs.DeleteAll();
     }
 }
