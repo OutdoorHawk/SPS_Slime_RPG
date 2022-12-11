@@ -46,18 +46,12 @@ namespace Project.Code.Infrastructure.StateMachine.States
         public void Enter()
         {
             Init();
-            Subscribe();
             DoFightState();
         }
-
-        private void Subscribe()
-        {
-            _enemySpawner.OnWaveKilled += GoToWalkingState;
-        }
-
+        
         private void GoToWalkingState()
         {
-            _coroutineRunner.StartCoroutine(WalkingRoutine());
+            _roadSpawner.DoWalking(DoFightState);
         }
 
         private void Init()
@@ -69,32 +63,13 @@ namespace Project.Code.Infrastructure.StateMachine.States
             _enemySpawner = _sceneContextService.EnemySpawner;
         }
 
-        private IEnumerator WalkingRoutine()
-        {
-            float t = _worldStaticData.PlayerWalkingTime;
-            do
-            {
-                _roadSpawner.TickMovement();
-                t -= Time.deltaTime;
-                yield return new WaitForSeconds(Time.deltaTime);
-            } while (t > 0);
-
-            DoFightState();
-        }
-
         private void DoFightState()
         {
-            _enemySpawner.SpawnWave();
-        }
-
-        private void Cleanup()
-        {
-            _enemySpawner.OnWaveKilled -= GoToWalkingState;
+            _enemySpawner.SpawnWave(GoToWalkingState);
         }
 
         public void Exit()
         {
-            Cleanup();
             _unitCollector.Cleanup();
         }
     }

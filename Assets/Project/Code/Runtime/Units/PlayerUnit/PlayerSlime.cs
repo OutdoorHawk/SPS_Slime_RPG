@@ -2,6 +2,7 @@ using Project.Code.Infrastructure.Data;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress.Stats;
 using Project.Code.Runtime.Units.Components.Damage;
+using Project.Code.Runtime.World;
 using Project.Code.StaticData.Units;
 using Project.Code.StaticData.Units.Player;
 using UnityEngine;
@@ -37,6 +38,8 @@ namespace Project.Code.Runtime.Units.PlayerUnit
 
         private void Update()
         {
+            if (UnitCollector.AliveEnemies.Count == 0)
+                return;
             _damageComponent.UpdateTarget();
             _damageComponent.UpdateAttack();
         }

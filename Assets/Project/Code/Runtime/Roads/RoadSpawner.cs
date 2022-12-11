@@ -1,7 +1,10 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Project.Code.StaticData.World;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Project.Code.Runtime.Roads
 {
@@ -10,13 +13,14 @@ namespace Project.Code.Runtime.Roads
         [SerializeField] private Transform _roadsParent;
         [SerializeField] private float _movingSpeed;
         [SerializeField] private float _minTriggerDistance = 1f;
-
-        [SerializeField] private List<Road> _activeRoads;
+        
+        private List<Road> _activeRoads;
         private Road[] _roadPrefabs;
         private Transform _cachedTransform;
         private Transform _playerTransform;
 
         private static readonly Vector3 NextRoadOffset = new(50, 0, 0);
+        private float _walkingTime;
 
         private const float MAX_ROAD_AMOUNT = 4;
 
@@ -25,6 +29,7 @@ namespace Project.Code.Runtime.Roads
             _playerTransform = playerTransform;
             _movingSpeed = worldStaticData.RoadMovingSpeed;
             _roadPrefabs = worldStaticData.Roads;
+            _walkingTime = worldStaticData.PlayerWalkingTime;
             _cachedTransform = transform;
             _activeRoads = new List<Road>();
             CollectExistingRoads();
@@ -51,7 +56,25 @@ namespace Project.Code.Runtime.Roads
             _activeRoads.Add(road);
         }
 
-        public void TickMovement()
+        public void DoWalking(Action OnWalkingDone)
+        {
+            StartCoroutine(WalkingRoutine(OnWalkingDone));
+        }
+        
+        private IEnumerator WalkingRoutine(Action onWalkingDone)
+        {
+            float t = _walkingTime;
+            do
+            {
+                TickMovement();
+                t -= Time.deltaTime;
+                yield return new WaitForSeconds(Time.deltaTime);
+            } while (t > 0);
+
+            onWalkingDone?.Invoke();
+        }
+        
+        private void TickMovement()
         {
             UpdateMovement();
             CheckNewRoadSpawn();

@@ -24,8 +24,9 @@ namespace Project.Code.Runtime.World
             UnitCollector.OnEnemyRemoved += CheckEnemiesLeft;
         }
 
-        public void SpawnWave()
+        public void SpawnWave(Action waveKilled)
         {
+            OnWaveKilled = waveKilled;
             _enemyAmount = Random.Range(_spawnerStaticData.EnemiesMinAmount, _spawnerStaticData.EnemiesMaxAmount);
 
             for (int i = 0; i < _enemyAmount; i++)
