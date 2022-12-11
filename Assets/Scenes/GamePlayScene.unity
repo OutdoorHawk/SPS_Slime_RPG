@@ -1113,10 +1113,6 @@ PrefabInstance:
       propertyPath: _roadsParent
       value: 
       objectReference: {fileID: 1047083868}
-    - target: {fileID: 3252164541229411053, guid: d6b8ec1a73dabbd46b13ae6a3cc6f47b, type: 3}
-      propertyPath: _minTriggerDistance
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6b8ec1a73dabbd46b13ae6a3cc6f47b, type: 3}
 --- !u!1001 &5280237016180393236

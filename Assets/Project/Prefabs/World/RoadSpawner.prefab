@@ -46,5 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _roadsParent: {fileID: 0}
   _movingSpeed: 10
-  _minTriggerDistance: 3
+  _minTriggerDistance: 5
   _activeRoads: []
