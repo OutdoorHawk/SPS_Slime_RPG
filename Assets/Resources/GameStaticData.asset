@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9fe62ec5a1f1df48b8c80a1c6ed3ac1, type: 3}
   m_Name: GameStaticData
   m_EditorClassIdentifier: 
-  _windows: []
+  _windows:
+  - ID: 3
+    WindowPrefab: {fileID: 7370455005571362830, guid: c04a1d393872b11499a565bfe614c094, type: 3}
   _player: {fileID: 6035735149080498332, guid: eac445d96af29e44389066a9654ab127, type: 3}
   _playerStaticData:
     _attackSpeed: 1
@@ -22,4 +24,4 @@ MonoBehaviour:
     - {fileID: 4297441895917553726, guid: 0e804fea27abfff458252f9f4c1c87e5, type: 3}
     - {fileID: 6609179255809895849, guid: 22024360ab60d2a4aa3c2c00c0a4531c, type: 3}
     - {fileID: 5075305413449335933, guid: ac138efbb11bc0b43969f300e4579f02, type: 3}
-    _roadMovingSpeed: 3
+    _roadMovingSpeed: 20

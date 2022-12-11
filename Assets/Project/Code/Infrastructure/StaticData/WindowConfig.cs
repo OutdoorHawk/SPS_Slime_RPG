@@ -8,6 +8,6 @@ namespace Project.Code.Infrastructure.StaticData
     public class WindowConfig
     {
         public WindowID ID;
-        public MonoBehaviour WindowPrefab;
+        public RectTransform WindowPrefab;
     }
 }

@@ -17,6 +17,7 @@ namespace Project.Code.Runtime.Roads
         private Transform _playerTransform;
 
         private static readonly Vector3 NextRoadOffset = new(50, 0, 0);
+        
         private const float MAX_ROAD_AMOUNT = 4;
 
         public void Init(WorldStaticData worldStaticData, Transform playerTransform)
@@ -50,7 +51,7 @@ namespace Project.Code.Runtime.Roads
             _activeRoads.Add(road);
         }
 
-        private void Update()
+        public void TickMovement()
         {
             if (_activeRoads.Count < 1)
                 return;
