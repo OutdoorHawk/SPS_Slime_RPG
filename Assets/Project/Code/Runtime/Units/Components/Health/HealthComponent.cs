@@ -14,6 +14,7 @@ namespace Project.Code.Runtime.Units.Components
 
         private float _maxHealth;
         private bool _isDead;
+        public float HealthPercent => _currentHealth / _maxHealth;
 
         public void Init(float healthAmount)
         {

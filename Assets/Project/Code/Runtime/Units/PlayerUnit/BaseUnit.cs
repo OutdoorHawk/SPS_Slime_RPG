@@ -51,6 +51,7 @@ namespace Project.Code.Runtime.Units.PlayerUnit
 
         protected virtual void HandleDamageTaken(AttackDetails details)
         {
+            _healthBar.UpdateHealth(HealthComponent.HealthPercent);
         }
 
         protected virtual void HandleDeath()

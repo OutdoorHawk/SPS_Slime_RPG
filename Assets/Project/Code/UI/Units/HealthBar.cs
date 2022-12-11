@@ -36,10 +36,10 @@ namespace Project.Code.UI.Units
                 RepositionHealthBar();
         }
 
-        public void UpdateHealth(float currentHealth, float maxHealth)
+        public void UpdateHealth(float healthPercent)
         {
             if (_fullbarImage != null)
-                _fullbarImage.fillAmount = currentHealth / maxHealth;
+                _fullbarImage.fillAmount = healthPercent;
         }
 
         public void SetVisible(bool visible)
