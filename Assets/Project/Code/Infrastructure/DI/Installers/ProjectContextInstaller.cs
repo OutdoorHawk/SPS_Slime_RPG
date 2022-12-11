@@ -34,9 +34,9 @@ namespace Project.Code.Infrastructure.DI.Installers
 
         private void BindGameStateMachine()
         {
+            Container.Bind<IGameStateMachine>().To<GameStateMachine>().AsSingle().NonLazy();
             Container.Bind<BootstrapState>().To<BootstrapState>().AsSingle();
             Container.Bind<LoadLevelState>().To<LoadLevelState>().AsSingle();
-            Container.Bind<IGameStateMachine>().To<GameStateMachine>().AsSingle();
         }
 
         private void BindFactories()

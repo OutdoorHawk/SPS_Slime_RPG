@@ -1,8 +1,9 @@
-namespace Project.Code.Infrastructure.StateMachine
+namespace Project.Code.Infrastructure.StateMachine.States
 {
     public interface IState : IExitableState
     {
         void Enter();
+       
     }
 
     public interface IPayloadedState<TPayload> : IExitableState
@@ -13,5 +14,6 @@ namespace Project.Code.Infrastructure.StateMachine
     public interface IExitableState
     {
         void Exit();
+        void InitState(IGameStateMachine gameStateMachine);
     }
 }

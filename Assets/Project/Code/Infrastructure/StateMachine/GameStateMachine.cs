@@ -17,6 +17,8 @@ namespace Project.Code.Infrastructure.StateMachine
                 { typeof(BootstrapState), bootstrapState },
                 { typeof(LoadLevelState), loadLevelState },
             };
+            foreach (var state in _states.Values) 
+                state.InitState(this);
         }
 
         public IExitableState ActiveState { get; private set; }

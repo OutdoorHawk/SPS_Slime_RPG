@@ -1,4 +1,5 @@
 using Project.Code.Infrastructure.StateMachine;
+using Project.Code.Infrastructure.StateMachine.States;
 using UnityEngine;
 using Zenject;
 
@@ -16,7 +17,7 @@ namespace Project.Code.Infrastructure
 
         private void Awake()
         {
-            //_gameStateMachine.Enter<BootstrapState>();
+            _gameStateMachine.Enter<BootstrapState>();
             DontDestroyOnLoad(gameObject);
         }
     }

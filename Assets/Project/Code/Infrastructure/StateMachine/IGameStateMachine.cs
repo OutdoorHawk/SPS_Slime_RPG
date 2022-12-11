@@ -1,3 +1,5 @@
+using Project.Code.Infrastructure.StateMachine.States;
+
 namespace Project.Code.Infrastructure.StateMachine
 {
     public interface IGameStateMachine
