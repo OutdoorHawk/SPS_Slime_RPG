@@ -31,26 +31,37 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
         private void InitShopItems()
         {
             _shopItems = _shopItemsParent.GetComponentsInChildren<StatShopItem>().ToList();
-            for (var i = 0; i < _shopItems.Count; i++) 
-                _shopItems[i].Init(_statsProgress);
+            foreach (var item in _shopItems)
+                item.Init(_statsProgress);
+        }
+        
+        public void UpdateShopItems()
+        {
+            foreach (var item in _shopItems)
+                item.UpdateItemInfo();
         }
 
         public void SubscribeClicks()
         {
-            for (var i = 0; i < _shopItems.Count; i++) 
-                _shopItems[i].OnUpgradeButtonPressed += NotifyUpgradeButtonClicked;
-        } 
-        
+            foreach (var item in _shopItems)
+                item.OnUpgradeButtonPressed += NotifyUpgradeButtonClicked;
+        }
+
+        public void CheckStatCosts(int moneyAmount)
+        {
+            foreach (var item in _shopItems)
+                item.CheckEnoughMoney(moneyAmount);
+        }
+
         public void Cleanup()
         {
-            for (var i = 0; i < _shopItems.Count; i++) 
-                _shopItems[i].OnUpgradeButtonPressed += NotifyUpgradeButtonClicked;
+            foreach (var item in _shopItems)
+                item.OnUpgradeButtonPressed += NotifyUpgradeButtonClicked;
         }
 
         private void NotifyUpgradeButtonClicked(StatID id)
         {
             OnUpgradeButtonPressed?.Invoke(id);
         }
-        
     }
 }

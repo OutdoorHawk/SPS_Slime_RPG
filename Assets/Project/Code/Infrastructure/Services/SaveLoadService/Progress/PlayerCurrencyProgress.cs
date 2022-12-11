@@ -6,6 +6,8 @@ namespace Project.Code.Infrastructure.Services.SaveLoadService.Progress
     [Serializable]
     public class PlayerCurrencyProgress
     {
+        public event Action<int> OnMoneyChanged;
+        
         [SerializeField] private int _moneyAmount;
         
         public int MoneyAmount => _moneyAmount;
@@ -13,12 +15,14 @@ namespace Project.Code.Infrastructure.Services.SaveLoadService.Progress
         public void AddMoney(int amount)
         {
             _moneyAmount += amount;
+            OnMoneyChanged?.Invoke(_moneyAmount);
         } 
         
         public void RemoveMoney(int amount)
         {
             if (_moneyAmount - amount >= 0) 
                 _moneyAmount -= amount;
+            OnMoneyChanged?.Invoke(_moneyAmount);
         }
     }
 }

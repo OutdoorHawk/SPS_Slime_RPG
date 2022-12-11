@@ -15,16 +15,21 @@ namespace Project.Code.Runtime.Units.Components
         private float _maxHealth;
         private bool _isDead;
 
-        public float MaxHealth => _maxHealth;
-        public float CurrentHealth => _currentHealth;
-
         public void Init(float healthAmount)
         {
+            CheckHealthUpdate(healthAmount);
             _maxHealth = healthAmount;
-            Respawn();
         }
 
-        private void Respawn()
+        private void CheckHealthUpdate(float healthAmount)
+        {
+            if (_maxHealth == 0) 
+                return;
+            float hpDiff = healthAmount - _maxHealth;
+            _currentHealth += hpDiff;
+        }
+
+        public void Respawn()
         {
             _currentHealth = _maxHealth;
         }

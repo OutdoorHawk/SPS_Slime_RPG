@@ -2,7 +2,9 @@ using Project.Code.Infrastructure.Data;
 using Project.Code.Infrastructure.Services.SaveLoadService;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress.Stats;
+using Project.Code.Infrastructure.Services.SceneContext;
 using Project.Code.Infrastructure.Services.StaticData;
+using Project.Code.Runtime.Units.PlayerUnit;
 using Project.Code.StaticData.Units.Player;
 using Project.Code.UI.Windows.PlayerHUD.Currency;
 using Project.Code.UI.Windows.PlayerHUD.StatShop;
@@ -22,11 +24,14 @@ namespace Project.Code.UI.Windows.PlayerHUD
         private PlayerCurrencyProgress _currencyProgress;
         private ISaveLoadService _saveLoadService;
         private PlayerStaticData _playerData;
+        private ISceneContextService _sceneContextService;
+        private PlayerSlime _playerSlime;
 
         [Inject]
         private void Construct(IStaticDataService staticDataService, IPersistentProgressService progressService,
-            ISaveLoadService saveLoadService)
+            ISaveLoadService saveLoadService, ISceneContextService sceneContextService)
         {
+            _sceneContextService = sceneContextService;
             _progressService = progressService;
             _saveLoadService = saveLoadService;
             _staticDataService = staticDataService;
@@ -44,23 +49,34 @@ namespace Project.Code.UI.Windows.PlayerHUD
             _statsProgress = _progressService.Progress.PlayerStatsProgress;
             _currencyProgress = _progressService.Progress.PlayerCurrencyProgress;
             _playerData = _staticDataService.GetPlayerStaticData();
+            _playerSlime = _sceneContextService.Player;
         }
 
         private void InitContainers()
         {
             _shopContainer.Init(_playerData, _statsProgress);
             _currencyContainer.Init(_currencyProgress);
+            CheckStatCosts(_currencyProgress.MoneyAmount);
         }
 
         private void Subscribe()
         {
             _shopContainer.SubscribeClicks();
             _shopContainer.OnUpgradeButtonPressed += HandleUpgradeButtonClicked;
+            _currencyProgress.OnMoneyChanged += CheckStatCosts;
         }
 
-        private void UpdateHUD()
+        private void CheckStatCosts(int moneyAmount)
         {
-            InitContainers();
+            _currencyContainer.UpdateMoney();
+            _shopContainer.CheckStatCosts(moneyAmount);
+        }
+
+        private void UpdatePlayer()
+        {
+            _shopContainer.UpdateShopItems();
+            _currencyContainer.UpdateMoney();
+            _playerSlime.UpdateComponents();
         }
 
         private void HandleUpgradeButtonClicked(StatID id)
@@ -69,13 +85,15 @@ namespace Project.Code.UI.Windows.PlayerHUD
             float statValueIncrease = _playerData.GetStatValueIncrease(id);
             int statCostIncrease = _playerData.GetStatCostIncrease(id);
             _statsProgress.UpgradeStat(id, statValueIncrease, statCostIncrease);
-            UpdateHUD();
+            UpdatePlayer();
             
             //_saveLoadService.SaveProgress(); TODO ACTIVATE LATER
         }
 
         private void OnDestroy()
         {
+            _shopContainer.OnUpgradeButtonPressed -= HandleUpgradeButtonClicked;
+            _currencyProgress.OnMoneyChanged -= CheckStatCosts;
             _shopContainer.Cleanup();
         }
     }

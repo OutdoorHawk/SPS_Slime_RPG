@@ -30,7 +30,7 @@ namespace Project.Code.Infrastructure.Services.Factory
             Enemy enemy = Object.Instantiate(unitPrefab, position, rotation).GetComponent<Enemy>();
             PlayerSlime slime = _sceneContextService.Player;
             enemy.SetupPlayer(slime);
-            enemy.Init(staticData);
+            enemy.Init(staticData,_progressService.Progress);
             enemy.OnSpawn();
             return enemy;
         }
@@ -40,7 +40,7 @@ namespace Project.Code.Infrastructure.Services.Factory
             UnitStaticData staticData = _staticDataService.GetUnit(UnitID.Player);
             BaseUnit unitPrefab = staticData.UnitPrefab;
             PlayerSlime player = Object.Instantiate(unitPrefab, position, rotation).GetComponent<PlayerSlime>();
-            player.Init(staticData, _progressService.Progress.PlayerStatsProgress);
+            player.Init(staticData, _progressService.Progress);
             _sceneContextService.SetPlayer(player);
             return player;
         }

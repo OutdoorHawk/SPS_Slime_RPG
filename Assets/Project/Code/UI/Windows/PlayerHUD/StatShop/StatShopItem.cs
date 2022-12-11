@@ -18,19 +18,45 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
         [SerializeField] private TMP_Text _currentLevel;
         [SerializeField] private Button _upgradeButton;
 
+        private Color _defaultUpgradeCostColor;
         private StatProgress _statProgress;
 
         public void Init(PlayerStatsProgress statsProgress)
         {
             _statProgress = statsProgress.GetStatProgress(_statID);
-            _statName.text = _statID.ToString();
-            _statValue.text = SwitchTextFormat();
-            _upgradeCost.text = _statProgress.StatUpgradeCost.ToString();
-            _currentLevel.text = "Lv " + _statProgress.StatLvl;
-            SwitchTextFormat();
+            _defaultUpgradeCostColor = _upgradeCost.color;
+            UpdateItemInfo();
         }
 
-        private string SwitchTextFormat()
+        public void UpdateItemInfo()
+        {
+            _statName.text = _statID.ToString();
+            _statValue.text = SwitchValueFormat();
+            _upgradeCost.text = _statProgress.StatUpgradeCost.ToString();
+            _currentLevel.text = "Lv " + _statProgress.StatLvl;
+        }
+
+        public void CheckEnoughMoney(int currentMoney)
+        {
+            if (_statProgress.StatUpgradeCost > currentMoney) 
+                SetItemInactive();
+            else
+                SetItemActive();
+        }
+
+        private void SetItemActive()
+        {
+            _upgradeButton.interactable = true;
+            _upgradeCost.color = _defaultUpgradeCostColor;
+        }
+
+        private void SetItemInactive()
+        {
+            _upgradeButton.interactable = false;
+            _upgradeCost.color = Color.red;
+        }
+
+        private string SwitchValueFormat()
         {
             return _statID switch
             {

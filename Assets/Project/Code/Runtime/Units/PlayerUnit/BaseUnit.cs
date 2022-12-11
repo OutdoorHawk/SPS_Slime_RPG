@@ -1,4 +1,5 @@
 ﻿using System;
+using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Runtime.CustomData;
 using Project.Code.Runtime.Units.Components;
 using Project.Code.Runtime.Units.Components.Damage;
@@ -14,12 +15,14 @@ namespace Project.Code.Runtime.Units.PlayerUnit
     public class BaseUnit : MonoBehaviour
     {
         public event Action<BaseUnit> OnUnitDead;
+        protected PlayerProgress Progress{ get; private set; }
         public HealthComponent HealthComponent { get; private set; }
         protected UnitStaticData UnitStaticData { get; private set; }
         protected DealDamageComponent DealDamageComponent { get; private set; }
 
-        public virtual void Init(UnitStaticData unitStaticData)
+        public virtual void Init(UnitStaticData unitStaticData, PlayerProgress progress)
         {
+            Progress = progress;
             UnitStaticData = unitStaticData;
             DealDamageComponent = GetComponent<DealDamageComponent>();
             HealthComponent = GetComponent<HealthComponent>();

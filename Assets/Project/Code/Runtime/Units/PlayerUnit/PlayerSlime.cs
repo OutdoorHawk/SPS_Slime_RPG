@@ -1,5 +1,5 @@
-using System;
 using Project.Code.Infrastructure.Data;
+using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress.Stats;
 using Project.Code.Runtime.Units.Components.Damage;
 using Project.Code.StaticData.Units;
@@ -11,16 +11,24 @@ namespace Project.Code.Runtime.Units.PlayerUnit
     {
         private PlayerStaticData _staticData;
         private PlayerDealDamageComponent _damageComponent;
+        private PlayerStatsProgress _statsProgress;
 
-        public void Init(UnitStaticData unitStaticData, PlayerStatsProgress statsProgress)
+        public override void Init(UnitStaticData unitStaticData, PlayerProgress playerProgress)
         {
-            base.Init(unitStaticData);
+            base.Init(unitStaticData, playerProgress);
+            _statsProgress = playerProgress.PlayerStatsProgress;
             _staticData = unitStaticData as PlayerStaticData;
-            float loadedAttack = statsProgress.GetStatProgress(StatID.ATK).StatValue;
-            float loadedAtkSpeed = statsProgress.GetStatProgress(StatID.ASPD).StatValue;
-            float loadedHP = statsProgress.GetStatProgress(StatID.HP).StatValue;
-
             _damageComponent = GetComponent<PlayerDealDamageComponent>();
+            UpdateComponents();
+            HealthComponent.Respawn();
+        }
+
+        public void UpdateComponents()
+        {
+            float loadedAttack = _statsProgress.GetStatProgress(StatID.ATK).StatValue;
+            float loadedAtkSpeed = _statsProgress.GetStatProgress(StatID.ASPD).StatValue;
+            float loadedHP = _statsProgress.GetStatProgress(StatID.HP).StatValue;
+
             _damageComponent.Init(loadedAttack, loadedAtkSpeed);
             HealthComponent.Init(loadedHP);
         }

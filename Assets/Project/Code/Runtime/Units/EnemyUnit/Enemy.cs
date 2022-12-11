@@ -1,3 +1,4 @@
+using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Runtime.Units.Components.Damage;
 using Project.Code.Runtime.Units.PlayerUnit;
 using Project.Code.Runtime.World;
@@ -16,14 +17,16 @@ namespace Project.Code.Runtime.Units.EnemyUnit
 
         public void SetupPlayer(PlayerSlime slime) => _player = slime;
 
-        public override void Init(UnitStaticData unitStaticData)
+        public override void Init(UnitStaticData unitStaticData, PlayerProgress playerProgress)
         {
-            base.Init(unitStaticData);
+            base.Init(unitStaticData, playerProgress);
             _enemyStaticData = unitStaticData as EnemyStaticData;
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _damageComponent = GetComponent<EnemyDealDamageComponent>();
             _damageComponent.SetPlayer(_player.HealthComponent);
             DealDamageComponent.Init(_enemyStaticData.DamageAmount, _enemyStaticData.AttackSpeed);
+            HealthComponent.Init(_enemyStaticData.HealthAmount);
+            HealthComponent.Respawn();
             enabled = true;
         }
 
@@ -52,6 +55,7 @@ namespace Project.Code.Runtime.Units.EnemyUnit
         protected override void HandleDeath()
         {
             UnitCollector.RemoveUnit(this);
+            Progress.PlayerCurrencyProgress.AddMoney(_enemyStaticData.MoneyDrop);
             base.HandleDeath();
         }
     }

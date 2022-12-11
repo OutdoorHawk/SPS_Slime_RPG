@@ -1,13 +1,12 @@
 using Project.Code.Runtime.CustomData;
-using Project.Code.StaticData.Units;
 using UnityEngine;
 
 namespace Project.Code.Runtime.Units.Components.Damage
 {
     public abstract class DealDamageComponent : MonoBehaviour
     {
-        protected AttackDetails _attackDetails;
-        protected float _attackSpeed;
+        [SerializeField] protected AttackDetails _attackDetails;
+        [SerializeField] protected float _attackSpeed;
 
         private float _countDown = 0;
 
