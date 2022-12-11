@@ -27,7 +27,7 @@ namespace Project.Code.Runtime.Units.Components
             if (_maxHealth == 0) 
                 return;
             float hpDiff = healthAmount - _maxHealth;
-            _currentHealth += hpDiff;
+            TakeHeal(hpDiff);
         }
 
         public void Respawn()

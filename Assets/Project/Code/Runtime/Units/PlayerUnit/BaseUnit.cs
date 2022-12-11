@@ -46,10 +46,16 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         protected virtual void Subscribe()
         {
             HealthComponent.OnReceivedDamage += HandleDamageTaken;
+            HealthComponent.OnHeal += HandleHeal;
             HealthComponent.OnDeath += HandleDeath;
         }
 
         protected virtual void HandleDamageTaken(AttackDetails details)
+        {
+            _healthBar.UpdateHealth(HealthComponent.HealthPercent);
+        }
+
+        private void HandleHeal(float obj)
         {
             _healthBar.UpdateHealth(HealthComponent.HealthPercent);
         }
@@ -63,6 +69,7 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         protected virtual void CleanUp()
         {
             HealthComponent.OnReceivedDamage -= HandleDamageTaken;
+            HealthComponent.OnHeal -= HandleHeal;
             HealthComponent.OnDeath -= HandleDeath;
         }
 

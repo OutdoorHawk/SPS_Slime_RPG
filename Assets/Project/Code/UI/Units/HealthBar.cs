@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,9 @@ namespace Project.Code.UI.Units
     {
         [SerializeField] private Vector2 _offsetTest;
         [SerializeField] private Image _fullbarImage;
+        [SerializeField] private Image _tweenBarImage;
+        [SerializeField] private float _tweenBarDuration = 0.35f;
+
         private Image[] _images;
         private RectTransform _targetCanvas;
 
@@ -14,6 +18,7 @@ namespace Project.Code.UI.Units
         private Transform _objectToFollow;
 
         private Camera _mainCamera;
+        private Tween _tweenBar;
 
         public void Init()
         {
@@ -38,8 +43,28 @@ namespace Project.Code.UI.Units
 
         public void UpdateHealth(float healthPercent)
         {
-            if (_fullbarImage != null)
-                _fullbarImage.fillAmount = healthPercent;
+            if (healthPercent >_fullbarImage.fillAmount) 
+                DoHealTween(healthPercent);
+            else
+                DoDamageTween(healthPercent);
+        }
+
+        private void DoDamageTween(float healthPercent)
+        {
+            UpdateFillAmount(healthPercent);
+            _tweenBar?.Kill();
+            _tweenBar = _tweenBarImage.DOFillAmount(healthPercent, _tweenBarDuration);
+        } 
+        
+        private void DoHealTween(float healthPercent)
+        {
+            _tweenBar?.Kill();
+            _tweenBar = _tweenBarImage.DOFillAmount(healthPercent, _tweenBarDuration).OnComplete(() => UpdateFillAmount(healthPercent));
+        }
+
+        private void UpdateFillAmount(float healthPercent)
+        {
+            _fullbarImage.fillAmount = healthPercent;
         }
 
         public void SetVisible(bool visible)
@@ -62,8 +87,14 @@ namespace Project.Code.UI.Units
                 //  ((targetPosition.y * _targetCanvas.sizeDelta.y) - (_targetCanvas.sizeDelta.y * 0.5f)));
 
 
-                _healthBarRectTransform.anchoredPosition = (screenPoint - _targetCanvas.sizeDelta / 2f) * 1000 + _offsetTest;
+                _healthBarRectTransform.anchoredPosition =
+                    (screenPoint - _targetCanvas.sizeDelta / 2f) * 1000 + _offsetTest;
             }
+        }
+
+        private void OnDestroy()
+        {
+            _tweenBar?.Kill();
         }
     }
 }
