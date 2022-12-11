@@ -6,7 +6,6 @@ using Project.Code.Infrastructure.Services.StaticData;
 using Project.Code.Infrastructure.Services.UI;
 using Project.Code.Runtime.Roads;
 using Project.Code.Runtime.World;
-using Project.Code.StaticData.Units;
 using UnityEngine;
 
 namespace Project.Code.Infrastructure.StateMachine.States
@@ -19,6 +18,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private readonly ISceneContextService _sceneContextService;
         private readonly IUnitFactory _unitFactory;
         private readonly IUIFactory _uiFactory;
+        private RectTransform _hpPanel;
 
         private LoadLevelState(ISceneLoader sceneLoader, IStaticDataService staticDataService,
             ISceneContextService sceneContextService, IUnitFactory unitFactory, IUIFactory uiFactory)
@@ -46,23 +46,24 @@ namespace Project.Code.Infrastructure.StateMachine.States
 
         private void InitGameWorld()
         {
+            InitUI();
             CreatePlayer();
             InitRoads();
             InitEnemySpawner();
-            InitUI();
         }
 
         private void InitUI()
         {
             _uiFactory.CreateUiRoot();
             _uiFactory.CreatePlayerHUD();
+            _hpPanel = _uiFactory.CreateWindow(WindowID.HealthBars).GetComponent<RectTransform>();
         }
 
         private void CreatePlayer()
         {
             Vector3 playerSpawnPosition = _sceneContextService.PlayerSpawnPoint.position;
             Quaternion playerSpawnRotation = _sceneContextService.PlayerSpawnPoint.rotation;
-            _unitFactory.SpawnPlayer(playerSpawnPosition, playerSpawnRotation);
+            _unitFactory.SpawnPlayer(playerSpawnPosition, playerSpawnRotation, _hpPanel);
         }
 
         private void InitRoads()
@@ -74,7 +75,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private void InitEnemySpawner()
         {
             EnemySpawner enemySpawner = _sceneContextService.EnemySpawner;
-            enemySpawner.Init(_unitFactory);
+            enemySpawner.Init(_unitFactory, _hpPanel);
         }
 
         public void Exit()

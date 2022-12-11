@@ -17,9 +17,10 @@ namespace Project.Code.Runtime.Units.EnemyUnit
 
         public void SetupPlayer(PlayerSlime slime) => _player = slime;
 
-        public override void Init(UnitStaticData unitStaticData, PlayerProgress playerProgress)
+        public override void Init(UnitStaticData unitStaticData, PlayerProgress playerProgress,
+            RectTransform hpPanel)
         {
-            base.Init(unitStaticData, playerProgress);
+            base.Init(unitStaticData, playerProgress, hpPanel);
             _enemyStaticData = unitStaticData as EnemyStaticData;
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _damageComponent = GetComponent<EnemyDealDamageComponent>();

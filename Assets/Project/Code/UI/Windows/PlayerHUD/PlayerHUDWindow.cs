@@ -72,22 +72,27 @@ namespace Project.Code.UI.Windows.PlayerHUD
             _shopContainer.CheckStatCosts(moneyAmount);
         }
 
-        private void UpdatePlayer()
+        private void HandleUpgradeButtonClicked(StatID id)
         {
-            _shopContainer.UpdateShopItems();
-            _currencyContainer.UpdateMoney();
-            _playerSlime.UpdateComponents();
+            UpdatePlayerProgress(id);
+            UpdatePlayerView();
+            
+            //_saveLoadService.SaveProgress(); TODO ACTIVATE LATER
         }
 
-        private void HandleUpgradeButtonClicked(StatID id)
+        private void UpdatePlayerProgress(StatID id)
         {
             _currencyProgress.RemoveMoney(_statsProgress.GetStatProgress(id).StatUpgradeCost);
             float statValueIncrease = _playerData.GetStatValueIncrease(id);
             int statCostIncrease = _playerData.GetStatCostIncrease(id);
             _statsProgress.UpgradeStat(id, statValueIncrease, statCostIncrease);
-            UpdatePlayer();
-            
-            //_saveLoadService.SaveProgress(); TODO ACTIVATE LATER
+        }
+
+        private void UpdatePlayerView()
+        {
+            _shopContainer.UpdateShopItems();
+            _currencyContainer.UpdateMoney();
+            _playerSlime.UpdateComponents();
         }
 
         private void OnDestroy()

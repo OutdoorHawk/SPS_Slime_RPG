@@ -4,6 +4,7 @@ using Project.Code.Infrastructure.Services.SaveLoadService.Progress.Stats;
 using Project.Code.Runtime.Units.Components.Damage;
 using Project.Code.StaticData.Units;
 using Project.Code.StaticData.Units.Player;
+using UnityEngine;
 
 namespace Project.Code.Runtime.Units.PlayerUnit
 {
@@ -13,9 +14,10 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         private PlayerDealDamageComponent _damageComponent;
         private PlayerStatsProgress _statsProgress;
 
-        public override void Init(UnitStaticData unitStaticData, PlayerProgress playerProgress)
+        public override void Init(UnitStaticData unitStaticData, PlayerProgress playerProgress,
+            RectTransform hpPanel)
         {
-            base.Init(unitStaticData, playerProgress);
+            base.Init(unitStaticData, playerProgress, hpPanel);
             _statsProgress = playerProgress.PlayerStatsProgress;
             _staticData = unitStaticData as PlayerStaticData;
             _damageComponent = GetComponent<PlayerDealDamageComponent>();

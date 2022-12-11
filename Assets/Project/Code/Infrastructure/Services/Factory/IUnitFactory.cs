@@ -6,7 +6,7 @@ namespace Project.Code.Infrastructure.Services.Factory
 {
     public interface IUnitFactory
     {
-        Enemy SpawnEnemy(Vector3 position, Quaternion rotation);
-        PlayerSlime SpawnPlayer(Vector3 position, Quaternion rotation);
+        Enemy SpawnEnemy(Vector3 position, Quaternion rotation, RectTransform rectTransform);
+        PlayerSlime SpawnPlayer(Vector3 position, Quaternion rotation, RectTransform rectTransform);
     }
 }

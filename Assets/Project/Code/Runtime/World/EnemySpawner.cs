@@ -14,10 +14,12 @@ namespace Project.Code.Runtime.World
         [SerializeField] private EnemySpawnerStaticData _spawnerStaticData;
 
         private IUnitFactory _unitFactory;
+        private RectTransform _hpPanel;
         private int _enemyAmount;
 
-        public void Init(IUnitFactory unitFactory)
+        public void Init(IUnitFactory unitFactory, RectTransform hpPanel)
         {
+            _hpPanel = hpPanel;
             _unitFactory = unitFactory;
             UnitCollector.OnEnemyRemoved += CheckEnemiesLeft;
         }
@@ -28,7 +30,7 @@ namespace Project.Code.Runtime.World
 
             for (int i = 0; i < _enemyAmount; i++)
             {
-                Enemy enemy = _unitFactory.SpawnEnemy(transform.position, transform.rotation);
+                Enemy enemy = _unitFactory.SpawnEnemy(transform.position, transform.rotation,_hpPanel);
             }
         }
 

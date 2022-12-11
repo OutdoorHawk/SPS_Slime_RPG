@@ -17,6 +17,12 @@ namespace Project.Code.Infrastructure.Services.UI
             _staticDataService = staticDataService;
             _zenjectFactory = zenjectFactory;
         }
+        
+        public GameObject CreateWindow(WindowID id)
+        {
+            WindowConfig config = _staticDataService.GetWindow(id);
+            return _zenjectFactory.Instantiate(config.WindowPrefab.gameObject, _uiRoot);
+        }
 
         public void CreatePlayerHUD()
         {

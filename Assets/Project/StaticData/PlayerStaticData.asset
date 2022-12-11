@@ -16,7 +16,7 @@ MonoBehaviour:
   _statConfigs:
   - StatID: 0
     StatData:
-      StatBaseValue: 7
+      StatBaseValue: 0
       StatBaseUpgradeCost: 10
       StatValueIncrease: 5
       StatUpgradeCostIncrease: 1
@@ -28,7 +28,7 @@ MonoBehaviour:
       StatUpgradeCostIncrease: 15
   - StatID: 2
     StatData:
-      StatBaseValue: 55
+      StatBaseValue: 45
       StatBaseUpgradeCost: 15
       StatValueIncrease: 5
       StatUpgradeCostIncrease: 0

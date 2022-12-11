@@ -23,24 +23,24 @@ namespace Project.Code.Infrastructure.Services.Factory
             _staticDataService = staticDataService;
         }
 
-        public Enemy SpawnEnemy(Vector3 position, Quaternion rotation)
+        public Enemy SpawnEnemy(Vector3 position, Quaternion rotation, RectTransform hpPanel)
         {
             UnitStaticData staticData = _staticDataService.GetUnit(UnitID.Enemy);
             BaseUnit unitPrefab = staticData.UnitPrefab;
             Enemy enemy = Object.Instantiate(unitPrefab, position, rotation).GetComponent<Enemy>();
             PlayerSlime slime = _sceneContextService.Player;
             enemy.SetupPlayer(slime);
-            enemy.Init(staticData,_progressService.Progress);
+            enemy.Init(staticData,_progressService.Progress,hpPanel);
             enemy.OnSpawn();
             return enemy;
         }
 
-        public PlayerSlime SpawnPlayer(Vector3 position, Quaternion rotation)
+        public PlayerSlime SpawnPlayer(Vector3 position, Quaternion rotation, RectTransform hpPanel)
         {
             UnitStaticData staticData = _staticDataService.GetUnit(UnitID.Player);
             BaseUnit unitPrefab = staticData.UnitPrefab;
             PlayerSlime player = Object.Instantiate(unitPrefab, position, rotation).GetComponent<PlayerSlime>();
-            player.Init(staticData, _progressService.Progress);
+            player.Init(staticData, _progressService.Progress,hpPanel);
             _sceneContextService.SetPlayer(player);
             return player;
         }

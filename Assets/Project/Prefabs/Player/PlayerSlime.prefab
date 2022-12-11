@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a6819d1f3f227b4a8a9d8464ef6dde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _healthBarPrefab: {fileID: 8982698840288217330, guid: a815b60a6c327b64c85712a9a1cf1c97, type: 3}
 --- !u!114 &5637608324856413688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,9 +74,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 667dcb54603a465e9d175e8455889d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackDetails:
+    Damage: 0
+  _attackSpeed: 0
   _projectilePrefab: {fileID: 949682339468087043, guid: c9c00dbb088fadb4e9f01415c51d3a40, type: 3}
-  _flySpeed: 5
-  _flyFirstPoint: {fileID: 0}
 --- !u!65 &6676508435781578395
 BoxCollider:
   m_ObjectHideFlags: 0
