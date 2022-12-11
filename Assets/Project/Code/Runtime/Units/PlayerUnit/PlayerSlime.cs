@@ -1,6 +1,7 @@
 using System;
 using Project.Code.Runtime.Units.Components.Damage;
 using Project.Code.StaticData.Units;
+using Project.Code.StaticData.Units.Player;
 
 namespace Project.Code.Runtime.Units.PlayerUnit
 {

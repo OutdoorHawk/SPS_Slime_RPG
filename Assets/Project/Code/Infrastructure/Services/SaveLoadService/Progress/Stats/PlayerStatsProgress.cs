@@ -1,10 +1,13 @@
+using System;
 using Project.Code.Infrastructure.Data;
+using UnityEngine;
 
 namespace Project.Code.Infrastructure.Services.SaveLoadService.Progress.Stats
 {
+    [Serializable]
     public class PlayerStatsProgress
     {
-        private readonly StatsProgression _statsProgression;
+       [SerializeField] private StatsProgression _statsProgression;
 
         public PlayerStatsProgress()
         {

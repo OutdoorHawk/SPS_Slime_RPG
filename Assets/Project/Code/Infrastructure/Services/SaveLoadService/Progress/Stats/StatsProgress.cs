@@ -1,11 +1,12 @@
+using System;
+
 namespace Project.Code.Infrastructure.Services.SaveLoadService.Progress.Stats
 {
+    [Serializable]
     public class StatsProgress
     {
-        public int StatLvl;
         public float StatValue;
+        public int StatLvl;
         public int StatUpgradeCost;
-        public int StatUpgradeCostIncrease;
-        public float StatValueIncrease;
     }
 }
