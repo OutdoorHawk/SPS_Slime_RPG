@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Project.Code.Infrastructure.Services.Factory;
-using Project.Code.Runtime.Units.Enemy;
-using Project.Code.Runtime.Units.Player;
+using Project.Code.Runtime.Units.EnemyUnit;
 using Project.Code.StaticData.World;
 using UnityEngine;
 
@@ -12,14 +11,12 @@ namespace Project.Code.Runtime.World
         [SerializeField] private EnemySpawnerStaticData _spawnerStaticData;
 
         private IUnitFactory _unitFactory;
-        private List<Enemy> _aliveEnemies;
 
         private int _enemyAmount;
 
         public void Init(IUnitFactory unitFactory)
         {
             _unitFactory = unitFactory;
-            _aliveEnemies = new List<Enemy>();
         }
 
         public void SpawnWave()

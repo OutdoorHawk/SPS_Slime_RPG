@@ -73,6 +73,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 667dcb54603a465e9d175e8455889d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _projectilePrefab: {fileID: 949682339468087043, guid: c9c00dbb088fadb4e9f01415c51d3a40, type: 3}
+  _flySpeed: 5
+  _flyFirstPoint: {fileID: 0}
 --- !u!65 &6676508435781578395
 BoxCollider:
   m_ObjectHideFlags: 0

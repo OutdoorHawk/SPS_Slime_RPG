@@ -10,9 +10,9 @@ namespace Project.Code.StaticData.Units
         [SerializeField] private float _damageAmount = 10f;
         [SerializeField] private float _healthAmount = 50;
 
+        public BaseUnit UnitPrefab => _unitPrefab;
         public float AttackSpeed => _attackSpeed;
         public float HealthAmount => _healthAmount;
         public float DamageAmount => _damageAmount;
-        public BaseUnit UnitPrefab => _unitPrefab;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Project.Code.Runtime.CustomData;
 using Project.Code.Runtime.Units.Components;
+using Project.Code.Runtime.Units.Components.Damage;
 using Project.Code.StaticData.Units;
 using UnityEngine;
 
@@ -10,7 +11,6 @@ namespace Project.Code.Runtime.Units.Player
     [RequireComponent(typeof(HealthComponent))]
     public class BaseUnit : MonoBehaviour
     {
-     
         public HealthComponent HealthComponent { get; private set; }
         protected UnitStaticData UnitStaticData { get; private set; }
         protected DealDamageComponent DealDamageComponent { get; private set; }
@@ -31,12 +31,13 @@ namespace Project.Code.Runtime.Units.Player
             HealthComponent.OnDeath += HandleDeath;
         }
 
-        private void HandleDamageTaken(AttackDetails details)
+        protected virtual void HandleDamageTaken(AttackDetails details)
         {
         }
 
-        private void HandleDeath()
+        protected virtual void HandleDeath()
         {
+           Destroy(gameObject);
         }
 
         protected virtual void CleanUp()

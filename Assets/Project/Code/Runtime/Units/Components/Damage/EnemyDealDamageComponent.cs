@@ -1,4 +1,4 @@
-﻿namespace Project.Code.Runtime.Units.Components
+﻿namespace Project.Code.Runtime.Units.Components.Damage
 {
     public class EnemyDealDamageComponent : DealDamageComponent
     {
@@ -9,9 +9,9 @@
             _playerHealth = playerHealth;
         }
 
-        protected override void AttackPlayer()
+        protected override void Attack()
         {
-            base.AttackPlayer();
+            base.Attack();
             _playerHealth.TakeDamage(_attackDetails);
         }
     }

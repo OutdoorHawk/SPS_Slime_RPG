@@ -1,5 +1,6 @@
-﻿using Project.Code.Runtime.Units.Enemy;
+﻿using Project.Code.Runtime.Units.EnemyUnit;
 using Project.Code.Runtime.Units.Player;
+using Project.Code.Runtime.Units.PlayerUnit;
 using UnityEngine;
 
 namespace Project.Code.Infrastructure.Services.Factory

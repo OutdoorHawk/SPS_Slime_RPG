@@ -2,7 +2,7 @@ using Project.Code.Runtime.CustomData;
 using Project.Code.StaticData.Units;
 using UnityEngine;
 
-namespace Project.Code.Runtime.Units.Components
+namespace Project.Code.Runtime.Units.Components.Damage
 {
     public abstract class DealDamageComponent : MonoBehaviour
     {
@@ -17,15 +17,15 @@ namespace Project.Code.Runtime.Units.Components
             _attackSpeed = staticData.AttackSpeed;
         }
 
-        public void UpdateAttack()
+        public virtual void UpdateAttack()
         {
             if (_countDown <= 0)
-                AttackPlayer();
+                Attack();
 
             _countDown -= Time.deltaTime;
         }
 
-        protected virtual void AttackPlayer()
+        protected virtual void Attack()
         {
             ResetCountdown();
         }

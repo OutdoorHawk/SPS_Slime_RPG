@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Project.Code.Runtime.Units.Enemy;
+using Project.Code.Runtime.Units.EnemyUnit;
 
 namespace Project.Code.Runtime.World
 {

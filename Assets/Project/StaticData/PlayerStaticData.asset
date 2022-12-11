@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PlayerStaticData
   m_EditorClassIdentifier: 
   _unitPrefab: {fileID: 6035735149080498332, guid: eac445d96af29e44389066a9654ab127, type: 3}
-  _attackSpeed: 1
+  _attackSpeed: 0.75
   _damageAmount: 10
   _healthAmount: 50

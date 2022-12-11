@@ -1,11 +1,12 @@
-using Project.Code.Runtime.Units.Components;
+using Project.Code.Runtime.Units.Components.Damage;
 using Project.Code.Runtime.Units.Player;
+using Project.Code.Runtime.Units.PlayerUnit;
 using Project.Code.Runtime.World;
 using Project.Code.StaticData.Units;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Project.Code.Runtime.Units.Enemy
+namespace Project.Code.Runtime.Units.EnemyUnit
 {
     public class Enemy : BaseUnit
     {
