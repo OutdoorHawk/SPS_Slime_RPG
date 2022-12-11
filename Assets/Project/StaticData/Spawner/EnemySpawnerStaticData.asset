@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e187bec9b0ce4d1d98a5c52654b15a2d, type: 3}
   m_Name: EnemySpawnerStaticData
   m_EditorClassIdentifier: 
-  _enemiesMinAmount: 1
-  _enemiesMaxAmount: 4
+  _enemiesMinAmount: 2
+  _enemiesMaxAmount: 5
