@@ -7,21 +7,25 @@ namespace Project.Code.Runtime.Roads
 {
     public class RoadSpawner : MonoBehaviour
     {
-        [SerializeField] private WorldStaticData _worldStaticData;
         [SerializeField] private Transform _roadsParent;
-        [SerializeField] private List<Road> _activeRoads = new();
+        [SerializeField] private float _movingSpeed;
+        [SerializeField] private float _minTriggerDistance = 1f;
 
+        [SerializeField] private List<Road> _activeRoads;
         private Road[] _roadPrefabs;
         private Transform _cachedTransform;
+        private Transform _playerTransform;
 
-        private const float NEXT_ROAD_OFFSET = 50;
+        private static readonly Vector3 NextRoadOffset = new(50, 0, 0);
         private const float MAX_ROAD_AMOUNT = 4;
 
-        public void Init(WorldStaticData worldStaticData)
+        public void Init(WorldStaticData worldStaticData, Transform playerTransform)
         {
-            _worldStaticData = worldStaticData;
-            _roadPrefabs = _worldStaticData.Roads;
+            _playerTransform = playerTransform;
+            _movingSpeed = worldStaticData.RoadMovingSpeed;
+            _roadPrefabs = worldStaticData.Roads;
             _cachedTransform = transform;
+            _activeRoads = new List<Road>();
             CollectExistingRoads();
             SpawnFirstRoads();
         }
@@ -31,23 +35,16 @@ namespace Project.Code.Runtime.Roads
             _activeRoads = _roadsParent.GetComponentsInChildren<Road>().ToList();
         }
 
-        private void CleanChildren()
-        {
-            for (int i = 0; i < transform.childCount; i++)
-                Destroy(transform.GetChild(i).gameObject);
-        }
-
         private void SpawnFirstRoads()
         {
-            while (_activeRoads.Count < MAX_ROAD_AMOUNT) 
-                SpawnRoad(_activeRoads.Count * NEXT_ROAD_OFFSET);
+            while (_activeRoads.Count < MAX_ROAD_AMOUNT)
+                SpawnRoad(_activeRoads.Count * NextRoadOffset);
         }
 
-        private void SpawnRoad(float nextRoadOffset)
+        private void SpawnRoad(Vector3 nextRoadOffset)
         {
-            Vector3 roadOffset = new Vector3(nextRoadOffset, 0, 0);
             int randomValue = Random.Range(0, _roadPrefabs.Length);
-            Road road = Instantiate(_roadPrefabs[randomValue], roadOffset,
+            Road road = Instantiate(_roadPrefabs[randomValue], nextRoadOffset,
                 Quaternion.identity);
             road.transform.SetParent(_roadsParent, true);
             _activeRoads.Add(road);
@@ -55,16 +52,41 @@ namespace Project.Code.Runtime.Roads
 
         private void Update()
         {
+            if (_activeRoads.Count < 1)
+                return;
             UpdateMovement();
+            CheckNewRoadSpawn();
         }
 
         private void UpdateMovement()
         {
             for (int i = 0; i < _activeRoads.Count; i++)
             {
-                Vector3 movementVector = _cachedTransform.forward * _worldStaticData.RoadMovingSpeed;
+                Vector3 movementVector = _cachedTransform.forward * _movingSpeed;
                 _activeRoads[i].Move(movementVector);
             }
+        }
+
+        private void CheckNewRoadSpawn()
+        {
+            if (_activeRoads[1].TriggerPoint == null)
+                return;
+            if (PlayerTouchedTrigger())
+                SpawnNewRoad();
+        }
+
+        private bool PlayerTouchedTrigger()
+        {
+            return Vector3.Distance(_playerTransform.position, _activeRoads[1].TriggerPoint.position) <
+                   _minTriggerDistance;
+        }
+
+        private void SpawnNewRoad()
+        {
+            _activeRoads[1].DestroyTrigger();
+            Destroy(_activeRoads[0].gameObject);
+            _activeRoads.RemoveAt(0);
+            SpawnRoad(_activeRoads[^1].transform.position + NextRoadOffset);
         }
     }
 }

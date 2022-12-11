@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f790157765489744895a1e209ff9f5ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _worldStaticData:
-    _roads: []
-    _roadMovingSpeed: 3
+  _roadsParent: {fileID: 0}
+  _movingSpeed: 10
+  _minTriggerDistance: 2.5
+  _activeRoads: []

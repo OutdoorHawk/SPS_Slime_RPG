@@ -14,6 +14,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private readonly ISceneLoader _sceneLoader;
         private readonly IStaticDataService _staticDataService;
         private readonly ISceneContextService _sceneContextService;
+        private PlayerSlime _player;
 
         private LoadLevelState(ISceneLoader sceneLoader, IStaticDataService staticDataService,
             ISceneContextService sceneContextService)
@@ -39,23 +40,23 @@ namespace Project.Code.Infrastructure.StateMachine.States
 
         private void InitGameWorld()
         {
-            InitRoads();
             CreatePlayer();
+            InitRoads();
         }
 
         private void InitRoads()
         {
             RoadSpawner spawner = _sceneContextService.RoadSpawner;
-            spawner.Init(_staticDataService.GetWorldStaticData());
+            spawner.Init(_staticDataService.GetWorldStaticData(), _player.transform);
         }
 
         private void CreatePlayer()
         {
             Vector3 playerSpawnPosition = _sceneContextService.PlayerSpawnPoint.position;
             Quaternion playerSpawnRotation = _sceneContextService.PlayerSpawnPoint.rotation;
-            PlayerSlime player = Object.Instantiate(_staticDataService.GetPlayerPrefab(), playerSpawnPosition,
+            _player = Object.Instantiate(_staticDataService.GetPlayerPrefab(), playerSpawnPosition,
                 playerSpawnRotation);
-            player.Init(_staticDataService.GetPlayerStaticData());
+            _player.Init(_staticDataService.GetPlayerStaticData());
         }
 
         public void Exit()

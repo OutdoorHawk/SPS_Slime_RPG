@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2775158012134208723}
   - component: {fileID: 6035735149080498332}
+  - component: {fileID: 6676508435781578395}
   m_Layer: 0
   m_Name: PlayerSlime
   m_TagString: Untagged
@@ -45,6 +46,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a6819d1f3f227b4a8a9d8464ef6dde7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &6676508435781578395
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2775158012134208720}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2775158012554539416
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,7 +70,6 @@ GameObject:
   - component: {fileID: 2775158012554539419}
   - component: {fileID: 2775158012554539420}
   - component: {fileID: 2775158012554539421}
-  - component: {fileID: 2775158012554539418}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -129,16 +142,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2775158012554539418
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2775158012554539416}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
