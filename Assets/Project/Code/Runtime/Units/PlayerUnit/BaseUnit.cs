@@ -39,8 +39,8 @@ namespace Project.Code.Runtime.Units.PlayerUnit
 
         protected virtual void HandleDeath()
         {
-            OnUnitDead?.Invoke(this);
             Destroy(gameObject);
+            OnUnitDead?.Invoke(this);
         }
 
         protected virtual void CleanUp()

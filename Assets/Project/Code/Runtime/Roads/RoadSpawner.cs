@@ -54,8 +54,6 @@ namespace Project.Code.Runtime.Roads
 
         public void TickMovement()
         {
-            if (_activeRoads.Count < 1)
-                return;
             UpdateMovement();
             CheckNewRoadSpawn();
         }
@@ -71,8 +69,6 @@ namespace Project.Code.Runtime.Roads
 
         private void CheckNewRoadSpawn()
         {
-            if (_activeRoads[1].TriggerPoint == null)
-                return;
             if (PlayerTouchedTrigger())
                 SpawnNewRoad();
         }

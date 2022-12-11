@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using Project.Code.Infrastructure.Services.Factory;
 using Project.Code.Runtime.Units.EnemyUnit;
-using Project.Code.Runtime.Units.PlayerUnit;
 using Project.Code.StaticData.World;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -12,7 +10,7 @@ namespace Project.Code.Runtime.World
     public class EnemySpawner : MonoBehaviour
     {
         public event Action OnWaveKilled;
-        
+
         [SerializeField] private EnemySpawnerStaticData _spawnerStaticData;
 
         private IUnitFactory _unitFactory;
@@ -21,6 +19,7 @@ namespace Project.Code.Runtime.World
         public void Init(IUnitFactory unitFactory)
         {
             _unitFactory = unitFactory;
+            UnitCollector.OnEnemyRemoved += CheckEnemiesLeft;
         }
 
         public void SpawnWave()
@@ -30,17 +29,18 @@ namespace Project.Code.Runtime.World
             for (int i = 0; i < _enemyAmount; i++)
             {
                 Enemy enemy = _unitFactory.SpawnEnemy(transform.position, transform.rotation);
-                enemy.OnUnitDead += CheckEnemiesLeft;
             }
         }
 
-        private void CheckEnemiesLeft(BaseUnit enemy)
+        private void CheckEnemiesLeft()
         {
-            enemy.OnUnitDead -= CheckEnemiesLeft;
-            if (UnitCollector.AliveEnemies.Count == 0) 
+            if (UnitCollector.AliveEnemies.Count == 0)
                 OnWaveKilled?.Invoke();
         }
 
-  
+        private void OnDestroy()
+        {
+            UnitCollector.OnEnemyRemoved -= CheckEnemiesLeft;
+        }
     }
 }

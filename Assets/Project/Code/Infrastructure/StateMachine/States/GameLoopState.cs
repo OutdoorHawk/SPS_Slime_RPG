@@ -57,6 +57,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
 
         private void GoToWalkingState()
         {
+            Debug.Log("walkingState");
             _coroutineRunner.StartCoroutine(WalkingRoutine());
         }
 

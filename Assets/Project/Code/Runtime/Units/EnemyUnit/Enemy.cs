@@ -32,7 +32,7 @@ namespace Project.Code.Runtime.Units.EnemyUnit
 
         private void Update()
         {
-            if (!enabled)
+            if (!enabled || _player == null)
                 return;
             if (FarFromPlayer())
                 MoveToPlayer();
@@ -47,7 +47,10 @@ namespace Project.Code.Runtime.Units.EnemyUnit
         private void MoveToPlayer() =>
             _navMeshAgent.SetDestination(_player.transform.position);
 
-        protected override void CleanUp() =>
+        protected override void HandleDeath()
+        {
             UnitCollector.RemoveUnit(this);
+            base.HandleDeath();
+        }
     }
 }
