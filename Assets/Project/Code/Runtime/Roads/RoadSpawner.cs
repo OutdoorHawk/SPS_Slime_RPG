@@ -1,17 +1,17 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using Project.Code.StaticData;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Project.Code.Runtime.Roads
 {
     public class RoadSpawner : MonoBehaviour
     {
-        [SerializeField]private WorldStaticData _worldStaticData;
+        [SerializeField] private WorldStaticData _worldStaticData;
+        [SerializeField] private Transform _roadsParent;
+        [SerializeField] private List<Road> _activeRoads = new();
 
         private Road[] _roadPrefabs;
-        private List<Road> _activeRoads = new();
         private Transform _cachedTransform;
 
         private const float NEXT_ROAD_OFFSET = 50;
@@ -22,27 +22,34 @@ namespace Project.Code.Runtime.Roads
             _worldStaticData = worldStaticData;
             _roadPrefabs = _worldStaticData.Roads;
             _cachedTransform = transform;
+            CollectExistingRoads();
             SpawnFirstRoads();
+        }
+
+        private void CollectExistingRoads()
+        {
+            _activeRoads = _roadsParent.GetComponentsInChildren<Road>().ToList();
         }
 
         private void CleanChildren()
         {
-            for (int i = 0; i < transform.childCount; i++) 
+            for (int i = 0; i < transform.childCount; i++)
                 Destroy(transform.GetChild(i).gameObject);
         }
 
         private void SpawnFirstRoads()
         {
-            for (int i = 0; i < MAX_ROAD_AMOUNT; i++) 
-                SpawnRoad(i * NEXT_ROAD_OFFSET);
+            while (_activeRoads.Count < MAX_ROAD_AMOUNT) 
+                SpawnRoad(_activeRoads.Count * NEXT_ROAD_OFFSET);
         }
 
         private void SpawnRoad(float nextRoadOffset)
         {
             Vector3 roadOffset = new Vector3(nextRoadOffset, 0, 0);
             int randomValue = Random.Range(0, _roadPrefabs.Length);
-            Road road = Instantiate(_roadPrefabs[randomValue],  roadOffset,
-               Quaternion.identity);
+            Road road = Instantiate(_roadPrefabs[randomValue], roadOffset,
+                Quaternion.identity);
+            road.transform.SetParent(_roadsParent, true);
             _activeRoads.Add(road);
         }
 
