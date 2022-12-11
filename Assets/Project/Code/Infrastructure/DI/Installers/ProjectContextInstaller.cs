@@ -1,5 +1,6 @@
 using Project.Code.Infrastructure.Services.AssetProvider;
 using Project.Code.Infrastructure.Services.CoroutineRunner;
+using Project.Code.Infrastructure.Services.Factory;
 using Project.Code.Infrastructure.Services.SaveLoadService;
 using Project.Code.Infrastructure.Services.SceneContext;
 using Project.Code.Infrastructure.Services.SceneLoaderService;
@@ -44,6 +45,7 @@ namespace Project.Code.Infrastructure.DI.Installers
         {
             Container.Bind<IUIFactory>().To<UIFactory>().AsSingle();
             Container.Bind<IZenjectFactory>().To<ZenjectFactory>().AsSingle();
+            Container.Bind<IEnemyFactory>().To<EnemyFactory>().AsSingle();
         }
     }
 }

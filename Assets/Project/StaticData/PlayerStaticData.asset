@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99e9e7e09aab4982b89199f06cd18a1f, type: 3}
   m_Name: PlayerStaticData
   m_EditorClassIdentifier: 
-  _unitPrefab: {fileID: 386439092222573583, guid: 5600c2731d4095c4893a37d800ef1247, type: 3}
+  _unitPrefab: {fileID: 6035735149080498332, guid: eac445d96af29e44389066a9654ab127, type: 3}
   _attackSpeed: 1
   _damageAmount: 3
   _healthAmount: 15

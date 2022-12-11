@@ -18,6 +18,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private readonly ISceneContextService _sceneContextService;
         private readonly IStaticDataService _staticDataService;
         private readonly ICoroutineRunner _coroutineRunner;
+        private readonly UnitCollector _unitCollector;
 
         private EnemySpawner _enemySpawner;
         private PlayerSlime _playerSlime;
@@ -36,6 +37,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
             _sceneContextService = sceneContextService;
             _staticDataService = staticDataService;
             _coroutineRunner = coroutineRunner;
+            _unitCollector = new UnitCollector();
         }
 
         public void InitState(IGameStateMachine gameStateMachine)
@@ -50,11 +52,11 @@ namespace Project.Code.Infrastructure.StateMachine.States
 
         private void Init()
         {
+            _unitCollector.InitUnitLists();
             _playerSlime = _sceneContextService.Player;
-            _enemySpawner = _sceneContextService.EnemySpawner;
-            _enemySpawner.Init(_playerSlime, _staticDataService.GetUnit(UnitID.Enemy));
             _worldStaticData = _staticDataService.GetWorldStaticData();
             _roadSpawner = _sceneContextService.RoadSpawner;
+            _enemySpawner = _sceneContextService.EnemySpawner;
         }
 
         private void DoWalkingState()
@@ -82,6 +84,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
 
         public void Exit()
         {
+            _unitCollector.Cleanup();
         }
     }
 }
