@@ -1,6 +1,7 @@
 using System;
 using Project.Code.Runtime.Units.Player;
 using Project.Code.Runtime.World;
+using Project.Code.StaticData.Units;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,12 +12,14 @@ namespace Project.Code.Runtime.Units.Enemy
         private PlayerSlime _player;
         private NavMeshAgent _navMeshAgent;
 
-        public void Init(PlayerSlime slime)
+        public override void Init(UnitStaticData unitStaticData)
         {
-            _player = slime;
+            base.Init(unitStaticData);
             _navMeshAgent = GetComponent<NavMeshAgent>();
             enabled = true;
         }
+
+        public void SetupPlayer(PlayerSlime slime) => _player = slime;
 
         public void OnSpawn()
         {

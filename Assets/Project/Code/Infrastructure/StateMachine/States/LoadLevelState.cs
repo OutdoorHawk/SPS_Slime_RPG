@@ -17,12 +17,12 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private readonly ISceneLoader _sceneLoader;
         private readonly IStaticDataService _staticDataService;
         private readonly ISceneContextService _sceneContextService;
-        private readonly IEnemyFactory _enemyFactory;
+        private readonly IUnitFactory _unitFactory;
 
         private LoadLevelState(ISceneLoader sceneLoader, IStaticDataService staticDataService,
-            ISceneContextService sceneContextService, IEnemyFactory enemyFactory)
+            ISceneContextService sceneContextService, IUnitFactory unitFactory)
         {
-            _enemyFactory = enemyFactory;
+            _unitFactory = unitFactory;
             _sceneContextService = sceneContextService;
             _sceneLoader = sceneLoader;
             _staticDataService = staticDataService;
@@ -53,12 +53,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
         {
             Vector3 playerSpawnPosition = _sceneContextService.PlayerSpawnPoint.position;
             Quaternion playerSpawnRotation = _sceneContextService.PlayerSpawnPoint.rotation;
-            UnitStaticData staticData = _staticDataService.GetUnit(UnitID.Player);
-            BaseUnit playerPrefab = staticData.UnitPrefab;
-            PlayerSlime player = Object.Instantiate(playerPrefab, playerSpawnPosition,
-                playerSpawnRotation).GetComponent<PlayerSlime>();
-            player.Init(staticData);
-            _sceneContextService.SetPlayer(player);
+            _unitFactory.SpawnPlayer(playerSpawnPosition, playerSpawnRotation);
         }
 
         private void InitRoads()
@@ -70,7 +65,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private void InitEnemySpawner()
         {
             EnemySpawner enemySpawner = _sceneContextService.EnemySpawner;
-            enemySpawner.Init(_enemyFactory);
+            enemySpawner.Init(_unitFactory);
         }
 
         public void Exit()

@@ -7,10 +7,7 @@ namespace Project.Code.Runtime.Units.Player
     {
         private PlayerStaticData _staticData;
 
-        public void Init(UnitStaticData unitStaticData)
-        {
-            _staticData = unitStaticData as PlayerStaticData;
-        }
+        
         
     }
 }

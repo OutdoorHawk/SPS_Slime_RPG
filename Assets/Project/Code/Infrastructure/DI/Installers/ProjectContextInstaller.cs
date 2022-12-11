@@ -45,7 +45,7 @@ namespace Project.Code.Infrastructure.DI.Installers
         {
             Container.Bind<IUIFactory>().To<UIFactory>().AsSingle();
             Container.Bind<IZenjectFactory>().To<ZenjectFactory>().AsSingle();
-            Container.Bind<IEnemyFactory>().To<EnemyFactory>().AsSingle();
+            Container.Bind<IUnitFactory>().To<UnitFactory>().AsSingle();
         }
     }
 }

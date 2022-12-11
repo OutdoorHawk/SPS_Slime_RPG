@@ -11,14 +11,14 @@ namespace Project.Code.Runtime.World
     {
         [SerializeField] private EnemySpawnerStaticData _spawnerStaticData;
 
-        private IEnemyFactory _enemyFactory;
+        private IUnitFactory _unitFactory;
         private List<Enemy> _aliveEnemies;
 
         private int _enemyAmount;
 
-        public void Init(IEnemyFactory enemyFactory)
+        public void Init(IUnitFactory unitFactory)
         {
-            _enemyFactory = enemyFactory;
+            _unitFactory = unitFactory;
             _aliveEnemies = new List<Enemy>();
         }
 
@@ -28,7 +28,7 @@ namespace Project.Code.Runtime.World
 
             for (int i = 0; i < _enemyAmount; i++)
             {
-                Enemy enemy = _enemyFactory.SpawnEnemy(transform.position, transform.rotation);
+                Enemy enemy = _unitFactory.SpawnEnemy(transform.position, transform.rotation);
             }
         }
     }

@@ -3,16 +3,17 @@ using Project.Code.Infrastructure.Services.SceneContext;
 using Project.Code.Infrastructure.Services.StaticData;
 using Project.Code.Runtime.Units.Enemy;
 using Project.Code.Runtime.Units.Player;
+using Project.Code.StaticData.Units;
 using UnityEngine;
 
 namespace Project.Code.Infrastructure.Services.Factory
 {
-    public class EnemyFactory : IEnemyFactory
+    public class UnitFactory : IUnitFactory
     {
         private readonly IStaticDataService _staticDataService;
         private readonly ISceneContextService _sceneContextService;
 
-        public EnemyFactory(IStaticDataService staticDataService, ISceneContextService sceneContextService)
+        public UnitFactory(IStaticDataService staticDataService, ISceneContextService sceneContextService)
         {
             _sceneContextService = sceneContextService;
             _staticDataService = staticDataService;
@@ -20,12 +21,24 @@ namespace Project.Code.Infrastructure.Services.Factory
 
         public Enemy SpawnEnemy(Vector3 position, Quaternion rotation)
         {
-            BaseUnit unitPrefab = _staticDataService.GetUnit(UnitID.Enemy).UnitPrefab;
+            UnitStaticData staticData = _staticDataService.GetUnit(UnitID.Enemy);
+            BaseUnit unitPrefab = staticData.UnitPrefab;
             Enemy enemy = Object.Instantiate(unitPrefab, position, rotation).GetComponent<Enemy>();
             PlayerSlime slime = _sceneContextService.Player;
-            enemy.Init(slime);
+            enemy.Init(staticData);
+            enemy.SetupPlayer(slime);
             enemy.OnSpawn();
             return enemy;
+        }
+
+        public PlayerSlime SpawnPlayer(Vector3 position, Quaternion rotation)
+        {
+            UnitStaticData staticData = _staticDataService.GetUnit(UnitID.Player);
+            BaseUnit unitPrefab = staticData.UnitPrefab;
+            PlayerSlime player = Object.Instantiate(unitPrefab, position, rotation).GetComponent<PlayerSlime>();
+            player.Init(staticData);
+            _sceneContextService.SetPlayer(player);
+            return player;
         }
     }
 }
