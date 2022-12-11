@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EnemySpawnerStaticData
   m_EditorClassIdentifier: 
   _enemiesMinAmount: 2
-  _enemiesMaxAmount: 5
+  _enemiesMaxAmount: 4

@@ -14,12 +14,12 @@ namespace Project.Code.Infrastructure.StateMachine.States
 {
     public class GameLoopState : IState
     {
-        private IGameStateMachine _gameStateMachine;
         private readonly ISceneContextService _sceneContextService;
         private readonly IStaticDataService _staticDataService;
         private readonly ICoroutineRunner _coroutineRunner;
         private readonly UnitCollector _unitCollector;
 
+        private IGameStateMachine _gameStateMachine;
         private EnemySpawner _enemySpawner;
         private PlayerSlime _playerSlime;
         private RoadSpawner _roadSpawner;
@@ -57,7 +57,6 @@ namespace Project.Code.Infrastructure.StateMachine.States
 
         private void GoToWalkingState()
         {
-            Debug.Log("walkingState");
             _coroutineRunner.StartCoroutine(WalkingRoutine());
         }
 
