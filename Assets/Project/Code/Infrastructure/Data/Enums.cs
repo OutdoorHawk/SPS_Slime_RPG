@@ -7,4 +7,10 @@ namespace Project.Code.Infrastructure.Data
         PlayerHUD,
         UiRoot
     }
+
+    public enum UnitID
+    {
+        Player,
+        Enemy
+    }
 }

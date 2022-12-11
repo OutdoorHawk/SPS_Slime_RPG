@@ -2,8 +2,9 @@ using System.Collections.Generic;
 using Project.Code.Infrastructure.Data;
 using Project.Code.Infrastructure.Services.AssetProvider;
 using Project.Code.Infrastructure.StaticData;
-using Project.Code.Runtime.Player;
 using Project.Code.StaticData;
+using Project.Code.StaticData.Units;
+using Project.Code.StaticData.World;
 using UnityEngine;
 
 namespace Project.Code.Infrastructure.Services.StaticData
@@ -11,9 +12,8 @@ namespace Project.Code.Infrastructure.Services.StaticData
     public class StaticDataService : IStaticDataService
     {
         private readonly Dictionary<WindowID, WindowConfig> _windows = new();
+        private readonly Dictionary<UnitID, UnitStaticData> _units = new();
         private GameObject[] _roads;
-        private PlayerSlime _playerSlime;
-        private PlayerStaticData _playerStaticData;
 
         private readonly IAssetProvider _assetProvider;
         private GameStaticData _data;
@@ -27,32 +27,28 @@ namespace Project.Code.Infrastructure.Services.StaticData
         {
             _data = _assetProvider.GetGameStaticData();
             LoadWindows();
-            LoadPlayer();
+            LoadUnits();
         }
 
         private void LoadWindows()
         {
             foreach (var window in _data.Windows)
                 _windows.Add(window.ID, window);
-        }
-
-        private void LoadPlayer()
+        } 
+        
+        private void LoadUnits()
         {
-            _playerSlime = _data.Player;
-            _playerStaticData = _data.PlayerStaticData;
+            foreach (var unit in _data.Units)
+                _units.Add(unit.UnitID, unit.UnitStaticData);
         }
 
         public WindowConfig GetWindow(WindowID id) =>
             _windows.TryGetValue(id, out var windowConfig) ? windowConfig : null;
 
+        public UnitStaticData GetUnit(UnitID unitID) => 
+            _units.TryGetValue(unitID, out UnitStaticData unitStaticData) ? unitStaticData : null;
+
         public WorldStaticData GetWorldStaticData() 
             => _data.WorldStaticData;
-
-        public PlayerSlime GetPlayerPrefab()
-            => _playerSlime;
-
-        public PlayerStaticData GetPlayerStaticData()
-            => _playerStaticData;
-        
     }
 }

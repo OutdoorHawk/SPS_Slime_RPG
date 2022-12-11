@@ -2,8 +2,10 @@
 using Project.Code.Infrastructure.Services.SceneContext;
 using Project.Code.Infrastructure.Services.SceneLoaderService;
 using Project.Code.Infrastructure.Services.StaticData;
-using Project.Code.Runtime.Player;
 using Project.Code.Runtime.Roads;
+using Project.Code.Runtime.Units.Player;
+using Project.Code.StaticData;
+using Project.Code.StaticData.Units;
 using UnityEngine;
 
 namespace Project.Code.Infrastructure.StateMachine.States
@@ -14,7 +16,6 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private readonly ISceneLoader _sceneLoader;
         private readonly IStaticDataService _staticDataService;
         private readonly ISceneContextService _sceneContextService;
-        private PlayerSlime _player;
 
         private LoadLevelState(ISceneLoader sceneLoader, IStaticDataService staticDataService,
             ISceneContextService sceneContextService)
@@ -44,19 +45,22 @@ namespace Project.Code.Infrastructure.StateMachine.States
             InitRoads();
         }
 
-        private void InitRoads()
-        {
-            RoadSpawner spawner = _sceneContextService.RoadSpawner;
-            spawner.Init(_staticDataService.GetWorldStaticData(), _player.transform);
-        }
-
         private void CreatePlayer()
         {
             Vector3 playerSpawnPosition = _sceneContextService.PlayerSpawnPoint.position;
             Quaternion playerSpawnRotation = _sceneContextService.PlayerSpawnPoint.rotation;
-            _player = Object.Instantiate(_staticDataService.GetPlayerPrefab(), playerSpawnPosition,
-                playerSpawnRotation);
-            _player.Init(_staticDataService.GetPlayerStaticData());
+            UnitStaticData staticData = _staticDataService.GetUnit(UnitID.Player);
+            BaseUnit playerPrefab = staticData.UnitPrefab;
+            PlayerSlime player = Object.Instantiate(playerPrefab, playerSpawnPosition,
+                playerSpawnRotation).GetComponent<PlayerSlime>();
+            player.Init(staticData);
+            _sceneContextService.SetPlayer(player);
+        }
+
+        private void InitRoads()
+        {
+            RoadSpawner spawner = _sceneContextService.RoadSpawner;
+            spawner.Init(_staticDataService.GetWorldStaticData(), _sceneContextService.Player.transform);
         }
 
         public void Exit()

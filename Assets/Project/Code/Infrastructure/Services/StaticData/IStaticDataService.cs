@@ -1,7 +1,8 @@
 using Project.Code.Infrastructure.Data;
 using Project.Code.Infrastructure.StaticData;
-using Project.Code.Runtime.Player;
 using Project.Code.StaticData;
+using Project.Code.StaticData.Units;
+using Project.Code.StaticData.World;
 using UnityEngine;
 
 namespace Project.Code.Infrastructure.Services.StaticData
@@ -10,8 +11,7 @@ namespace Project.Code.Infrastructure.Services.StaticData
     {
         void Load();
         WindowConfig GetWindow(WindowID id);
-        PlayerStaticData GetPlayerStaticData();
+        UnitStaticData GetUnit(UnitID unitID);
         WorldStaticData GetWorldStaticData();
-        PlayerSlime GetPlayerPrefab();
     }
 }

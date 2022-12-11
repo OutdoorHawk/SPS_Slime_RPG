@@ -1,4 +1,5 @@
 using Project.Code.Runtime.Roads;
+using Project.Code.Runtime.World;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +9,7 @@ namespace Project.Code.Infrastructure.Services.SceneContext
     {
         [SerializeField] private Transform _playerSpawnPoint;
         [SerializeField] private RoadSpawner _roadSpawner;
+        [SerializeField] private EnemySpawner _enemySpawner;
         
         private ISceneContextService _sceneContextService;
 
@@ -17,6 +19,7 @@ namespace Project.Code.Infrastructure.Services.SceneContext
             _sceneContextService = sceneContextService;
             _sceneContextService.SetSpawnPoint(_playerSpawnPoint);
             _sceneContextService.SetRoadSpawner(_roadSpawner);
+            _sceneContextService.SetEnemySpawner(_enemySpawner);
         }
     }
 }

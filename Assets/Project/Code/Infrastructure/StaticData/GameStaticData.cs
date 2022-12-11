@@ -1,6 +1,8 @@
 using System.Collections.Generic;
-using Project.Code.Runtime.Player;
+using Project.Code.Runtime.Units.Player;
 using Project.Code.StaticData;
+using Project.Code.StaticData.Units;
+using Project.Code.StaticData.World;
 using UnityEngine;
 
 namespace Project.Code.Infrastructure.StaticData
@@ -9,14 +11,12 @@ namespace Project.Code.Infrastructure.StaticData
     public class GameStaticData : ScriptableObject
     {
         [SerializeField] private WindowConfig[] _windows;
-        [SerializeField] private PlayerSlime _player;
-        [SerializeField] private PlayerStaticData _playerStaticData;
+        [SerializeField] private UnitConfig[] _units;
         [SerializeField] private WorldStaticData _worldStaticData;
 
         public IEnumerable<WindowConfig> Windows => _windows;
-
-        public PlayerSlime Player => _player;
-        public PlayerStaticData PlayerStaticData => _playerStaticData;
+        
+        public UnitConfig[] Units => _units;
         public WorldStaticData WorldStaticData => _worldStaticData;
     }
 }
