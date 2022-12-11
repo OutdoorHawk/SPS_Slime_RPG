@@ -1,4 +1,5 @@
 using Project.Code.Infrastructure.Data;
+using Project.Code.Infrastructure.Services.SaveLoadService;
 using Project.Code.Infrastructure.Services.SceneContext;
 using Project.Code.Infrastructure.Services.StaticData;
 using Project.Code.Runtime.Units.EnemyUnit;
@@ -12,10 +13,13 @@ namespace Project.Code.Infrastructure.Services.Factory
     {
         private readonly IStaticDataService _staticDataService;
         private readonly ISceneContextService _sceneContextService;
+        private readonly IPersistentProgressService _progressService;
 
-        public UnitFactory(IStaticDataService staticDataService, ISceneContextService sceneContextService)
+        public UnitFactory(IStaticDataService staticDataService, ISceneContextService sceneContextService,
+            IPersistentProgressService progressService)
         {
             _sceneContextService = sceneContextService;
+            _progressService = progressService;
             _staticDataService = staticDataService;
         }
 
@@ -36,7 +40,7 @@ namespace Project.Code.Infrastructure.Services.Factory
             UnitStaticData staticData = _staticDataService.GetUnit(UnitID.Player);
             BaseUnit unitPrefab = staticData.UnitPrefab;
             PlayerSlime player = Object.Instantiate(unitPrefab, position, rotation).GetComponent<PlayerSlime>();
-            player.Init(staticData);
+            player.Init(staticData, _progressService.Progress.PlayerStatsProgress);
             _sceneContextService.SetPlayer(player);
             return player;
         }

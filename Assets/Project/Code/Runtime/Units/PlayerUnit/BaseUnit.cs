@@ -4,6 +4,7 @@ using Project.Code.Runtime.Units.Components;
 using Project.Code.Runtime.Units.Components.Damage;
 using Project.Code.StaticData.Units;
 using UnityEngine;
+using  static Project.Code.Extensions.Utils;
 
 namespace Project.Code.Runtime.Units.PlayerUnit
 {
@@ -22,8 +23,6 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             UnitStaticData = unitStaticData;
             DealDamageComponent = GetComponent<DealDamageComponent>();
             HealthComponent = GetComponent<HealthComponent>();
-            HealthComponent.Init(UnitStaticData.HealthAmount);
-            DealDamageComponent.Init(UnitStaticData);
             Subscribe();
         }
 

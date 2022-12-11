@@ -1,4 +1,3 @@
-using System;
 using Project.Code.Runtime.Units.Components.Damage;
 using Project.Code.Runtime.Units.PlayerUnit;
 using Project.Code.Runtime.World;
@@ -13,15 +12,18 @@ namespace Project.Code.Runtime.Units.EnemyUnit
         private PlayerSlime _player;
         private NavMeshAgent _navMeshAgent;
         private EnemyDealDamageComponent _damageComponent;
+        private EnemyStaticData _enemyStaticData;
 
         public void SetupPlayer(PlayerSlime slime) => _player = slime;
 
         public override void Init(UnitStaticData unitStaticData)
         {
             base.Init(unitStaticData);
+            _enemyStaticData = unitStaticData as EnemyStaticData;
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _damageComponent = GetComponent<EnemyDealDamageComponent>();
             _damageComponent.SetPlayer(_player.HealthComponent);
+            DealDamageComponent.Init(_enemyStaticData.DamageAmount, _enemyStaticData.AttackSpeed);
             enabled = true;
         }
 

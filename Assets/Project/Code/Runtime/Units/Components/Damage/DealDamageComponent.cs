@@ -11,10 +11,10 @@ namespace Project.Code.Runtime.Units.Components.Damage
 
         private float _countDown = 0;
 
-        public void Init(UnitStaticData staticData)
+        public virtual void Init(float attack, float atkSpeed)
         {
-            _attackDetails = new AttackDetails(staticData.DamageAmount);
-            _attackSpeed = staticData.AttackSpeed;
+            _attackDetails = new AttackDetails(attack);
+            _attackSpeed = atkSpeed;
         }
 
         public virtual void UpdateAttack()

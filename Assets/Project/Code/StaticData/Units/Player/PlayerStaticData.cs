@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Project.Code.Infrastructure.Data;
+using UnityEngine;
+using static Project.Code.Extensions.Utils;
 
 namespace Project.Code.StaticData.Units.Player
 {
@@ -6,6 +8,8 @@ namespace Project.Code.StaticData.Units.Player
     public class PlayerStaticData : UnitStaticData
     {
         [SerializeField] private StatConfig[] _statConfigs;
+
+        public StatData GetStatData(StatID id) => GetStatDataFromConfig(id, _statConfigs);
 
         public StatConfig[] StatConfigs => _statConfigs;
     }

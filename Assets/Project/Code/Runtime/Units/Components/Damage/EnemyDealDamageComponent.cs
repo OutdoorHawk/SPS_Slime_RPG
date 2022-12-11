@@ -1,4 +1,7 @@
-﻿namespace Project.Code.Runtime.Units.Components.Damage
+﻿using Project.Code.Runtime.CustomData;
+using Project.Code.StaticData.Units;
+
+namespace Project.Code.Runtime.Units.Components.Damage
 {
     public class EnemyDealDamageComponent : DealDamageComponent
     {

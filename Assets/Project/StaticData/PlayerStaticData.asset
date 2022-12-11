@@ -16,3 +16,22 @@ MonoBehaviour:
   _attackSpeed: 0.75
   _damageAmount: 10
   _healthAmount: 50
+  _statConfigs:
+  - StatID: 0
+    StatData:
+      StatBaseValue: 7
+      StatBaseUpgradeCost: 10
+      StatUpgradeCostIncrease: 1
+      StatValueIncrease: 5
+  - StatID: 1
+    StatData:
+      StatBaseValue: 1
+      StatBaseUpgradeCost: 20
+      StatUpgradeCostIncrease: 15
+      StatValueIncrease: 0.1
+  - StatID: 2
+    StatData:
+      StatBaseValue: 50
+      StatBaseUpgradeCost: 15
+      StatUpgradeCostIncrease: 0.5
+      StatValueIncrease: 5

@@ -1,5 +1,8 @@
+using System.Linq;
+using Project.Code.Infrastructure.Data;
 using Project.Code.Runtime.Units.EnemyUnit;
 using Project.Code.Runtime.World;
+using Project.Code.StaticData.Units.Player;
 using UnityEngine;
 
 namespace Project.Code.Extensions
@@ -26,6 +29,11 @@ namespace Project.Code.Extensions
             }
 
             return nearestObject;
+        }
+
+        public static StatData GetStatDataFromConfig(StatID id, StatConfig[] statConfigs)
+        {
+            return (from stat in statConfigs where stat.StatID == id select stat.StatData).FirstOrDefault();
         }
     }
 }
