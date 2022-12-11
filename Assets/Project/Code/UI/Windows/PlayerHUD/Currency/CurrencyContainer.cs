@@ -1,18 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class CurrencyContainer : MonoBehaviour
+namespace Project.Code.UI.Windows.PlayerHUD.Currency
 {
-    // Start is called before the first frame update
-    void Start()
+    public class CurrencyContainer : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [SerializeField] private TMP_Text _coinsAmount;
     }
 }

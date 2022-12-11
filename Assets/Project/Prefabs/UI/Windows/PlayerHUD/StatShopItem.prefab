@@ -319,6 +319,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ef26e46682e2664aad4b7f14207824f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _statName: {fileID: 8794957092308884098}
+  _statValue: {fileID: 797961738540686755}
+  _upgradeCost: {fileID: 4378678606160849815}
+  _currentLevel: {fileID: 3555151771156405127}
+  _upgradeButton: {fileID: 7919744184207760314}
 --- !u!1 &2167737830871134684
 GameObject:
   m_ObjectHideFlags: 0
@@ -833,7 +838,7 @@ GameObject:
   - component: {fileID: 182612436438867824}
   - component: {fileID: 3555151771156405127}
   m_Layer: 5
-  m_Name: CurrentStatLvl
+  m_Name: CurrentLvl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

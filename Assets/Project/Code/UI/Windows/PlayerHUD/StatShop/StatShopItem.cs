@@ -1,18 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class StatShopItem : MonoBehaviour
+namespace Project.Code.UI.Windows.PlayerHUD.StatShop
 {
-    // Start is called before the first frame update
-    void Start()
+    public class StatShopItem : MonoBehaviour
     {
+        [SerializeField] private TMP_Text _statName;
+        [SerializeField] private TMP_Text _statValue;
+        [SerializeField] private TMP_Text _upgradeCost;
+        [SerializeField] private TMP_Text _currentLevel;
+        [SerializeField] private Button _upgradeButton;
         
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         
     }
 }

@@ -1,18 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+using Project.Code.UI.Windows.PlayerHUD.Currency;
 using UnityEngine;
 
-public class PlayerHUDWindow : MonoBehaviour
+namespace Project.Code.UI.Windows.PlayerHUD
 {
-    // Start is called before the first frame update
-    void Start()
+    public class PlayerHUDWindow : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [SerializeField] private StatsShopContainer _shopContainer;
+        [SerializeField] private CurrencyContainer _currencyContainer;
     }
 }

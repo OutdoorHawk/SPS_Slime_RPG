@@ -13,4 +13,12 @@ namespace Project.Code.Infrastructure.Data
         Player,
         Enemy
     }
+
+    public enum StatID
+    {
+        ATK,
+        ASPD,
+        HP,
+        HPREC
+    }
 }

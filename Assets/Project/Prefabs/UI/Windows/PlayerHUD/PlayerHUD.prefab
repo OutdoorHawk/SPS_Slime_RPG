@@ -482,6 +482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7f5d42e8dadfae4aaacbd1096194f36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _coinsAmount: {fileID: 7094351689463445313}
 --- !u!1 &6955268335564267617
 GameObject:
   m_ObjectHideFlags: 0
@@ -785,6 +786,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc01c466db4421e4ea590d8918c9bb74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shopContainer: {fileID: 6530252199538032859}
+  _currencyContainer: {fileID: 7684559067246513736}
 --- !u!1 &7989589897284473196
 GameObject:
   m_ObjectHideFlags: 0
