@@ -405,6 +405,7 @@ GameObject:
   - component: {fileID: 1596930902}
   - component: {fileID: 1596930901}
   - component: {fileID: 1596930904}
+  - component: {fileID: 1596930905}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -472,6 +473,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerSpawnPoint: {fileID: 727766748}
   _roadSpawner: {fileID: 605514933}
+--- !u!114 &1596930905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1596930900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 214cd931bafbccf43ba1b16f9c560c34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1786075759 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4890689640829034195, guid: 20d3a10ec5b25694189b3ca5afee6ed0, type: 3}

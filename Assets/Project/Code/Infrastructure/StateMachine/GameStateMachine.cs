@@ -10,12 +10,14 @@ namespace Project.Code.Infrastructure.StateMachine
         private readonly Dictionary<Type, IExitableState> _states;
 
         [Inject]
-        public GameStateMachine(BootstrapState bootstrapState, LoadLevelState loadLevelState)
+        public GameStateMachine(BootstrapState bootstrapState, LoadLevelState loadLevelState, GameLoopState gameLoopState)
         {
             _states = new Dictionary<Type, IExitableState>
             {
                 { typeof(BootstrapState), bootstrapState },
                 { typeof(LoadLevelState), loadLevelState },
+                { typeof(GameLoopState), gameLoopState },
+                
             };
             foreach (var state in _states.Values) 
                 state.InitState(this);

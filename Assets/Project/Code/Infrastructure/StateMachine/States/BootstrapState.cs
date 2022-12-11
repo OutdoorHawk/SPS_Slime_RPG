@@ -1,5 +1,6 @@
 ﻿using Project.Code.Infrastructure.Services.AssetProvider;
 using Project.Code.Infrastructure.Services.StaticData;
+using UnityEngine;
 
 namespace Project.Code.Infrastructure.StateMachine.States
 {

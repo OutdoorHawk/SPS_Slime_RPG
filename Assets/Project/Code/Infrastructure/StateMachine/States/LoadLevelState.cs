@@ -12,7 +12,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private IGameStateMachine _gameStateMachine;
         private readonly ISceneLoader _sceneLoader;
         private readonly IStaticDataService _staticDataService;
-        private ISceneContextService _sceneContextService;
+        private readonly ISceneContextService _sceneContextService;
 
         private LoadLevelState(ISceneLoader sceneLoader, IStaticDataService staticDataService,
             ISceneContextService sceneContextService)
@@ -27,12 +27,13 @@ namespace Project.Code.Infrastructure.StateMachine.States
 
         public void Enter()
         {
-            _sceneLoader.LoadScene(Constants.GAME_SCENE_NAME, OnLoaded);
+            _sceneLoader.LoadScene(Constants.GAME_SCENE, OnLoaded);
         }
 
         private void OnLoaded()
         {
             InitGameWorld();
+            _gameStateMachine.Enter<GameLoopState>();
         }
 
         private void InitGameWorld()
@@ -43,7 +44,6 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private void CreatePlayer()
         {
             Vector3 playerSpawnPosition = _sceneContextService.PlayerSpawnPoint.position;
-            Debug.Log(_staticDataService.GetPlayerPrefab());
             PlayerSlime player = Object.Instantiate(_staticDataService.GetPlayerPrefab(), playerSpawnPosition,
                 Quaternion.identity);
         }
