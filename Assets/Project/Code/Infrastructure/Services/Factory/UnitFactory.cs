@@ -25,8 +25,8 @@ namespace Project.Code.Infrastructure.Services.Factory
             BaseUnit unitPrefab = staticData.UnitPrefab;
             Enemy enemy = Object.Instantiate(unitPrefab, position, rotation).GetComponent<Enemy>();
             PlayerSlime slime = _sceneContextService.Player;
-            enemy.Init(staticData);
             enemy.SetupPlayer(slime);
+            enemy.Init(staticData);
             enemy.OnSpawn();
             return enemy;
         }

@@ -1,5 +1,8 @@
+using System;
+
 namespace Project.Code.Runtime.CustomData
 {
+    [Serializable]
     public struct AttackDetails
     {
         public float Damage;

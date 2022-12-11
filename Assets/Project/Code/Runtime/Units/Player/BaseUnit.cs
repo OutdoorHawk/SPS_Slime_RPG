@@ -1,5 +1,4 @@
-﻿using System;
-using Project.Code.Runtime.CustomData;
+﻿using Project.Code.Runtime.CustomData;
 using Project.Code.Runtime.Units.Components;
 using Project.Code.StaticData.Units;
 using UnityEngine;
@@ -7,16 +6,22 @@ using UnityEngine;
 namespace Project.Code.Runtime.Units.Player
 {
     [SelectionBase]
+    [RequireComponent(typeof(DealDamageComponent))]
+    [RequireComponent(typeof(HealthComponent))]
     public class BaseUnit : MonoBehaviour
     {
+     
         public HealthComponent HealthComponent { get; private set; }
         protected UnitStaticData UnitStaticData { get; private set; }
-        
+        protected DealDamageComponent DealDamageComponent { get; private set; }
+
         public virtual void Init(UnitStaticData unitStaticData)
         {
             UnitStaticData = unitStaticData;
+            DealDamageComponent = GetComponent<DealDamageComponent>();
             HealthComponent = GetComponent<HealthComponent>();
             HealthComponent.Init(UnitStaticData.HealthAmount);
+            DealDamageComponent.Init(UnitStaticData);
             Subscribe();
         }
 
@@ -28,12 +33,10 @@ namespace Project.Code.Runtime.Units.Player
 
         private void HandleDamageTaken(AttackDetails details)
         {
-            
         }
 
         private void HandleDeath()
         {
-            
         }
 
         protected virtual void CleanUp()
