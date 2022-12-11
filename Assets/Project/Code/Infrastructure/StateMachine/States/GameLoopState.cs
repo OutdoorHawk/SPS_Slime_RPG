@@ -4,7 +4,6 @@ using Project.Code.Infrastructure.Services.CoroutineRunner;
 using Project.Code.Infrastructure.Services.SceneContext;
 using Project.Code.Infrastructure.Services.StaticData;
 using Project.Code.Runtime.Roads;
-using Project.Code.Runtime.Units.Player;
 using Project.Code.Runtime.Units.PlayerUnit;
 using Project.Code.Runtime.World;
 using Project.Code.StaticData;
@@ -47,8 +46,18 @@ namespace Project.Code.Infrastructure.StateMachine.States
         public void Enter()
         {
             Init();
+            Subscribe();
             DoFightState();
-            //DoWalkingState();
+        }
+
+        private void Subscribe()
+        {
+            _enemySpawner.OnWaveKilled += GoToWalkingState;
+        }
+
+        private void GoToWalkingState()
+        {
+            _coroutineRunner.StartCoroutine(WalkingRoutine());
         }
 
         private void Init()
@@ -58,11 +67,6 @@ namespace Project.Code.Infrastructure.StateMachine.States
             _worldStaticData = _staticDataService.GetWorldStaticData();
             _roadSpawner = _sceneContextService.RoadSpawner;
             _enemySpawner = _sceneContextService.EnemySpawner;
-        }
-
-        private void DoWalkingState()
-        {
-            _coroutineRunner.StartCoroutine(WalkingRoutine());
         }
 
         private IEnumerator WalkingRoutine()
@@ -83,8 +87,14 @@ namespace Project.Code.Infrastructure.StateMachine.States
             _enemySpawner.SpawnWave();
         }
 
+        private void Cleanup()
+        {
+            _enemySpawner.OnWaveKilled -= GoToWalkingState;
+        }
+
         public void Exit()
         {
+            Cleanup();
             _unitCollector.Cleanup();
         }
     }

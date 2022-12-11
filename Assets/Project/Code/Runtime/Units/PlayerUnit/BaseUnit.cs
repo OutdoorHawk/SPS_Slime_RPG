@@ -1,16 +1,18 @@
-﻿using Project.Code.Runtime.CustomData;
+﻿using System;
+using Project.Code.Runtime.CustomData;
 using Project.Code.Runtime.Units.Components;
 using Project.Code.Runtime.Units.Components.Damage;
 using Project.Code.StaticData.Units;
 using UnityEngine;
 
-namespace Project.Code.Runtime.Units.Player
+namespace Project.Code.Runtime.Units.PlayerUnit
 {
     [SelectionBase]
     [RequireComponent(typeof(DealDamageComponent))]
     [RequireComponent(typeof(HealthComponent))]
     public class BaseUnit : MonoBehaviour
     {
+        public event Action<BaseUnit> OnUnitDead;
         public HealthComponent HealthComponent { get; private set; }
         protected UnitStaticData UnitStaticData { get; private set; }
         protected DealDamageComponent DealDamageComponent { get; private set; }
@@ -37,7 +39,8 @@ namespace Project.Code.Runtime.Units.Player
 
         protected virtual void HandleDeath()
         {
-           Destroy(gameObject);
+            OnUnitDead?.Invoke(this);
+            Destroy(gameObject);
         }
 
         protected virtual void CleanUp()

@@ -2,7 +2,6 @@ using Project.Code.Infrastructure.Data;
 using Project.Code.Infrastructure.Services.SceneContext;
 using Project.Code.Infrastructure.Services.StaticData;
 using Project.Code.Runtime.Units.EnemyUnit;
-using Project.Code.Runtime.Units.Player;
 using Project.Code.Runtime.Units.PlayerUnit;
 using Project.Code.StaticData.Units;
 using UnityEngine;

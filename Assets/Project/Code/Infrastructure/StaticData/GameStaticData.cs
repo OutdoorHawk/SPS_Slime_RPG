@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Project.Code.Runtime.Units.Player;
 using Project.Code.StaticData;
 using Project.Code.StaticData.Units;
 using Project.Code.StaticData.World;

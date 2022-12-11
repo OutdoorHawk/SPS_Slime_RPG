@@ -1,4 +1,4 @@
-using Project.Code.Runtime.Units.Player;
+using Project.Code.Runtime.Units.PlayerUnit;
 using UnityEngine;
 
 namespace Project.Code.StaticData.Units
