@@ -11,7 +11,7 @@ namespace Project.Code.Infrastructure.Services.StaticData
         void Load();
         WindowConfig GetWindow(WindowID id);
         PlayerStaticData GetPlayerStaticData();
+        WorldStaticData GetWorldStaticData();
         PlayerSlime GetPlayerPrefab();
-        GameObject[] GetRoads();
     }
 }

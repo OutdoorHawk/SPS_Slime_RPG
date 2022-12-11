@@ -11,12 +11,12 @@ namespace Project.Code.Infrastructure.StaticData
         [SerializeField] private WindowConfig[] _windows;
         [SerializeField] private PlayerSlime _player;
         [SerializeField] private PlayerStaticData _playerStaticData;
-        [SerializeField] private GameObject[] _roads;
+        [SerializeField] private WorldStaticData _worldStaticData;
 
         public IEnumerable<WindowConfig> Windows => _windows;
 
         public PlayerSlime Player => _player;
         public PlayerStaticData PlayerStaticData => _playerStaticData;
-        public GameObject[] Roads => _roads;
+        public WorldStaticData WorldStaticData => _worldStaticData;
     }
 }

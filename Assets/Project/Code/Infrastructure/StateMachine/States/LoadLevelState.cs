@@ -3,6 +3,7 @@ using Project.Code.Infrastructure.Services.SceneContext;
 using Project.Code.Infrastructure.Services.SceneLoaderService;
 using Project.Code.Infrastructure.Services.StaticData;
 using Project.Code.Runtime.Player;
+using Project.Code.Runtime.Roads;
 using UnityEngine;
 
 namespace Project.Code.Infrastructure.StateMachine.States
@@ -38,14 +39,23 @@ namespace Project.Code.Infrastructure.StateMachine.States
 
         private void InitGameWorld()
         {
+            InitRoads();
             CreatePlayer();
+        }
+
+        private void InitRoads()
+        {
+            RoadSpawner spawner = _sceneContextService.RoadSpawner;
+            spawner.Init(_staticDataService.GetWorldStaticData());
         }
 
         private void CreatePlayer()
         {
             Vector3 playerSpawnPosition = _sceneContextService.PlayerSpawnPoint.position;
+            Quaternion playerSpawnRotation = _sceneContextService.PlayerSpawnPoint.rotation;
             PlayerSlime player = Object.Instantiate(_staticDataService.GetPlayerPrefab(), playerSpawnPosition,
-                Quaternion.identity);
+                playerSpawnRotation);
+            player.Init(_staticDataService.GetPlayerStaticData());
         }
 
         public void Exit()

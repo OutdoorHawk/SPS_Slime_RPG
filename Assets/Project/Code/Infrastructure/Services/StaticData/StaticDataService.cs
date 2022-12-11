@@ -28,7 +28,6 @@ namespace Project.Code.Infrastructure.Services.StaticData
             _data = _assetProvider.GetGameStaticData();
             LoadWindows();
             LoadPlayer();
-            LoadWorld();
         }
 
         private void LoadWindows()
@@ -43,21 +42,17 @@ namespace Project.Code.Infrastructure.Services.StaticData
             _playerStaticData = _data.PlayerStaticData;
         }
 
-        private void LoadWorld()
-        {
-            _roads = _data.Roads;
-        }
-
-        public WindowConfig GetWindow(WindowID id) => 
+        public WindowConfig GetWindow(WindowID id) =>
             _windows.TryGetValue(id, out var windowConfig) ? windowConfig : null;
 
-        public PlayerSlime GetPlayerPrefab() 
+        public WorldStaticData GetWorldStaticData() 
+            => _data.WorldStaticData;
+
+        public PlayerSlime GetPlayerPrefab()
             => _playerSlime;
 
-        public PlayerStaticData GetPlayerStaticData() 
+        public PlayerStaticData GetPlayerStaticData()
             => _playerStaticData;
-
-        public GameObject[] GetRoads() 
-            => _roads;
+        
     }
 }
