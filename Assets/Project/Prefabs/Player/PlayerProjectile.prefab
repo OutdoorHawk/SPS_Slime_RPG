@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26c20ce841e92344b6e8b91526c3184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hitParticles: {fileID: 7666915005499545837, guid: 3ec816d7fcf6659479b260ffaaa8c127, type: 3}
   _projectileSpeed: 7.5
   _jumpPowerRate: 4
   _jumpTimeRate: 0.4

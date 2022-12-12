@@ -11,6 +11,7 @@ namespace Project.Code.Runtime.Roads
     public class RoadSpawner : MonoBehaviour
     {
         [SerializeField] private Transform _roadsParent;
+        [SerializeField] private ParticleSystem _windParticles;
         [SerializeField] private float _movingSpeed;
         [SerializeField] private float _minTriggerDistance = 1f;
         
@@ -32,6 +33,7 @@ namespace Project.Code.Runtime.Roads
             _walkingTime = worldStaticData.PlayerWalkingTime;
             _cachedTransform = transform;
             _activeRoads = new List<Road>();
+            _windParticles.Stop();
             CollectExistingRoads();
             SpawnFirstRoads();
         }
@@ -64,6 +66,7 @@ namespace Project.Code.Runtime.Roads
         private IEnumerator WalkingRoutine(Action onWalkingDone)
         {
             float t = _walkingTime;
+            _windParticles.Play();
             do
             {
                 TickMovement();
@@ -71,6 +74,7 @@ namespace Project.Code.Runtime.Roads
                 yield return new WaitForSeconds(Time.deltaTime);
             } while (t > 0);
 
+            _windParticles.Stop();
             onWalkingDone?.Invoke();
         }
         

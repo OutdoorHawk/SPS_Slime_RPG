@@ -9,6 +9,7 @@ namespace Project.Code.Runtime.Units.PlayerUnit
     {
         public event Action<Enemy> OnHit;
 
+        [SerializeField] private GameObject _hitParticles;
         [SerializeField] private float _projectileSpeed = 5;
         [SerializeField] private float _jumpPowerRate = 0.5f;
         [SerializeField] private float _jumpTimeRate = 0.5f;
@@ -89,6 +90,8 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         private void HitTarget()
         {
             OnHit?.Invoke(_currentTarget);
+            GameObject particles = Instantiate(_hitParticles, transform.position, transform.rotation);
+            Destroy(particles, 1.5f);
             Destroy(gameObject);
         }
 
