@@ -1,3 +1,4 @@
+using System.Collections;
 using Project.Code.Infrastructure.Data;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress.Stats;
@@ -17,6 +18,8 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         private PlayerDealDamageComponent _damageComponent;
         private PlayerStatsProgress _statsProgress;
         private PlayerAnimatorComponent _animatorComponent;
+        private PlayerHealSystem _healSystem;
+        private IEnumerator _fightRoutine;
 
         public override void Init(UnitStaticData unitStaticData, PlayerProgress playerProgress,
             RectTransform hpPanel)
@@ -26,8 +29,11 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             _statsProgress = playerProgress.PlayerStatsProgress;
             _staticData = unitStaticData as PlayerStaticData;
             _damageComponent = GetComponent<PlayerDealDamageComponent>();
+            _healSystem = new PlayerHealSystem(this, HealthComponent);
+            _fightRoutine = FightingRoutine();
             UpdateComponents();
             HealthComponent.Respawn();
+            _healthBar.UpdateHealth(HealthComponent.HealthPercent);
         }
 
         public void UpdateComponents()
@@ -35,28 +41,39 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             float loadedAttack = _statsProgress.GetStatProgress(StatID.ATK).StatValue;
             float loadedAtkSpeed = _statsProgress.GetStatProgress(StatID.ASPD).StatValue;
             float loadedHP = _statsProgress.GetStatProgress(StatID.HP).StatValue;
+            float loadedHPREC = _statsProgress.GetStatProgress(StatID.HPREC).StatValue;
 
+            _healSystem.UpdateStats(loadedHPREC);
             _damageComponent.Init(loadedAttack, loadedAtkSpeed);
             HealthComponent.Init(loadedHP);
             _animatorComponent.SpawnUpgradeParticles();
         }
 
-        private void Update()
+        private IEnumerator FightingRoutine()
         {
-            if (UnitCollector.AliveEnemies.Count == 0)
-                return;
-            _damageComponent.UpdateTarget();
-            _damageComponent.UpdateAttack();
+            while (UnitCollector.AliveEnemies.Count == 0)
+                yield return new WaitForSeconds(Time.deltaTime);
+            
+            yield return new WaitForSeconds(1f);
+            while (UnitCollector.AliveEnemies.Count > 0)
+            {
+                _damageComponent.UpdateTarget();
+                _damageComponent.UpdateAttack(Time.deltaTime);
+                yield return new WaitForSeconds(Time.deltaTime);
+            }
         }
 
         public void SetWalkingState()
         {
+            StopCoroutine(_fightRoutine);
             _animatorComponent.EnableWalkAnim();
         }
 
         public void SetFightState()
         {
             _animatorComponent.EnableIdleAnim();
+            _fightRoutine = FightingRoutine();
+            StartCoroutine(_fightRoutine);
         }
     }
 }

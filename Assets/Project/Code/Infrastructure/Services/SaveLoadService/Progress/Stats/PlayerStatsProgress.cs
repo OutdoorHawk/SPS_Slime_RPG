@@ -37,8 +37,8 @@ namespace Project.Code.Infrastructure.Services.SaveLoadService.Progress.Stats
         {
             foreach (var config in statConfigs)
             {
-                _statsProgression[config.StatID].StatValue = config.StatData.StatBaseValue;
-                _statsProgression[config.StatID].StatUpgradeCost = config.StatData.StatBaseUpgradeCost;
+                _statsProgression[config.StatID].StatValue = config.StatData.BaseValue;
+                _statsProgression[config.StatID].StatUpgradeCost = config.StatData.BaseUpgradeCost;
                 _statsProgression[config.StatID].StatLvl = 1;
             }
         }

@@ -21,7 +21,7 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         [SerializeField] private HealthBar _healthBarPrefab;
 
         private HitColorComponent _hitColorComponent;
-        private HealthBar _healthBar;
+        protected HealthBar _healthBar;
         private RectTransform _hpPanel;
 
         public event Action<BaseUnit> OnUnitDead;

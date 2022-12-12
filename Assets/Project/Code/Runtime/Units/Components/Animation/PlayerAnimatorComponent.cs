@@ -14,7 +14,7 @@ namespace Project.Code.Runtime.Units.Components.Animation
         [SerializeField] private float _idleTime;
         [SerializeField] private float _walkingTime;
 
-
+        private GameObject _upgradeParticlesGO;
         private Sequence _idleSeq;
         private Sequence _walkingSeq;
         private Sequence _resetSeq;
@@ -28,6 +28,7 @@ namespace Project.Code.Runtime.Units.Components.Animation
         private void Awake()
         {
             CollectScales();
+            _upgradeParticlesGO = Instantiate(_upgradeParticles, transform.position, Quaternion.identity);
         }
 
         private void CollectScales()
@@ -51,8 +52,7 @@ namespace Project.Code.Runtime.Units.Components.Animation
 
         public void SpawnUpgradeParticles()
         {
-            GameObject particles = Instantiate(_upgradeParticles, transform.position, Quaternion.identity);
-            Destroy(particles, 2f);
+            _upgradeParticlesGO.gameObject.SetActive(true);
         }
 
         private void PrepareToIdle()

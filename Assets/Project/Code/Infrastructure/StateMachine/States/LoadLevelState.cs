@@ -48,7 +48,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
             InitGameWorld();
             _gameStateMachine.Enter<GameLoopState>();
         }
-
+        
         private void InitGameWorld()
         {
             InitUI();
