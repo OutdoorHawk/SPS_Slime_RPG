@@ -1,5 +1,6 @@
 using System;
 using Project.Code.Infrastructure.Data;
+using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress.Stats;
 using TMPro;
 using UnityEngine;
@@ -20,9 +21,11 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
 
         private Color _defaultUpgradeCostColor;
         private StatProgress _statProgress;
+        private PlayerCurrencyProgress _currencyProgress;
 
-        public void Init(PlayerStatsProgress statsProgress)
+        public void Init(PlayerStatsProgress statsProgress, PlayerCurrencyProgress playerCurrencyProgress)
         {
+            _currencyProgress = playerCurrencyProgress;
             _statProgress = statsProgress.GetStatProgress(_statID);
             _defaultUpgradeCostColor = _upgradeCost.color;
             UpdateItemInfo();
@@ -32,13 +35,13 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
         {
             _statName.text = _statID.ToString();
             _statValue.text = SwitchValueFormat();
-            _upgradeCost.text = $"<sprite index=300> {_statProgress.StatUpgradeCost.ToString()}";
             _currentLevel.text = "Lv " + _statProgress.StatLvl;
+            CheckEnoughMoney();
         }
 
-        public void CheckEnoughMoney(int currentMoney)
+        public void CheckEnoughMoney()
         {
-            if (_statProgress.StatUpgradeCost > currentMoney)
+            if (_statProgress.StatUpgradeCost > _currencyProgress.MoneyAmount)
                 SetItemInactive();
             else
                 SetItemActive();

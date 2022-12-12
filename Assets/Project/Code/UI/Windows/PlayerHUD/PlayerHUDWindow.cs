@@ -58,9 +58,9 @@ namespace Project.Code.UI.Windows.PlayerHUD
 
         private void InitContainers()
         {
-            _shopContainer.Init(_playerData, _statsProgress);
+            _shopContainer.Init(_playerData, _statsProgress,_currencyProgress);
             _currencyContainer.Init(_currencyProgress);
-            CheckStatCosts(_currencyProgress.MoneyAmount);
+            CheckStatCosts();
             _levelProgressContainer.Init(_levelsProgress,_staticDataService);
         }
 
@@ -72,10 +72,10 @@ namespace Project.Code.UI.Windows.PlayerHUD
             _levelsProgress.OnFightPassed += _levelProgressContainer.UpdateFightProgress;
         }
 
-        private void CheckStatCosts(int moneyAmount)
+        private void CheckStatCosts()
         {
             _currencyContainer.UpdateMoney();
-            _shopContainer.CheckStatCosts(moneyAmount);
+            _shopContainer.CheckStatCosts();
         }
 
         private void HandleUpgradeButtonClicked(StatID id)

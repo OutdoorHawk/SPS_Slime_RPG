@@ -1,10 +1,11 @@
 ﻿using DG.Tweening;
 using UnityEngine;
 
-namespace Project.Code.Runtime.Units.PlayerUnit
+namespace Project.Code.Runtime.Units.Components.Animation
 {
     public class PlayerAnimatorComponent : MonoBehaviour
     {
+        [SerializeField] private GameObject _upgradeParticles;
         [SerializeField] private Transform _slimeModel;
         [SerializeField] private float _walkingScaleMax = 1.25f;
         [SerializeField] private float _walkingScaleMin = 0.75f;
@@ -40,12 +41,18 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         {
             ResetSequences();
             PrepareToIdle();
-        } 
-        
+        }
+
         public void EnableWalkAnim()
         {
             ResetSequences();
             PrepareToWalking();
+        }
+
+        public void SpawnUpgradeParticles()
+        {
+            GameObject particles = Instantiate(_upgradeParticles, transform.position, Quaternion.identity);
+            Destroy(particles, 2f);
         }
 
         private void PrepareToIdle()
@@ -66,7 +73,7 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             _idleSeq.Insert(0, _slimeModel.DOScaleY(_idleScaleMin, _idleTime))
                 .SetEase(Ease.Linear);
             _idleSeq.Insert(_idleTime, _slimeModel.DOScaleY(_idleScaleMax, _idleTime))
-                .SetEase(Ease.Linear);    
+                .SetEase(Ease.Linear);
             _idleSeq.Insert(0, _slimeModel.DOScaleX(_idleScaleMin, _idleTime))
                 .SetEase(Ease.Linear);
             _idleSeq.Insert(_idleTime, _slimeModel.DOScaleX(_idleScaleMax, _idleTime))
@@ -80,7 +87,7 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             _resetSeq = DOTween.Sequence();
             _resetSeq.Append(_slimeModel.DOScaleZ(_walkingScaleMin, RESET_TIME));
             _resetSeq.Insert(0, _slimeModel.DOScaleY(_walkingScaleMax, RESET_TIME));
-            _resetSeq.Insert(0,  _slimeModel.DOScaleX(_walkingScaleMax, RESET_TIME));
+            _resetSeq.Insert(0, _slimeModel.DOScaleX(_walkingScaleMax, RESET_TIME));
             _resetSeq.OnComplete(StartWalkingSequence);
         }
 

@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e31690456b748f8bdf5665f4d362ee2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _upgradeParticles: {fileID: 8140147349487507015, guid: 16a7e75970f542543afe82e33cccbf39, type: 3}
   _slimeModel: {fileID: 3976526555009012924}
   _walkingScaleMax: 1.15
   _walkingScaleMin: 0.85

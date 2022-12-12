@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Project.Code.Infrastructure.Data;
 using Project.Code.Infrastructure.Services.SaveLoadService;
+using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress.Stats;
 using Project.Code.Infrastructure.Services.StaticData;
 using Project.Code.StaticData.Units.Player;
@@ -20,9 +21,12 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
         private IStaticDataService _staticDataService;
         private PlayerStatsProgress _statsProgress;
         private PlayerStaticData _staticData;
+        private PlayerCurrencyProgress _currencyProgress;
 
-        public void Init(PlayerStaticData playerData, PlayerStatsProgress statsProgress)
+        public void Init(PlayerStaticData playerData, PlayerStatsProgress statsProgress,
+            PlayerCurrencyProgress playerCurrencyProgress)
         {
+            _currencyProgress = playerCurrencyProgress;
             _statsProgress = statsProgress;
             _staticData = playerData;
             InitShopItems();
@@ -32,7 +36,7 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
         {
             _shopItems = _shopItemsParent.GetComponentsInChildren<StatShopItem>().ToList();
             foreach (var item in _shopItems)
-                item.Init(_statsProgress);
+                item.Init(_statsProgress,_currencyProgress);
         }
         
         public void UpdateShopItems()
@@ -47,10 +51,10 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
                 item.OnUpgradeButtonPressed += NotifyUpgradeButtonClicked;
         }
 
-        public void CheckStatCosts(int moneyAmount)
+        public void CheckStatCosts()
         {
             foreach (var item in _shopItems)
-                item.CheckEnoughMoney(moneyAmount);
+                item.CheckEnoughMoney();
         }
 
         public void Cleanup()

@@ -1,6 +1,7 @@
 using Project.Code.Infrastructure.Data;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress.Stats;
+using Project.Code.Runtime.Units.Components.Animation;
 using Project.Code.Runtime.Units.Components.Damage;
 using Project.Code.Runtime.World;
 using Project.Code.StaticData.Units;
@@ -37,6 +38,7 @@ namespace Project.Code.Runtime.Units.PlayerUnit
 
             _damageComponent.Init(loadedAttack, loadedAtkSpeed);
             HealthComponent.Init(loadedHP);
+            _animatorComponent.SpawnUpgradeParticles();
         }
 
         private void Update()
