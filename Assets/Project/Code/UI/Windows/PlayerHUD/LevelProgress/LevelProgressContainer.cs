@@ -1,3 +1,5 @@
+using System;
+using DG.Tweening;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Infrastructure.Services.StaticData;
 using Project.Code.StaticData.World;
@@ -11,9 +13,11 @@ namespace Project.Code.UI.Windows.PlayerHUD.LevelProgress
     {
         [SerializeField] private TMP_Text _levelText;
         [SerializeField] private Image _levelBarImage;
+        [SerializeField] private float _levelBarTime;
 
         private PlayerLevelsProgress _levelsProgress;
         private LevelStaticData _levelStaticData;
+        private Tween _levelBarTween;
 
         public void Init(PlayerLevelsProgress levelsProgress, IStaticDataService staticDataService)
         {
@@ -22,14 +26,21 @@ namespace Project.Code.UI.Windows.PlayerHUD.LevelProgress
             UpdateLevelProgress();
         }
 
-        public void UpdateLevelProgress()
+        private void UpdateLevelProgress()
         {
             _levelText.text = $"1 - {_levelsProgress.CurrentLevel + 1}";
         }
 
         public void UpdateFightProgress()
         {
-            _levelBarImage.fillAmount = (float)_levelsProgress.CurrentFight / _levelStaticData.MaxFightsOnLevel;
+            float endValue = (float)_levelsProgress.CurrentFight / _levelStaticData.MaxFightsOnLevel;
+            _levelBarTween?.Kill();
+            _levelBarTween = _levelBarImage.DOFillAmount(endValue, _levelBarTime);
+        }
+
+        private void OnDestroy()
+        {
+            _levelBarTween?.Kill();
         }
     }
 }

@@ -60,5 +60,12 @@ namespace Project.Code.Infrastructure.StaticData
             foreach (var config in _levelsStaticData)
                 config.LevelStaticData.ResetToDefaultValues();
         }
+        
+        [ContextMenu("SpeedUP")]
+        private void SpeedUP()
+        {
+            Time.timeScale = Time.timeScale < 2 ? 2 : 1;
+        }
+
     }
 }
