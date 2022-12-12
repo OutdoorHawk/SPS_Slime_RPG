@@ -83,7 +83,7 @@ namespace Project.Code.UI.Windows.PlayerHUD
             UpdatePlayerProgress(id);
             UpdatePlayerView();
             
-            _saveLoadService.SaveProgress(); //TODO ACTIVATE LATER
+           // _saveLoadService.SaveProgress(); //TODO ACTIVATE LATER
         }
 
         private void UpdatePlayerProgress(StatID id)

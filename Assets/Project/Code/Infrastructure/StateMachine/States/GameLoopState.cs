@@ -81,7 +81,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
             _levelsProgress.PassFight();
             _roadSpawner.DoWalking(OnWalkingDone);
             CheckLevelEnd();
-            _saveLoadService.SaveProgress(); // TODO ACTIVATE LATER
+          //  _saveLoadService.SaveProgress(); // TODO ACTIVATE LATER
         }
 
         private void CheckLevelEnd()
