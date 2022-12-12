@@ -1,6 +1,5 @@
 using Project.Code.StaticData.Units;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Project.Code.StaticData.World
 {
@@ -9,29 +8,33 @@ namespace Project.Code.StaticData.World
     {
         [SerializeField] private EnemyMultipliers _multipliers;
         [SerializeField] private int _maxFightsOnLevel = 3;
-        
+        [SerializeField] private int _minEnemiesOnFight = 2;
+        [SerializeField] private int _maxEnemiesOnFight = 3;
+
         [SerializeField] private EnemyStaticData[] _enemiesStaticData;
         [SerializeField] private EnemyStaticData _bossStaticData;
 
         public int MaxFightsOnLevel => _maxFightsOnLevel;
+        public EnemyMultipliers Multipliers => _multipliers;
+        public int MaxEnemiesOnFight => _maxEnemiesOnFight;
+        public int MinEnemiesOnFight => _minEnemiesOnFight;
 
-        public void UpdateMultipliers()
+        public void UpdateMultipliers(EnemyMultipliers multipliersForLevelData)
         {
-            
+            _multipliers = multipliersForLevelData;
         }
 
         public EnemyStaticData GetEnemyStaticData()
         {
             EnemyStaticData staticData = _enemiesStaticData[Random.Range(0, _enemiesStaticData.Length - 1)];
-            staticData.UpdateEnemyStats(_multipliers);
+            staticData.UpdateEnemyStats(Multipliers);
             return staticData;
         }
-        
+
         public EnemyStaticData GetBossStaticData()
         {
-            _bossStaticData.UpdateEnemyStats(_multipliers);
+            _bossStaticData.UpdateEnemyStats(Multipliers);
             return _bossStaticData;
         }
-        
     }
 }

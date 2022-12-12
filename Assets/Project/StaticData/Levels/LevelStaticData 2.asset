@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76776c9ae4c7c074d8723f07dd1abd3c, type: 3}
   m_Name: LevelStaticData 2
   m_EditorClassIdentifier: 
-  _damageIncrease: 10
-  _healthIncrease: 50
-  _moneyIncrease: 5
+  _multipliers:
+    DamageMultiplier: 1.375
+    HealthMultiplier: 1.75
+    MoneyMultiplier: 1.6200001
+  _maxFightsOnLevel: 3
+  _enemiesStaticData:
+  - {fileID: 11400000, guid: 67ae9cc4a48ec5b44a360edbbcc15ba8, type: 2}
+  _bossStaticData: {fileID: 11400000, guid: 92749d601bd9d344ca2205fac9107799, type: 2}

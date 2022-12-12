@@ -22,18 +22,23 @@ namespace Project.Code.Infrastructure.StaticData
         [ContextMenu("EraseProgress")]
         private void EraseProgress() => PlayerPrefs.DeleteAll();
         
-        
         [ContextMenu("LoadLevelDataMultiplier")]
         private void LoadLevelDataMultiplier()
         {
-            
-            /*EnemyMultipliers multipliersForLevelData = new EnemyMultipliers()
+            for (int i = 1; i < _levelsStaticData.Length; i++)
             {
-                DamageMultiplier = 
-            }*/
+                EnemyMultipliers multipliers = _levelsStaticData[i-1].Multipliers;
+                EnemyMultipliers updatedMultipliers = new EnemyMultipliers
+                {
+                    DamageMultiplier = multipliers.DamageMultiplier * 1.3f,
+                    HealthMultiplier = multipliers.HealthMultiplier * 1.5f,
+                    MoneyMultiplier = multipliers.MoneyMultiplier * 1.1f
+                };
+                
+                _levelsStaticData[i].UpdateMultipliers(updatedMultipliers);
+            }
         }
-
-     
+        
         [ContextMenu("SpeedUP")]
         private void SpeedUP()
         {
