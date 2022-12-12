@@ -32,13 +32,13 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
         {
             _statName.text = _statID.ToString();
             _statValue.text = SwitchValueFormat();
-            _upgradeCost.text = _statProgress.StatUpgradeCost.ToString();
+            _upgradeCost.text = $"<sprite index=166> {_statProgress.StatUpgradeCost.ToString()}";
             _currentLevel.text = "Lv " + _statProgress.StatLvl;
         }
 
         public void CheckEnoughMoney(int currentMoney)
         {
-            if (_statProgress.StatUpgradeCost > currentMoney) 
+            if (_statProgress.StatUpgradeCost > currentMoney)
                 SetItemInactive();
             else
                 SetItemActive();
@@ -47,13 +47,13 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
         private void SetItemActive()
         {
             _upgradeButton.interactable = true;
-            _upgradeCost.color = _defaultUpgradeCostColor;
+            _upgradeCost.text = $"<sprite index=168> {_statProgress.StatUpgradeCost.ToString()}";
         }
 
         private void SetItemInactive()
         {
             _upgradeButton.interactable = false;
-            _upgradeCost.color = Color.red;
+            _upgradeCost.text = $"<sprite index=168> <color=red>{_statProgress.StatUpgradeCost.ToString()}";
         }
 
         private string SwitchValueFormat()
