@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 6035735149080498332}
   - component: {fileID: 5637608324856413688}
   - component: {fileID: 7546310377969037505}
-  - component: {fileID: 6676508435781578395}
+  - component: {fileID: 4354990924899416257}
   - component: {fileID: 2802910938975448396}
+  - component: {fileID: 6676508435781578395}
   m_Layer: 0
   m_Name: PlayerSlime
   m_TagString: Untagged
@@ -80,19 +81,22 @@ MonoBehaviour:
     Damage: 0
   _attackSpeed: 0
   _projectilePrefab: {fileID: 949682339468087043, guid: c9c00dbb088fadb4e9f01415c51d3a40, type: 3}
---- !u!65 &6676508435781578395
-BoxCollider:
+--- !u!114 &4354990924899416257
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2775158012134208720}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eefac9d67de348f46a2962542efdfb21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hitColor:
+    serializedVersion: 2
+    rgba: 4280627455
+  _hitTime: 0.08
 --- !u!114 &2802910938975448396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,6 +116,19 @@ MonoBehaviour:
   _idleScaleMin: 0.9
   _idleTime: 0.4
   _walkingTime: 0.35
+--- !u!65 &6676508435781578395
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2775158012134208720}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5063829292395205004
 GameObject:
   m_ObjectHideFlags: 0

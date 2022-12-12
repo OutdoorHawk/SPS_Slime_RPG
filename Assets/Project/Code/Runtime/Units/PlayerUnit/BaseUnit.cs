@@ -2,6 +2,7 @@
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Runtime.CustomData;
 using Project.Code.Runtime.Units.Components;
+using Project.Code.Runtime.Units.Components.Animation;
 using Project.Code.Runtime.Units.Components.Damage;
 using Project.Code.Runtime.Units.FloatingText;
 using Project.Code.StaticData.Units;
@@ -13,11 +14,13 @@ namespace Project.Code.Runtime.Units.PlayerUnit
     [SelectionBase]
     [RequireComponent(typeof(DealDamageComponent))]
     [RequireComponent(typeof(HealthComponent))]
+    [RequireComponent(typeof(HitColorComponent))]
     public class BaseUnit : MonoBehaviour
     {
         [SerializeField] private HitText _floatingTextPrefab;
         [SerializeField] private HealthBar _healthBarPrefab;
 
+        private HitColorComponent _hitColorComponent;
         private HealthBar _healthBar;
         private RectTransform _hpPanel;
 
@@ -32,6 +35,7 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             Progress = progress;
             UnitStaticData = unitStaticData;
             HealthComponent = GetComponent<HealthComponent>();
+            _hitColorComponent = GetComponent<HitColorComponent>();
             InitHealthBar();
             Subscribe();
         }
@@ -53,6 +57,12 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         protected virtual void HandleDamageTaken(AttackDetails details)
         {
             _healthBar.UpdateHealth(HealthComponent.HealthPercent);
+            _hitColorComponent.DoHitFlash();
+            SpawnFloatingText(details);
+        }
+
+        private void SpawnFloatingText(AttackDetails details)
+        {
             HitText text = Instantiate(_floatingTextPrefab, transform.position, Quaternion.identity);
             text.Init(details.Damage);
         }
