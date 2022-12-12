@@ -29,14 +29,14 @@ Material:
     - _Amplitude: 0.1
     - _ControlTime: 0
     - _Frequency: 10
-    - _Glossiness: 0.5
+    - _Glossiness: 0.75
     - _ImpactSpeed: 0.2
     - _MaxWaveDistortion: 1
     - _Metallic: 0
     - _WaveFalloff: 4
     - _WaveSpeed: -5
     m_Colors:
-    - _Color: {r: 0.31985295, g: 0.74264693, b: 0.85294116, a: 1}
+    - _Color: {r: 0.107547104, g: 0.8339311, b: 1, a: 1}
     - _ImpactOrigin: {r: -5, g: 0, b: 0, a: 0}
     - _ModelOrigin: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
