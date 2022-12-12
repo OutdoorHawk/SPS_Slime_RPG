@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using Project.Code.Infrastructure.Data;
-using Project.Code.Infrastructure.Services.CoroutineRunner;
+﻿using Project.Code.Infrastructure.Services.CoroutineRunner;
 using Project.Code.Infrastructure.Services.SaveLoadService;
+using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Infrastructure.Services.SceneContext;
 using Project.Code.Infrastructure.Services.StaticData;
 using Project.Code.Runtime.Roads;
 using Project.Code.Runtime.Units.PlayerUnit;
 using Project.Code.Runtime.World;
-using Project.Code.StaticData;
 using Project.Code.StaticData.World;
-using UnityEngine;
 
 namespace Project.Code.Infrastructure.StateMachine.States
 {
@@ -19,6 +16,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private readonly IStaticDataService _staticDataService;
         private readonly ICoroutineRunner _coroutineRunner;
         private readonly UnitCollector _unitCollector;
+        private readonly IPersistentProgressService _progressService;
 
         private IGameStateMachine _gameStateMachine;
         private EnemySpawner _enemySpawner;
@@ -26,10 +24,12 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private RoadSpawner _roadSpawner;
         private WorldStaticData _worldStaticData;
         private ISaveLoadService _saveLoadService;
-        private IPersistentProgressService _progressService;
-        
+        private PlayerLevelsProgress _levelsProgress;
+        private LevelStaticData _levelStaticData;
+
         public GameLoopState(ISceneContextService sceneContextService, IStaticDataService staticDataService,
-            ICoroutineRunner coroutineRunner, IPersistentProgressService progressService, ISaveLoadService saveLoadService)
+            ICoroutineRunner coroutineRunner, IPersistentProgressService progressService,
+            ISaveLoadService saveLoadService)
         {
             _progressService = progressService;
             _saveLoadService = saveLoadService;
@@ -55,6 +55,8 @@ namespace Project.Code.Infrastructure.StateMachine.States
             _worldStaticData = _staticDataService.GetWorldStaticData();
             _roadSpawner = _sceneContextService.RoadSpawner;
             _enemySpawner = _sceneContextService.EnemySpawner;
+            _levelsProgress = _progressService.Progress.PlayerLevelsProgress;
+            _levelStaticData = _staticDataService.GetLevelStaticData(_levelsProgress.CurrentLevel);
         }
 
         private void StartGame()
@@ -62,15 +64,24 @@ namespace Project.Code.Infrastructure.StateMachine.States
             _roadSpawner.DoWalking(OnWalkingDone);
         }
 
-        private void OnFightCompleted()
-        {
-            _progressService.Progress.PlayerLevelsProgress.PassFight();
-            _roadSpawner.DoWalking(OnWalkingDone);
-        }
-
         private void OnWalkingDone()
         {
             _enemySpawner.SpawnWave(OnFightCompleted);
+        }
+
+        private void OnFightCompleted()
+        {
+            _levelsProgress.PassFight();
+            _roadSpawner.DoWalking(OnWalkingDone);
+            CheckLevelEnd();
+        }
+
+        private void CheckLevelEnd()
+        {
+            if (_levelsProgress.CurrentFight != _levelStaticData.MaxFightsOnLevel)
+                return;
+            _levelsProgress.PassLevel();
+            _gameStateMachine.Enter<LoadLevelState>();
         }
 
         public void Exit()

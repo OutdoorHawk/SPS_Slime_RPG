@@ -16,6 +16,8 @@ namespace Project.Code.Infrastructure.DI.Installers
 {
     public class ProjectContextInstaller : MonoInstaller, ICoroutineRunner
     {
+        [SerializeField] private SceneLoader _sceneLoader;
+        
         public override void InstallBindings()
         {
             BindServices();
@@ -28,7 +30,7 @@ namespace Project.Code.Infrastructure.DI.Installers
             Container.Bind<IAssetProvider>().To<AssetProvider>().AsSingle();
             Container.Bind<IStaticDataService>().To<StaticDataService>().AsSingle();
             Container.Bind<ISceneContextService>().To<SceneContextService>().AsSingle();
-            Container.Bind<ISceneLoader>().To<SceneLoader>().AsSingle();
+            Container.Bind<ISceneLoader>().FromInstance(_sceneLoader).AsSingle();
             Container.Bind<ICoroutineRunner>().FromInstance(this).AsSingle();
             Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
             Container.Bind<IPersistentProgressService>().To<PersistentProgressService>().AsSingle();

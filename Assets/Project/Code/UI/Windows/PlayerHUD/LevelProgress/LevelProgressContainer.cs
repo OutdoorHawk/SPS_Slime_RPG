@@ -1,4 +1,6 @@
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
+using Project.Code.Infrastructure.Services.StaticData;
+using Project.Code.StaticData.World;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,10 +13,12 @@ namespace Project.Code.UI.Windows.PlayerHUD.LevelProgress
         [SerializeField] private Image _levelBarImage;
 
         private PlayerLevelsProgress _levelsProgress;
+        private LevelStaticData _levelStaticData;
 
-        public void Init(PlayerLevelsProgress levelsProgress)
+        public void Init(PlayerLevelsProgress levelsProgress, IStaticDataService staticDataService)
         {
             _levelsProgress = levelsProgress;
+            _levelStaticData = staticDataService.GetLevelStaticData(_levelsProgress.CurrentLevel);
             UpdateLevelProgress();
         }
 
@@ -25,7 +29,7 @@ namespace Project.Code.UI.Windows.PlayerHUD.LevelProgress
 
         public void UpdateFightProgress()
         {
-            _levelBarImage.fillAmount = (float)_levelsProgress.CurrentFight / _levelsProgress.MaxFightsOnLevel;
+            _levelBarImage.fillAmount = (float)_levelsProgress.CurrentFight / _levelStaticData.MaxFightsOnLevel;
         }
     }
 }

@@ -1,25 +1,30 @@
 using System;
 using System.Collections;
-using Project.Code.Infrastructure.Services.CoroutineRunner;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Project.Code.Infrastructure.Services.SceneLoaderService
 {
-    public class SceneLoader : ISceneLoader
+    public class SceneLoader : MonoBehaviour, ISceneLoader
     {
-        private readonly ICoroutineRunner _coroutineRunner;
-        private IEnumerator _loadingRoutine;
+        [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private float _fadeTime;
 
-        public SceneLoader(ICoroutineRunner coroutineRunner)
-        {
-            _coroutineRunner = coroutineRunner;
-        }
+        private IEnumerator _loadingRoutine;
+        private Tween _imageTween;
 
         public void LoadScene(string sceneName, Action onLoaded = null)
         {
+            _imageTween?.Kill();
+            _imageTween = _canvasGroup.DOFade(1, _fadeTime)
+                .OnComplete(() => StartLoadingOperation(sceneName, onLoaded));
+        }
+
+        private void StartLoadingOperation(string sceneName, Action onLoaded)
+        {
             _loadingRoutine = LoadingScreenStartRoutine(sceneName, onLoaded);
-            _coroutineRunner.StartCoroutine(_loadingRoutine);
+            StartCoroutine(_loadingRoutine);
         }
 
         private IEnumerator LoadingScreenStartRoutine(string sceneName, Action onLoaded)
@@ -30,6 +35,12 @@ namespace Project.Code.Infrastructure.Services.SceneLoaderService
 
             _loadingRoutine = null;
             onLoaded?.Invoke();
+            _imageTween = _canvasGroup.DOFade(0, _fadeTime);
+        }
+
+        private void OnDestroy()
+        {
+            _imageTween?.Kill();
         }
     }
 }
