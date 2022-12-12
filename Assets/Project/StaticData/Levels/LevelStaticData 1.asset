@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: LevelStaticData 1
   m_EditorClassIdentifier: 
   _bossStaticData: {fileID: 11400000, guid: 92749d601bd9d344ca2205fac9107799, type: 2}
+  _enemiesStaticData:
+  - {fileID: 11400000, guid: 67ae9cc4a48ec5b44a360edbbcc15ba8, type: 2}
   _damageIncrease: 1
   _healthIncrease: 12.5
   _moneyIncrease: 3
