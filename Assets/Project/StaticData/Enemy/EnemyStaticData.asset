@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61a2cd8c5d0b4a56b85392d38724245b, type: 3}
-  m_Name: BossStaticData
+  m_Name: EnemyStaticData
   m_EditorClassIdentifier: 
-  _unitPrefab: {fileID: 8158771439232951679, guid: 62fcd26ca44c6b5438b02663d765eb9b, type: 3}
-  _attackSpeed: 1.5
-  _damageAmount: 10
-  _healthAmount: 175
-  _moneyDrop: 35
+  _unitPrefab: {fileID: 6923485338110987073, guid: 04da0e4baf8142844a0adab371c31fd9, type: 3}
+  _attackSpeedBase: 1
+  _damageAmountBase: 3
+  _healthAmountBase: 15
+  _moneyDropBase: 5

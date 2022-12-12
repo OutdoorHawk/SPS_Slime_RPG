@@ -13,10 +13,14 @@ MonoBehaviour:
   m_Name: LevelStaticData 2
   m_EditorClassIdentifier: 
   _multipliers:
-    DamageMultiplier: 1.375
-    HealthMultiplier: 1.75
-    MoneyMultiplier: 1.6200001
+    DamageMultiplier: 1.43
+    HealthMultiplier: 1.875
+    MoneyMultiplier: 1.32
   _maxFightsOnLevel: 3
+  _minEnemiesOnFight: 2
+  _maxEnemiesOnFight: 3
   _enemiesStaticData:
   - {fileID: 11400000, guid: 67ae9cc4a48ec5b44a360edbbcc15ba8, type: 2}
+  - {fileID: 11400000, guid: 1140e845743131446b0fc3342f515774, type: 2}
+  - {fileID: 11400000, guid: 9d59426b3d4e099439afa7b6efb3e518, type: 2}
   _bossStaticData: {fileID: 11400000, guid: 92749d601bd9d344ca2205fac9107799, type: 2}

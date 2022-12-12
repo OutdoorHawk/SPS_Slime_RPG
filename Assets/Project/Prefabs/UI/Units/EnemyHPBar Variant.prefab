@@ -93,15 +93,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7713047999622046324, guid: a815b60a6c327b64c85712a9a1cf1c97, type: 3}
       propertyPath: m_Name
-      value: EnemyHPBar
+      value: EnemyHPBar Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8982698840288217330, guid: a815b60a6c327b64c85712a9a1cf1c97, type: 3}
       propertyPath: _offsetTest.x
-      value: -578.6
+      value: -570
       objectReference: {fileID: 0}
     - target: {fileID: 8982698840288217330, guid: a815b60a6c327b64c85712a9a1cf1c97, type: 3}
       propertyPath: _offsetTest.y
-      value: -183.6
+      value: -145
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a815b60a6c327b64c85712a9a1cf1c97, type: 3}
