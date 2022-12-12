@@ -69,8 +69,8 @@ MonoBehaviour:
     LevelStaticData: {fileID: 11400000, guid: eb82bc093aa45904885b944571a6eb45, type: 2}
   _worldStaticData:
     _roads:
-    - {fileID: 4297441895917553726, guid: 0e804fea27abfff458252f9f4c1c87e5, type: 3}
+    - {fileID: 34025909559052126, guid: 63f9a4d9e27056949a3b7b5968ce66e2, type: 3}
+    - {fileID: 7175165334783599933, guid: 853b55f4c3251c34d9c3ac756b063b67, type: 3}
     - {fileID: 6609179255809895849, guid: 22024360ab60d2a4aa3c2c00c0a4531c, type: 3}
-    - {fileID: 5075305413449335933, guid: ac138efbb11bc0b43969f300e4579f02, type: 3}
     _roadMovingSpeed: 20
     _playerWalkingTime: 3
