@@ -62,6 +62,13 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private void StartGame()
         {
             _roadSpawner.DoWalking(OnWalkingDone);
+            _playerSlime.OnUnitDead += RestartLevel;
+        }
+
+        private void RestartLevel(BaseUnit player)
+        {
+            _levelsProgress.ResetFights();
+            _gameStateMachine.Enter<LoadLevelState>();
         }
 
         private void OnWalkingDone()
@@ -74,6 +81,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
             _levelsProgress.PassFight();
             _roadSpawner.DoWalking(OnWalkingDone);
             CheckLevelEnd();
+            //_saveLoadService.SaveProgress(); TODO ACTIVATE LATER
         }
 
         private void CheckLevelEnd()

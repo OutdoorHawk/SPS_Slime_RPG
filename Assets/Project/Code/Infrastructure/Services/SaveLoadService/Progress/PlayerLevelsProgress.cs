@@ -31,5 +31,10 @@ namespace Project.Code.Infrastructure.Services.SaveLoadService.Progress
             _currentFight++;
             OnFightPassed?.Invoke();
         }
+        
+        public void ResetFights()
+        {
+            _currentFight = 0;
+        }
     }
 }
