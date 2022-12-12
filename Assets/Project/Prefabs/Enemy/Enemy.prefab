@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1809fdcfce903c04cb11b699d07ad611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _floatingTextPrefab: {fileID: -6882549403484918813, guid: fabed3ebfb40b5145a7dfef2630ac3c3, type: 3}
   _healthBarPrefab: {fileID: 7646215199228508533, guid: dd0a1f4c0366a324585a5070e1984603, type: 3}
 --- !u!114 &8560208561585063854
 MonoBehaviour:

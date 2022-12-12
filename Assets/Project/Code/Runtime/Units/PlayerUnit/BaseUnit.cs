@@ -3,6 +3,7 @@ using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Runtime.CustomData;
 using Project.Code.Runtime.Units.Components;
 using Project.Code.Runtime.Units.Components.Damage;
+using Project.Code.Runtime.Units.FloatingText;
 using Project.Code.StaticData.Units;
 using Project.Code.UI.Units;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace Project.Code.Runtime.Units.PlayerUnit
     [RequireComponent(typeof(HealthComponent))]
     public class BaseUnit : MonoBehaviour
     {
+        [SerializeField] private HitText _floatingTextPrefab;
         [SerializeField] private HealthBar _healthBarPrefab;
 
         private HealthBar _healthBar;
@@ -53,6 +55,8 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         protected virtual void HandleDamageTaken(AttackDetails details)
         {
             _healthBar.UpdateHealth(HealthComponent.HealthPercent);
+            HitText text = Instantiate(_floatingTextPrefab, transform.position, Quaternion.identity);
+            text.Init(details.Damage);
         }
 
         private void HandleHeal(float obj)
