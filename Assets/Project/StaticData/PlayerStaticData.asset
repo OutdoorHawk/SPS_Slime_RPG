@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99e9e7e09aab4982b89199f06cd18a1f, type: 3}
+  m_Name: PlayerStaticData
+  m_EditorClassIdentifier: 
+  _unitPrefab: {fileID: 6035735149080498332, guid: eac445d96af29e44389066a9654ab127, type: 3}
+  _statConfigs:
+  - StatID: 0
+    StatData:
+      StatBaseValue: 7
+      StatBaseUpgradeCost: 10
+      StatValueIncrease: 5
+      StatUpgradeCostIncrease: 1
+  - StatID: 1
+    StatData:
+      StatBaseValue: 1
+      StatBaseUpgradeCost: 20
+      StatValueIncrease: 0.1
+      StatUpgradeCostIncrease: 15
+  - StatID: 2
+    StatData:
+      StatBaseValue: 45
+      StatBaseUpgradeCost: 15
+      StatValueIncrease: 5
+      StatUpgradeCostIncrease: 0
