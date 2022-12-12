@@ -12,18 +12,23 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         [SerializeField] private float _projectileSpeed = 5;
         [SerializeField] private float _jumpPowerRate = 0.5f;
         [SerializeField] private float _jumpTimeRate = 0.5f;
+        [SerializeField] private float _scaleTime = 0.5f;
 
         private Transform _model;
         private Tween _projectileTween;
+        private Tween _scaleTween;
         private Vector3 _defaultLocalPosition;
         private Enemy _currentTarget;
         private float _jumpTime;
         private float _jumpPower = 1;
+        private Vector3 _defaultScale;
 
         private void Awake()
         {
             _model = transform.GetChild(0).transform;
             _defaultLocalPosition = _model.localPosition;
+            _defaultScale = _model.localScale;
+            _model.localScale = Vector3.zero;
         }
 
         private void StartMovingUp()
@@ -47,6 +52,12 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             _currentTarget = currentTarget;
             OnHit = onHit;
             StartMovingUp();
+            EnableScaleTween();
+        }
+
+        private void EnableScaleTween()
+        {
+            _scaleTween = _model.DOScale(_defaultScale, _scaleTime);
         }
 
         private void Update()
@@ -81,6 +92,10 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             Destroy(gameObject);
         }
 
-        private void OnDestroy() => _projectileTween?.Kill();
+        private void OnDestroy()
+        {
+            _projectileTween?.Kill();
+            _scaleTween?.Kill();
+        }
     }
 }
