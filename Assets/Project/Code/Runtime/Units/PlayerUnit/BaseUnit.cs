@@ -25,14 +25,12 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         protected PlayerProgress Progress { get; private set; }
         public HealthComponent HealthComponent { get; private set; }
         protected UnitStaticData UnitStaticData { get; private set; }
-        protected DealDamageComponent DealDamageComponent { get; private set; }
 
         public virtual void Init(UnitStaticData unitStaticData, PlayerProgress progress, RectTransform hpPanel)
         {
             _hpPanel = hpPanel;
             Progress = progress;
             UnitStaticData = unitStaticData;
-            DealDamageComponent = GetComponent<DealDamageComponent>();
             HealthComponent = GetComponent<HealthComponent>();
             InitHealthBar();
             Subscribe();
