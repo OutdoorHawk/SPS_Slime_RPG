@@ -9,16 +9,19 @@ using UnityEngine;
 
 namespace Project.Code.Runtime.Units.PlayerUnit
 {
+    [RequireComponent(typeof(PlayerAnimatorComponent))]
     public class PlayerSlime : BaseUnit
     {
         private PlayerStaticData _staticData;
         private PlayerDealDamageComponent _damageComponent;
         private PlayerStatsProgress _statsProgress;
+        private PlayerAnimatorComponent _animatorComponent;
 
         public override void Init(UnitStaticData unitStaticData, PlayerProgress playerProgress,
             RectTransform hpPanel)
         {
             base.Init(unitStaticData, playerProgress, hpPanel);
+            _animatorComponent = GetComponent<PlayerAnimatorComponent>();
             _statsProgress = playerProgress.PlayerStatsProgress;
             _staticData = unitStaticData as PlayerStaticData;
             _damageComponent = GetComponent<PlayerDealDamageComponent>();
@@ -42,6 +45,16 @@ namespace Project.Code.Runtime.Units.PlayerUnit
                 return;
             _damageComponent.UpdateTarget();
             _damageComponent.UpdateAttack();
+        }
+
+        public void SetWalkingState()
+        {
+            _animatorComponent.EnableWalkAnim();
+        }
+
+        public void SetFightState()
+        {
+            _animatorComponent.EnableIdleAnim();
         }
     }
 }

@@ -62,29 +62,39 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private void StartGame()
         {
             _roadSpawner.DoWalking(OnWalkingDone);
+            _playerSlime.SetWalkingState();
             _playerSlime.OnUnitDead += RestartLevel;
         }
 
         private void RestartLevel(BaseUnit player)
         {
             _levelsProgress.ResetFights();
-            //  _saveLoadService.SaveProgress(); // TODO ACTIVATE LATER
             _gameStateMachine.Enter<LoadLevelState>();
+            //  _saveLoadService.SaveProgress(); // TODO ACTIVATE LATER
         }
 
         private void OnWalkingDone()
         {
+            _playerSlime.SetFightState();
             _enemySpawner.SpawnWave(OnFightCompleted);
         }
 
         private void OnFightCompleted()
         {
             _levelsProgress.PassFight();
+            
             if (AllFightsPassed())
                 EnterBossFight();
             else
-                _roadSpawner.DoWalking(OnWalkingDone);
+                ContinueWalking();
+
             //  _saveLoadService.SaveProgress(); // TODO ACTIVATE LATER
+        }
+
+        private void ContinueWalking()
+        {
+            _roadSpawner.DoWalking(OnWalkingDone);
+            _playerSlime.SetWalkingState();
         }
 
         private bool AllFightsPassed()

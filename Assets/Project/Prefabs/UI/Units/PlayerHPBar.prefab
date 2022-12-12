@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d230279e1d10ce4eae82943f84474b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _offsetTest: {x: -595.29, y: -192.2}
+  _offsetTest: {x: -595, y: -155}
   _fullbarImage: {fileID: 1022569225065294018}
   _tweenBarImage: {fileID: 6880278701487749089}
   _tweenBarDuration: 0.35
