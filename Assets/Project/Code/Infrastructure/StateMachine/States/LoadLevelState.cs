@@ -1,5 +1,6 @@
 ﻿using Project.Code.Infrastructure.Data;
 using Project.Code.Infrastructure.Services.Factory;
+using Project.Code.Infrastructure.Services.SaveLoadService;
 using Project.Code.Infrastructure.Services.SceneContext;
 using Project.Code.Infrastructure.Services.SceneLoaderService;
 using Project.Code.Infrastructure.Services.StaticData;
@@ -19,10 +20,13 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private readonly IUnitFactory _unitFactory;
         private readonly IUIFactory _uiFactory;
         private RectTransform _hpPanel;
+        private IPersistentProgressService _progressService;
 
         private LoadLevelState(ISceneLoader sceneLoader, IStaticDataService staticDataService,
-            ISceneContextService sceneContextService, IUnitFactory unitFactory, IUIFactory uiFactory)
+            ISceneContextService sceneContextService, IUnitFactory unitFactory, IUIFactory uiFactory,
+            IPersistentProgressService progressService)
         {
+            _progressService = progressService;
             _unitFactory = unitFactory;
             _uiFactory = uiFactory;
             _sceneContextService = sceneContextService;

@@ -24,6 +24,27 @@ MonoBehaviour:
     UnitStaticData: {fileID: 11400000, guid: 5bb0895bb92151a47a0de03ee75c6202, type: 2}
   - UnitID: 1
     UnitStaticData: {fileID: 11400000, guid: de79a45cee3f80f4fa2bf058b237b772, type: 2}
+  _levelsStaticData:
+  - StatMultiplier: 1
+    LevelStaticData: {fileID: 11400000, guid: 5f651d341921bfd4da26d90251394c57, type: 2}
+  - StatMultiplier: 2
+    LevelStaticData: {fileID: 11400000, guid: 67e1075d72b93da41ba9c9225d8c204b, type: 2}
+  - StatMultiplier: 2.5
+    LevelStaticData: {fileID: 11400000, guid: 64adf21012a49f7458c9b4167dcae76c, type: 2}
+  - StatMultiplier: 2.75
+    LevelStaticData: {fileID: 11400000, guid: 6bf5ab9348920394ca0a186ee0a1bd17, type: 2}
+  - StatMultiplier: 3
+    LevelStaticData: {fileID: 11400000, guid: 0b0090f536643e542a484b69f5d3abc4, type: 2}
+  - StatMultiplier: 3.5
+    LevelStaticData: {fileID: 11400000, guid: 0b5076a9e6fc4b74ba5a52a064a3bafd, type: 2}
+  - StatMultiplier: 4
+    LevelStaticData: {fileID: 11400000, guid: e1ddd9dc8f799ab46ada24a212fc7c64, type: 2}
+  - StatMultiplier: 4.5
+    LevelStaticData: {fileID: 11400000, guid: 3c6ea1d20084e20479103474500878a2, type: 2}
+  - StatMultiplier: 5
+    LevelStaticData: {fileID: 11400000, guid: 2fd7eb7546ea5414daf6359f300a8d84, type: 2}
+  - StatMultiplier: 6
+    LevelStaticData: {fileID: 11400000, guid: eb82bc093aa45904885b944571a6eb45, type: 2}
   _worldStaticData:
     _roads:
     - {fileID: 4297441895917553726, guid: 0e804fea27abfff458252f9f4c1c87e5, type: 3}

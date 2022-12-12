@@ -1,5 +1,7 @@
 using System;
 using Project.Code.Infrastructure.Services.Factory;
+using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
+using Project.Code.Infrastructure.Services.StaticData;
 using Project.Code.Runtime.Units.EnemyUnit;
 using Project.Code.StaticData.World;
 using UnityEngine;
@@ -15,6 +17,7 @@ namespace Project.Code.Runtime.World
 
         private IUnitFactory _unitFactory;
         private RectTransform _hpPanel;
+        private LevelStaticData _levelStaticData;
         private int _enemyAmount;
 
         public void Init(IUnitFactory unitFactory, RectTransform hpPanel)

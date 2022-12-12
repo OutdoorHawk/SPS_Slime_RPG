@@ -8,11 +8,13 @@ namespace Project.Code.Infrastructure.Services.SaveLoadService.Progress
     {
         public PlayerCurrencyProgress PlayerCurrencyProgress;
         public PlayerStatsProgress PlayerStatsProgress;
+        public PlayerLevelsProgress PlayerLevelsProgress;
 
         public PlayerProgress()
         {
             PlayerCurrencyProgress = new PlayerCurrencyProgress();
             PlayerStatsProgress = new PlayerStatsProgress();
+            PlayerLevelsProgress = new PlayerLevelsProgress();
         }
     }
 }

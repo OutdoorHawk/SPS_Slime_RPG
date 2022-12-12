@@ -70,5 +70,8 @@ namespace Project.Code.Infrastructure.Services.StaticData
 
         public StatData GetStatData(StatID id)
             => _stats.TryGetValue(id, out StatData statData) ? statData : null;
+        
+        public LevelStaticData GetLevelStaticData(int level)
+            => _data.LevelsStaticData[level].LevelStaticData;
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Project.Code.StaticData.World;
+using UnityEngine;
 
 namespace Project.Code.StaticData.Units
 {
@@ -14,5 +15,12 @@ namespace Project.Code.StaticData.Units
         public float HealthAmount => _healthAmount;
         public float DamageAmount => _damageAmount;
         public int MoneyDrop => _moneyDrop;
+
+        public void UpdateEnemyStats(LevelStaticData levelStaticData)
+        {
+            _damageAmount += levelStaticData.DamageIncrease;
+            _healthAmount += levelStaticData.HealthIncrease;
+            _moneyDrop += levelStaticData.MoneyIncrease;
+        }
     }
 }

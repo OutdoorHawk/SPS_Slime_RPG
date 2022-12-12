@@ -15,5 +15,6 @@ namespace Project.Code.Infrastructure.Services.StaticData
         UnitStaticData GetUnit(UnitID unitID);
         WorldStaticData GetWorldStaticData();
         PlayerStaticData GetPlayerStaticData();
+        LevelStaticData GetLevelStaticData(int level);
     }
 }

@@ -7,6 +7,7 @@ using Project.Code.Infrastructure.Services.StaticData;
 using Project.Code.Runtime.Units.PlayerUnit;
 using Project.Code.StaticData.Units.Player;
 using Project.Code.UI.Windows.PlayerHUD.Currency;
+using Project.Code.UI.Windows.PlayerHUD.LevelProgress;
 using Project.Code.UI.Windows.PlayerHUD.StatShop;
 using UnityEngine;
 using Zenject;
@@ -17,6 +18,7 @@ namespace Project.Code.UI.Windows.PlayerHUD
     {
         [SerializeField] private StatsShopContainer _shopContainer;
         [SerializeField] private CurrencyContainer _currencyContainer;
+        [SerializeField] private LevelProgressContainer _levelProgressContainer;
 
         private IPersistentProgressService _progressService;
         private IStaticDataService _staticDataService;

@@ -1,5 +1,6 @@
 ﻿using Project.Code.Runtime.Units.EnemyUnit;
 using Project.Code.Runtime.Units.PlayerUnit;
+using Project.Code.StaticData.World;
 using UnityEngine;
 
 namespace Project.Code.Infrastructure.Services.Factory
