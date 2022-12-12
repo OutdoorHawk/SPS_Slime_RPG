@@ -24,6 +24,7 @@ namespace Project.Code.UI.Windows.PlayerHUD.LevelProgress
             _levelsProgress = levelsProgress;
             _levelStaticData = staticDataService.GetLevelStaticData(_levelsProgress.CurrentLevel);
             UpdateLevelProgress();
+            UpdateFightProgress();
         }
 
         private void UpdateLevelProgress()
