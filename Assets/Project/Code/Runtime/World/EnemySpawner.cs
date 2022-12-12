@@ -11,7 +11,7 @@ namespace Project.Code.Runtime.World
 {
     public class EnemySpawner : MonoBehaviour
     {
-        public event Action OnWaveKilled;
+        private event Action OnWaveKilled;
 
         [SerializeField] private EnemySpawnerStaticData _spawnerStaticData;
 
@@ -27,21 +27,25 @@ namespace Project.Code.Runtime.World
             UnitCollector.OnEnemyRemoved += CheckEnemiesLeft;
         }
 
-        public void SpawnWave(Action waveKilled)
+        public void SpawnWave(Action onWaveKilled)
         {
-            OnWaveKilled = waveKilled;
+            OnWaveKilled = onWaveKilled;
             _enemyAmount = Random.Range(_spawnerStaticData.EnemiesMinAmount, _spawnerStaticData.EnemiesMaxAmount);
 
             for (int i = 0; i < _enemyAmount; i++)
-            {
-                Enemy enemy = _unitFactory.SpawnEnemy(transform.position, transform.rotation,_hpPanel);
-            }
+                _unitFactory.SpawnEnemy(transform.position, transform.rotation, _hpPanel);
         }
 
         private void CheckEnemiesLeft()
         {
             if (UnitCollector.AliveEnemies.Count == 0)
                 OnWaveKilled?.Invoke();
+        }
+
+        public void SpawnBoss(Action onBossDefeated)
+        {
+            OnWaveKilled = onBossDefeated;
+            _unitFactory.SpawnBoss(transform.position, transform.rotation, _hpPanel);
         }
 
         private void OnDestroy()

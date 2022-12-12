@@ -23,7 +23,7 @@ MonoBehaviour:
   - UnitID: 0
     UnitStaticData: {fileID: 11400000, guid: 5bb0895bb92151a47a0de03ee75c6202, type: 2}
   - UnitID: 1
-    UnitStaticData: {fileID: 11400000, guid: de79a45cee3f80f4fa2bf058b237b772, type: 2}
+    UnitStaticData: {fileID: 11400000, guid: 67ae9cc4a48ec5b44a360edbbcc15ba8, type: 2}
   _levelsStaticData:
   - DamageMultiplier: 0.25
     HealthMultiplier: 1.25

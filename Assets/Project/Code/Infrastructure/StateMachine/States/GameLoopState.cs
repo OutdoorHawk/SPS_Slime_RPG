@@ -68,6 +68,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private void RestartLevel(BaseUnit player)
         {
             _levelsProgress.ResetFights();
+            //  _saveLoadService.SaveProgress(); // TODO ACTIVATE LATER
             _gameStateMachine.Enter<LoadLevelState>();
         }
 
@@ -79,15 +80,25 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private void OnFightCompleted()
         {
             _levelsProgress.PassFight();
-            _roadSpawner.DoWalking(OnWalkingDone);
-            CheckLevelEnd();
-          //  _saveLoadService.SaveProgress(); // TODO ACTIVATE LATER
+            if (AllFightsPassed())
+                EnterBossFight();
+            else
+                _roadSpawner.DoWalking(OnWalkingDone);
+            //  _saveLoadService.SaveProgress(); // TODO ACTIVATE LATER
         }
 
-        private void CheckLevelEnd()
+        private bool AllFightsPassed()
         {
-            if (_levelsProgress.CurrentFight != _levelStaticData.MaxFightsOnLevel)
-                return;
+            return _levelsProgress.CurrentFight == _levelStaticData.MaxFightsOnLevel;
+        }
+
+        private void EnterBossFight()
+        {
+            _enemySpawner.SpawnBoss(CompleteLevel);
+        }
+
+        private void CompleteLevel()
+        {
             _levelsProgress.PassLevel();
             _gameStateMachine.Enter<LoadLevelState>();
         }

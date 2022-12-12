@@ -11,7 +11,8 @@ namespace Project.Code.Infrastructure.Data
     public enum UnitID
     {
         Player,
-        Enemy
+        Enemy,
+        EnemyBoss
     }
 
     public enum StatID

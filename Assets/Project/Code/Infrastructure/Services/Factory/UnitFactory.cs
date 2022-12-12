@@ -48,5 +48,20 @@ namespace Project.Code.Infrastructure.Services.Factory
             _sceneContextService.SetPlayer(player);
             return player;
         }
+
+        public Enemy SpawnBoss(Vector3 position, Quaternion rotation, RectTransform hpPanel)
+        {
+            EnemyStaticData staticData = _staticDataService.GetUnit(UnitID.EnemyBoss) as EnemyStaticData;
+            int currentLevel = _progressService.Progress.PlayerLevelsProgress.CurrentLevel;
+            LevelStaticData levelStaticData = _staticDataService.GetLevelStaticData(currentLevel);
+            staticData.UpdateEnemyStats(levelStaticData);
+            BaseUnit unitPrefab = staticData.UnitPrefab;
+            Enemy enemy = Object.Instantiate(unitPrefab, position, rotation).GetComponent<Enemy>();
+            PlayerSlime slime = _sceneContextService.Player;
+            enemy.SetupPlayer(slime);
+            enemy.Init(staticData, _progressService.Progress, hpPanel);
+            enemy.OnSpawn();
+            return enemy;
+        }
     }
 }
