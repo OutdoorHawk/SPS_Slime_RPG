@@ -10,13 +10,13 @@ namespace Project.Code.Infrastructure.StaticData
     {
         [SerializeField] private WindowConfig[] _windows;
         [SerializeField] private UnitConfig[] _units;
-        [SerializeField] private LevelConfig[] _levelsStaticData;
+        [SerializeField] private LevelStaticData[] _levelsStaticData;
         [SerializeField] private WorldStaticData _worldStaticData;
 
         public IEnumerable<WindowConfig> Windows => _windows;
 
         public UnitConfig[] Units => _units;
-        public LevelConfig[] LevelsStaticData => _levelsStaticData;
+        public LevelStaticData[] LevelsStaticData => _levelsStaticData;
         public WorldStaticData WorldStaticData => _worldStaticData;
 
         [ContextMenu("EraseProgress")]
@@ -25,40 +25,18 @@ namespace Project.Code.Infrastructure.StaticData
         [ContextMenu("LoadLevelDataMultiplier")]
         private void LoadLevelDataMultiplier()
         {
-            ResetMultiplier();
-            for (var i = 1; i < _levelsStaticData.Length; i++)
+            for (int i = 1; i < _levelsStaticData.Length; i++)
             {
-                var config = _levelsStaticData[i];
-                config.DamageMultiplier += _levelsStaticData[i - 1].DamageMultiplier;
-                config.HealthMultiplier += _levelsStaticData[i - 1].HealthMultiplier;
-                config.MoneyMultiplier += _levelsStaticData[i - 1].MoneyMultiplier;
+                EnemyMultipliers multipliers = _levelsStaticData[i-1].Multipliers;
+                EnemyMultipliers updatedMultipliers = new EnemyMultipliers
+                {
+                    DamageMultiplier = multipliers.DamageMultiplier * 1.3f,
+                    HealthMultiplier = multipliers.HealthMultiplier * 1.5f,
+                    MoneyMultiplier = multipliers.MoneyMultiplier * 1.1f
+                };
+                
+                _levelsStaticData[i].UpdateMultipliers(updatedMultipliers);
             }
-        }
-
-        [ContextMenu("UpdateLevelsStaticData")]
-        private void UpdateLevelsStaticData()
-        {
-            ResetToDefaultValues();
-            foreach (var config in _levelsStaticData)
-                config.LevelStaticData.IncreaseValue(config.DamageMultiplier, config.HealthMultiplier,
-                    config.MoneyMultiplier);
-        }
-
-        private void ResetMultiplier()
-        {
-            for (var i = 1; i < _levelsStaticData.Length; i++)
-            {
-                var config = _levelsStaticData[i];
-                config.DamageMultiplier = _levelsStaticData[0].DamageMultiplier;
-                config.HealthMultiplier = _levelsStaticData[0].HealthMultiplier;
-                config.MoneyMultiplier = _levelsStaticData[0].MoneyMultiplier;
-            }
-        }
-
-        private void ResetToDefaultValues()
-        {
-            foreach (var config in _levelsStaticData)
-                config.LevelStaticData.ResetToDefaultValues();
         }
         
         [ContextMenu("SpeedUP")]

@@ -26,10 +26,9 @@ namespace Project.Code.Infrastructure.Services.Factory
 
         public Enemy SpawnEnemy(Vector3 position, Quaternion rotation, RectTransform hpPanel)
         {
-            EnemyStaticData staticData = _staticDataService.GetUnit(UnitID.Enemy) as EnemyStaticData;
             int currentLevel = _progressService.Progress.PlayerLevelsProgress.CurrentLevel;
             LevelStaticData levelStaticData = _staticDataService.GetLevelStaticData(currentLevel);
-            staticData.UpdateEnemyStats(levelStaticData);
+            EnemyStaticData staticData = levelStaticData.GetEnemyStaticData();
             BaseUnit unitPrefab = staticData.UnitPrefab;
             Enemy enemy = Object.Instantiate(unitPrefab, position, rotation).GetComponent<Enemy>();
             PlayerSlime slime = _sceneContextService.Player;
@@ -51,10 +50,9 @@ namespace Project.Code.Infrastructure.Services.Factory
 
         public Enemy SpawnBoss(Vector3 position, Quaternion rotation, RectTransform hpPanel)
         {
-            EnemyStaticData staticData = _staticDataService.GetUnit(UnitID.EnemyBoss) as EnemyStaticData;
             int currentLevel = _progressService.Progress.PlayerLevelsProgress.CurrentLevel;
             LevelStaticData levelStaticData = _staticDataService.GetLevelStaticData(currentLevel);
-            staticData.UpdateEnemyStats(levelStaticData);
+            EnemyStaticData staticData = levelStaticData.GetBossStaticData();
             BaseUnit unitPrefab = staticData.UnitPrefab;
             Enemy enemy = Object.Instantiate(unitPrefab, position, rotation).GetComponent<Enemy>();
             PlayerSlime slime = _sceneContextService.Player;

@@ -13,15 +13,14 @@ namespace Project.Code.Runtime.World
     {
         private event Action OnWaveKilled;
 
-        [SerializeField] private EnemySpawnerStaticData _spawnerStaticData;
-
         private IUnitFactory _unitFactory;
         private RectTransform _hpPanel;
-        private LevelStaticData _levelStaticData;
         private int _enemyAmount;
+        private LevelStaticData _levelStaticData;
 
-        public void Init(IUnitFactory unitFactory, RectTransform hpPanel)
+        public void Init(IUnitFactory unitFactory, RectTransform hpPanel, LevelStaticData levelStaticData)
         {
+            _levelStaticData = levelStaticData;
             _hpPanel = hpPanel;
             _unitFactory = unitFactory;
             UnitCollector.OnEnemyRemoved += CheckEnemiesLeft;
@@ -30,7 +29,7 @@ namespace Project.Code.Runtime.World
         public void SpawnWave(Action onWaveKilled)
         {
             OnWaveKilled = onWaveKilled;
-            _enemyAmount = Random.Range(_spawnerStaticData.EnemiesMinAmount, _spawnerStaticData.EnemiesMaxAmount);
+            _enemyAmount = Random.Range(_levelStaticData.MinEnemiesOnFight, _levelStaticData.MaxFightsOnLevel);
 
             for (int i = 0; i < _enemyAmount; i++)
                 _unitFactory.SpawnEnemy(transform.position, transform.rotation, _hpPanel);

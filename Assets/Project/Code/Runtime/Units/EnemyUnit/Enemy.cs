@@ -1,4 +1,5 @@
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
+using Project.Code.Runtime.Units.Components.Animation;
 using Project.Code.Runtime.Units.Components.Damage;
 using Project.Code.Runtime.Units.PlayerUnit;
 using Project.Code.Runtime.World;
@@ -8,12 +9,16 @@ using UnityEngine.AI;
 
 namespace Project.Code.Runtime.Units.EnemyUnit
 {
+    [RequireComponent(typeof(EnemyAnimator))]
+    [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(EnemyDealDamageComponent))]
     public class Enemy : BaseUnit
     {
         private PlayerSlime _player;
         private NavMeshAgent _navMeshAgent;
         private EnemyDealDamageComponent _damageComponent;
         private EnemyStaticData _enemyStaticData;
+        private EnemyAnimator _animator;
 
         public void SetupPlayer(PlayerSlime slime) => _player = slime;
 
@@ -24,8 +29,10 @@ namespace Project.Code.Runtime.Units.EnemyUnit
             _enemyStaticData = unitStaticData as EnemyStaticData;
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _damageComponent = GetComponent<EnemyDealDamageComponent>();
+            _animator = GetComponent<EnemyAnimator>();
+            
             _damageComponent.SetPlayer(_player.HealthComponent);
-            DealDamageComponent.Init(_enemyStaticData.DamageAmount, _enemyStaticData.AttackSpeed);
+            _damageComponent.Init(_enemyStaticData.DamageAmount, _enemyStaticData.AttackSpeed, _animator);
             HealthComponent.Init(_enemyStaticData.HealthAmount);
             HealthComponent.Respawn();
             enabled = true;
@@ -44,6 +51,8 @@ namespace Project.Code.Runtime.Units.EnemyUnit
                 MoveToPlayer();
             else
                 _damageComponent.UpdateAttack();
+            
+            _animator.UpdatePlayerAnim(_navMeshAgent.velocity.magnitude);
         }
 
         private bool FarFromPlayer()

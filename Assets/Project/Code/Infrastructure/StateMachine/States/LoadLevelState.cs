@@ -7,6 +7,7 @@ using Project.Code.Infrastructure.Services.StaticData;
 using Project.Code.Infrastructure.Services.UI;
 using Project.Code.Runtime.Roads;
 using Project.Code.Runtime.World;
+using Project.Code.StaticData.World;
 using UnityEngine;
 
 namespace Project.Code.Infrastructure.StateMachine.States
@@ -78,8 +79,9 @@ namespace Project.Code.Infrastructure.StateMachine.States
 
         private void InitEnemySpawner()
         {
+            int currentLevel = _progressService.Progress.PlayerLevelsProgress.CurrentLevel;
             EnemySpawner enemySpawner = _sceneContextService.EnemySpawner;
-            enemySpawner.Init(_unitFactory, _hpPanel);
+            enemySpawner.Init(_unitFactory, _hpPanel, _staticDataService.GetLevelStaticData(currentLevel));
         }
 
         public void Exit()
