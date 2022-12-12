@@ -15,16 +15,17 @@ namespace Project.Code.StaticData.World
 
         public void ResetToDefaultValues()
         {
-            _damageIncrease = 10;
-            _healthIncrease = 50;
+            _damageIncrease = 4;
+            _healthIncrease = 10;
             _moneyIncrease = 5;
         }
+        
 
-        public void IncreaseValue(float configStatMultiplier)
+        public void IncreaseValue(float configDamageMultiplier, float configHealthMultiplier, float configMoneyMultiplier)
         {
-            _damageIncrease *= configStatMultiplier;
-            _healthIncrease *= configStatMultiplier;
-            _moneyIncrease = (int)(configStatMultiplier * _moneyIncrease);
+            _damageIncrease *= configDamageMultiplier;
+            _healthIncrease *= configHealthMultiplier;
+            _moneyIncrease = (int)(configMoneyMultiplier * _moneyIncrease);
         }
     }
 }

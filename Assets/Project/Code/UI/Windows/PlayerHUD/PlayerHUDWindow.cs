@@ -28,6 +28,7 @@ namespace Project.Code.UI.Windows.PlayerHUD
         private PlayerStaticData _playerData;
         private ISceneContextService _sceneContextService;
         private PlayerSlime _playerSlime;
+        private PlayerLevelsProgress _levelsProgress;
 
         [Inject]
         private void Construct(IStaticDataService staticDataService, IPersistentProgressService progressService,
@@ -50,6 +51,7 @@ namespace Project.Code.UI.Windows.PlayerHUD
         {
             _statsProgress = _progressService.Progress.PlayerStatsProgress;
             _currencyProgress = _progressService.Progress.PlayerCurrencyProgress;
+            _levelsProgress = _progressService.Progress.PlayerLevelsProgress;
             _playerData = _staticDataService.GetPlayerStaticData();
             _playerSlime = _sceneContextService.Player;
         }
@@ -59,6 +61,7 @@ namespace Project.Code.UI.Windows.PlayerHUD
             _shopContainer.Init(_playerData, _statsProgress);
             _currencyContainer.Init(_currencyProgress);
             CheckStatCosts(_currencyProgress.MoneyAmount);
+            _levelProgressContainer.Init(_levelsProgress);
         }
 
         private void Subscribe()
@@ -66,6 +69,8 @@ namespace Project.Code.UI.Windows.PlayerHUD
             _shopContainer.SubscribeClicks();
             _shopContainer.OnUpgradeButtonPressed += HandleUpgradeButtonClicked;
             _currencyProgress.OnMoneyChanged += CheckStatCosts;
+            _levelsProgress.OnFightPassed += _levelProgressContainer.UpdateFightProgress;
+            _levelsProgress.OnLevelPassed += _levelProgressContainer.UpdateLevelProgress;
         }
 
         private void CheckStatCosts(int moneyAmount)
@@ -101,6 +106,8 @@ namespace Project.Code.UI.Windows.PlayerHUD
         {
             _shopContainer.OnUpgradeButtonPressed -= HandleUpgradeButtonClicked;
             _currencyProgress.OnMoneyChanged -= CheckStatCosts;
+            _levelsProgress.OnFightPassed -= _levelProgressContainer.UpdateFightProgress;
+            _levelsProgress.OnLevelPassed -= _levelProgressContainer.UpdateLevelProgress;
             _shopContainer.Cleanup();
         }
     }

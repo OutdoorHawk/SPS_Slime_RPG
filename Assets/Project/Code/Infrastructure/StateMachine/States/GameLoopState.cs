@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Project.Code.Infrastructure.Data;
 using Project.Code.Infrastructure.Services.CoroutineRunner;
+using Project.Code.Infrastructure.Services.SaveLoadService;
 using Project.Code.Infrastructure.Services.SceneContext;
 using Project.Code.Infrastructure.Services.StaticData;
 using Project.Code.Runtime.Roads;
@@ -24,16 +25,14 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private PlayerSlime _playerSlime;
         private RoadSpawner _roadSpawner;
         private WorldStaticData _worldStaticData;
-
-        private enum GameLoopSubstate
-        {
-            Walking,
-            Fighting
-        }
-
+        private ISaveLoadService _saveLoadService;
+        private IPersistentProgressService _progressService;
+        
         public GameLoopState(ISceneContextService sceneContextService, IStaticDataService staticDataService,
-            ICoroutineRunner coroutineRunner)
+            ICoroutineRunner coroutineRunner, IPersistentProgressService progressService, ISaveLoadService saveLoadService)
         {
+            _progressService = progressService;
+            _saveLoadService = saveLoadService;
             _sceneContextService = sceneContextService;
             _staticDataService = staticDataService;
             _coroutineRunner = coroutineRunner;
@@ -46,12 +45,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
         public void Enter()
         {
             Init();
-            DoFightState();
-        }
-        
-        private void GoToWalkingState()
-        {
-            _roadSpawner.DoWalking(DoFightState);
+            StartGame();
         }
 
         private void Init()
@@ -63,9 +57,20 @@ namespace Project.Code.Infrastructure.StateMachine.States
             _enemySpawner = _sceneContextService.EnemySpawner;
         }
 
-        private void DoFightState()
+        private void StartGame()
         {
-            _enemySpawner.SpawnWave(GoToWalkingState);
+            _roadSpawner.DoWalking(OnWalkingDone);
+        }
+
+        private void OnFightCompleted()
+        {
+            _progressService.Progress.PlayerLevelsProgress.PassFight();
+            _roadSpawner.DoWalking(OnWalkingDone);
+        }
+
+        private void OnWalkingDone()
+        {
+            _enemySpawner.SpawnWave(OnFightCompleted);
         }
 
         public void Exit()
