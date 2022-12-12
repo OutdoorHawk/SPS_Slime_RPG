@@ -11,6 +11,12 @@ namespace Project.Code.Runtime.Units.Components.Damage
 
         private Enemy _currentTarget;
 
+        public void Init(float attack, float atkSpeed,float loadedCRIT)
+        {
+            base.Init(attack, atkSpeed);
+            _attackDetails.Crit = loadedCRIT;
+        }
+
         public void UpdateTarget()
         {
             if (_currentTarget == null)

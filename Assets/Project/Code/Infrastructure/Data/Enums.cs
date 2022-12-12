@@ -20,6 +20,7 @@ namespace Project.Code.Infrastructure.Data
         ATK,
         ASPD,
         HP,
-        HPREC
+        HPREC,
+        CRIT
     }
 }

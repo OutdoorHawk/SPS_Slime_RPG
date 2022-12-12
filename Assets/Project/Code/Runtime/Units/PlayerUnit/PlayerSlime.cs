@@ -42,25 +42,12 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             float loadedAtkSpeed = _statsProgress.GetStatProgress(StatID.ASPD).StatValue;
             float loadedHP = _statsProgress.GetStatProgress(StatID.HP).StatValue;
             float loadedHPREC = _statsProgress.GetStatProgress(StatID.HPREC).StatValue;
+            float loadedCRIT = _statsProgress.GetStatProgress(StatID.CRIT).StatValue;
 
             _healSystem.UpdateStats(loadedHPREC);
-            _damageComponent.Init(loadedAttack, loadedAtkSpeed);
+            _damageComponent.Init(loadedAttack, loadedAtkSpeed, loadedCRIT);
             HealthComponent.Init(loadedHP);
             _animatorComponent.SpawnUpgradeParticles();
-        }
-
-        private IEnumerator FightingRoutine()
-        {
-            while (UnitCollector.AliveEnemies.Count == 0)
-                yield return new WaitForSeconds(Time.deltaTime);
-            
-            yield return new WaitForSeconds(1f);
-            while (UnitCollector.AliveEnemies.Count > 0)
-            {
-                _damageComponent.UpdateTarget();
-                _damageComponent.UpdateAttack(Time.deltaTime);
-                yield return new WaitForSeconds(Time.deltaTime);
-            }
         }
 
         public void SetWalkingState()
@@ -74,6 +61,16 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             _animatorComponent.EnableIdleAnim();
             _fightRoutine = FightingRoutine();
             StartCoroutine(_fightRoutine);
+        }
+
+        private IEnumerator FightingRoutine()
+        {
+            while (UnitCollector.AliveEnemies.Count > 0)
+            {
+                _damageComponent.UpdateTarget();
+                _damageComponent.UpdateAttack(Time.deltaTime);
+                yield return new WaitForSeconds(Time.deltaTime);
+            }
         }
     }
 }

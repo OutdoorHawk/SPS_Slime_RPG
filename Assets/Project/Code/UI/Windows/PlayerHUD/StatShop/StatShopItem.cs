@@ -18,8 +18,7 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
         [SerializeField] private TMP_Text _upgradeCost;
         [SerializeField] private TMP_Text _currentLevel;
         [SerializeField] private Button _upgradeButton;
-
-        private Color _defaultUpgradeCostColor;
+        
         private StatProgress _statProgress;
         private PlayerCurrencyProgress _currencyProgress;
 
@@ -27,7 +26,6 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
         {
             _currencyProgress = playerCurrencyProgress;
             _statProgress = statsProgress.GetStatProgress(_statID);
-            _defaultUpgradeCostColor = _upgradeCost.color;
             UpdateItemInfo();
         }
 
@@ -67,6 +65,7 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
                 StatID.ASPD => _statProgress.StatValue.ToString("0.00"),
                 StatID.HP => _statProgress.StatValue.ToString("0"),
                 StatID.HPREC => _statProgress.StatValue.ToString("0.0"),
+                StatID.CRIT => $"{_statProgress.StatValue:0}%",
                 _ => null
             };
         }

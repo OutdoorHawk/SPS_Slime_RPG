@@ -1,6 +1,7 @@
 using System;
 using Project.Code.Runtime.CustomData;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Project.Code.Runtime.Units.Components
 {
@@ -37,18 +38,18 @@ namespace Project.Code.Runtime.Units.Components
 
         public void TakeDamage(AttackDetails attackDetails)
         {
-            if (!_isDead)
-            {
+            if (!_isDead) 
                 CheckDamageTaken(attackDetails);
-                CheckIsAlive(attackDetails);
-            }
         }
 
         private void CheckDamageTaken(AttackDetails attackDetails)
         {
+            if (attackDetails.Crit > Random.Range(0, 99)) 
+                attackDetails.Damage *= AttackDetails.CritValue;
             _currentHealth -= attackDetails.Damage;
             if (_currentHealth < 0 ) 
                 _currentHealth = 0;
+            CheckIsAlive(attackDetails);
         }
 
         private void CheckIsAlive(AttackDetails attackDetails)

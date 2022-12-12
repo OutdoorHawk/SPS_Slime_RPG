@@ -38,3 +38,9 @@ MonoBehaviour:
       BaseUpgradeCost: 20
       ValueIncrease: 2.5
       UpgradeCostIncrease: 2
+  - StatID: 4
+    StatData:
+      BaseValue: 0
+      BaseUpgradeCost: 20
+      ValueIncrease: 1
+      UpgradeCostIncrease: 4
