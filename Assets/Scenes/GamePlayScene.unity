@@ -1242,6 +1242,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3252164541229411053, guid: d6b8ec1a73dabbd46b13ae6a3cc6f47b, type: 3}
+      propertyPath: _movingSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3252164541229411053, guid: d6b8ec1a73dabbd46b13ae6a3cc6f47b, type: 3}
       propertyPath: _roadsParent
       value: 
       objectReference: {fileID: 1047083868}
