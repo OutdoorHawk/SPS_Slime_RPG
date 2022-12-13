@@ -2,7 +2,6 @@
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Infrastructure.Services.UpdateBehavior;
 using Project.Code.Runtime.CustomData;
-using Project.Code.Runtime.Units.Components;
 using Project.Code.Runtime.Units.Components.Animation;
 using Project.Code.Runtime.Units.Components.Damage;
 using Project.Code.Runtime.Units.Components.Health;
@@ -22,6 +21,7 @@ namespace Project.Code.Runtime.Units.PlayerUnit
     {
         [SerializeField] private HitText _floatingTextPrefab;
         [SerializeField] private HealthBar _healthBarPrefab;
+        [SerializeField] private GameObject _deadParticlesPrefab;
 
         private HitColorComponent _hitColorComponent;
         protected HealthBar _healthBar;
@@ -103,6 +103,8 @@ namespace Project.Code.Runtime.Units.PlayerUnit
 
         protected virtual void HandleDeath()
         {
+            GameObject particles = Instantiate(_deadParticlesPrefab, transform.position, Quaternion.identity);
+            Destroy(particles, 1.5f);
             Destroy(gameObject);
             OnUnitDead?.Invoke(this);
         }

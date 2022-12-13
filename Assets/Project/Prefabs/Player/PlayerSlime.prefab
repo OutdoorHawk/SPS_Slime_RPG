@@ -52,6 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _floatingTextPrefab: {fileID: -6882549403484918813, guid: fabed3ebfb40b5145a7dfef2630ac3c3, type: 3}
   _healthBarPrefab: {fileID: 8982698840288217330, guid: a815b60a6c327b64c85712a9a1cf1c97, type: 3}
+  _deadParticlesPrefab: {fileID: 7329000913415844172, guid: 3c53f852e4e60c945b426884299a8730, type: 3}
 --- !u!114 &5637608324856413688
 MonoBehaviour:
   m_ObjectHideFlags: 0
