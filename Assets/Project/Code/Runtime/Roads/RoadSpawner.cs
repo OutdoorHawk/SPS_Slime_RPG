@@ -24,14 +24,16 @@ namespace Project.Code.Runtime.Roads
 
         private static readonly Vector3 NextRoadOffset = new(50, 0, 0);
         private float _walkingTime;
+        private LevelStaticData _levelStaticData;
 
         private const float MAX_ROAD_AMOUNT = 4;
 
-        public void Init(WorldStaticData worldStaticData, Transform playerTransform)
+        public void Init(WorldStaticData worldStaticData, Transform playerTransform, LevelStaticData levelStaticData)
         {
+            _levelStaticData = levelStaticData;
             _playerTransform = playerTransform;
             _movingSpeed = worldStaticData.RoadMovingSpeed;
-            _roadPrefabs = worldStaticData.Roads;
+            _roadPrefabs = levelStaticData.Roads;
             _walkingTime = worldStaticData.PlayerWalkingTime;
             _cachedTransform = transform;
             _activeRoads = new List<Road>();

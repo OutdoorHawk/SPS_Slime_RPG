@@ -74,8 +74,9 @@ namespace Project.Code.Infrastructure.StateMachine.States
 
         private void InitRoads()
         {
+            int currentLevel = _progressService.Progress.PlayerLevelsProgress.CurrentLevel;
             RoadSpawner roadSpawner = _sceneContextService.RoadSpawner;
-            roadSpawner.Init(_staticDataService.GetWorldStaticData(), _sceneContextService.Player.transform);
+            roadSpawner.Init(_staticDataService.GetWorldStaticData(), _sceneContextService.Player.transform, _staticDataService.GetLevelStaticData(currentLevel));
         }
 
         private void InitEnemySpawner()
