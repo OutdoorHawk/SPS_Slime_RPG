@@ -29,7 +29,7 @@ namespace Project.Code.Runtime.World
         public void SpawnWave(Action onWaveKilled)
         {
             OnWaveKilled = onWaveKilled;
-            _enemyAmount = Random.Range(_levelStaticData.MinEnemiesOnFight, _levelStaticData.MaxFightsOnLevel);
+            _enemyAmount = Random.Range(_levelStaticData.MinEnemiesOnFight, _levelStaticData.MaxEnemiesOnFight);
 
             for (int i = 0; i < _enemyAmount; i++)
                 _unitFactory.SpawnEnemy(transform.position, transform.rotation, _hpPanel);

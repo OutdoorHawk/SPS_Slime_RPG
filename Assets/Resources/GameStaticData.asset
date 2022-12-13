@@ -39,4 +39,4 @@ MonoBehaviour:
     - {fileID: 7175165334783599933, guid: 853b55f4c3251c34d9c3ac756b063b67, type: 3}
     - {fileID: 6609179255809895849, guid: 22024360ab60d2a4aa3c2c00c0a4531c, type: 3}
     _roadMovingSpeed: 10
-    _playerWalkingTime: 3
+    _playerWalkingTime: 2

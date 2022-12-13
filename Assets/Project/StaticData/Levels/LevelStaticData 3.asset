@@ -15,9 +15,9 @@ MonoBehaviour:
   _multipliers:
     DamageMultiplier: 1.8589998
     HealthMultiplier: 2.8125
-    MoneyMultiplier: 1.4520001
+    MoneyMultiplier: 1.7280002
   _maxFightsOnLevel: 4
-  _minEnemiesOnFight: 2
+  _minEnemiesOnFight: 3
   _maxEnemiesOnFight: 3
   _enemiesStaticData:
   - {fileID: 11400000, guid: 67ae9cc4a48ec5b44a360edbbcc15ba8, type: 2}

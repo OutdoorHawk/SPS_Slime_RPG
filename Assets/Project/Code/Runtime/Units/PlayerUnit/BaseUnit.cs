@@ -5,6 +5,7 @@ using Project.Code.Runtime.CustomData;
 using Project.Code.Runtime.Units.Components;
 using Project.Code.Runtime.Units.Components.Animation;
 using Project.Code.Runtime.Units.Components.Damage;
+using Project.Code.Runtime.Units.Components.Health;
 using Project.Code.Runtime.Units.FloatingText;
 using Project.Code.StaticData.Units;
 using Project.Code.UI.Units;
@@ -56,7 +57,6 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             _healthBar = Instantiate(_healthBarPrefab);
             _healthBar.Init(_updateBehaviourService);
             _healthBar.SetTargetToFollow(transform, _hpPanel);
-            _healthBar.UpdateHealthText(HealthComponent.CurrentHealth);
         }
 
         private void OnEnable()

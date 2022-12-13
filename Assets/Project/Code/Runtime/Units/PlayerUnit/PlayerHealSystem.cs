@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Project.Code.Runtime.Units.Components;
+using Project.Code.Runtime.Units.Components.Health;
 using UnityEngine;
 
 namespace Project.Code.Runtime.Units.PlayerUnit
@@ -10,7 +11,7 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         private readonly MonoBehaviour _mono;
         private float _loadedHprec;
 
-        private const float HEAL_DELAY = 1;
+        private const float HEAL_DELAY = 2;
 
         public PlayerHealSystem(PlayerSlime mono, HealthComponent healthComponent)
         {

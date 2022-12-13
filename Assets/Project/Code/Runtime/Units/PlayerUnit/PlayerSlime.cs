@@ -46,7 +46,7 @@ namespace Project.Code.Runtime.Units.PlayerUnit
 
             _healSystem.UpdateStats(loadedHPREC);
             _damageComponent.Init(loadedAttack, loadedAtkSpeed, loadedCRIT, loadedDoubleShot);
-            HealthComponent.Init(loadedHP);
+            HealthComponent.UpdateMaxHealth(loadedHP);
             _animatorComponent.SpawnUpgradeParticles();
         }
 

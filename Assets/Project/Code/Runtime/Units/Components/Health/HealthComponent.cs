@@ -3,7 +3,7 @@ using Project.Code.Runtime.CustomData;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Project.Code.Runtime.Units.Components
+namespace Project.Code.Runtime.Units.Components.Health
 {
     public class HealthComponent : MonoBehaviour
     {
@@ -17,21 +17,14 @@ namespace Project.Code.Runtime.Units.Components
         private bool _isDead;
         public float HealthPercent => CurrentHealth / _maxHealth;
         public float CurrentHealth => _currentHealth;
-
-        public void Init(float healthAmount)
+        
+        public void UpdateMaxHealth(float newHealthAmount)
         {
-            CheckHealthUpdate(healthAmount);
-            _maxHealth = healthAmount;
-        }
-
-        private void CheckHealthUpdate(float healthAmount)
-        {
-            if (_maxHealth == 0) 
-                return;
-            float hpDiff = healthAmount - _maxHealth;
+            float hpDiff = newHealthAmount - _maxHealth;
+            _maxHealth = newHealthAmount;
             TakeHeal(hpDiff);
         }
-
+        
         public void Respawn()
         {
             _currentHealth = _maxHealth;
@@ -68,10 +61,8 @@ namespace Project.Code.Runtime.Units.Components
         public void TakeHeal(float _hpCount)
         {
             _currentHealth = CurrentHealth + _hpCount;
-            if (CurrentHealth > _maxHealth)
-            {
+            if (CurrentHealth > _maxHealth) 
                 _currentHealth = _maxHealth;
-            }
 
             OnHeal?.Invoke(_hpCount);
         }

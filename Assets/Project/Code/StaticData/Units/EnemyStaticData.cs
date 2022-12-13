@@ -10,6 +10,8 @@ namespace Project.Code.StaticData.Units
         [SerializeField] private float _damageAmountBase = 10f;
         [SerializeField] private float _healthAmountBase = 50;
         [SerializeField] private int _moneyDropBase = 5;
+        [SerializeField] private float _minSpeed = 0.95f;
+        [SerializeField] private float _maxSpeed = 1.3f;
 
         private float _attackSpeed;
         private float _healthAmount;
@@ -20,6 +22,9 @@ namespace Project.Code.StaticData.Units
         public float HealthAmount => _healthAmount;
         public float DamageAmount => _damageAmount;
         public int MoneyDrop => _moneyDrop;
+
+        public float MinSpeed => _minSpeed;
+        public float MaxSpeed => _maxSpeed;
 
         public void UpdateEnemyStats(EnemyMultipliers multipliers)
         {

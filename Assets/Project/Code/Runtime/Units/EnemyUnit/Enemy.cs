@@ -31,12 +31,13 @@ namespace Project.Code.Runtime.Units.EnemyUnit
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _damageComponent = GetComponent<EnemyDealDamageComponent>();
             _animator = GetComponent<EnemyAnimator>();
-            
+            _navMeshAgent.speed = Random.Range(_enemyStaticData.MinSpeed, _enemyStaticData.MaxSpeed);
             _damageComponent.SetPlayer(_player.HealthComponent);
             _damageComponent.Init(_enemyStaticData.DamageAmount, _enemyStaticData.AttackSpeed, _animator);
-            HealthComponent.Init(_enemyStaticData.HealthAmount);
+            HealthComponent.UpdateMaxHealth(_enemyStaticData.HealthAmount);
             HealthComponent.Respawn();
             enabled = true;
+            _healthBar.UpdateHealthText(HealthComponent.CurrentHealth);
         }
 
         public void OnSpawn()
