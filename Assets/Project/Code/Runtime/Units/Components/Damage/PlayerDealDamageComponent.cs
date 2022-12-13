@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Project.Code.Runtime.Units.EnemyUnit;
 using Project.Code.Runtime.Units.PlayerUnit;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace Project.Code.Runtime.Units.Components.Damage
 
         private Enemy _currentTarget;
         private Enemy[] _currentTargets;
+        private List<Projectile> _projectiles;
         private float _doubleShotChance;
         private int _shotCount;
 
@@ -21,6 +23,7 @@ namespace Project.Code.Runtime.Units.Components.Damage
             base.Init(attack, atkSpeed);
             _attackDetails.Crit = loadedCRIT;
             _currentTargets = new Enemy[1];
+            _projectiles = new List<Projectile>();
         }
 
         public void UpdateTarget()
@@ -63,6 +66,7 @@ namespace Project.Code.Runtime.Units.Components.Damage
                 return;
             Projectile projectile = SpawnProjectile();
             projectile.SeekTarget(target, OnHit);
+            _projectiles.Add(projectile);
         }
 
         private Projectile SpawnProjectile()
@@ -70,6 +74,26 @@ namespace Project.Code.Runtime.Units.Components.Damage
             return Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
         }
 
-        private void OnHit(Enemy target) => target.HealthComponent.TakeDamage(_attackDetails);
+        private void OnHit(Enemy target)
+        {
+            target.HealthComponent.TakeDamage(_attackDetails);
+            UpdateProjectilesList();
+        }
+
+        private void UpdateProjectilesList()
+        {
+            for (int i = 0; i < _projectiles.Count; i++)
+                if (_projectiles[i] == null)
+                    _projectiles.Remove(_projectiles[i]);
+        }
+
+        private void OnDestroy()
+        {
+            for (var i = 0; i < _projectiles.Count; i++)
+                if (_projectiles[i] != null)
+                    Destroy(_projectiles[i].gameObject);
+
+            _projectiles.Clear();
+        }
     }
 }

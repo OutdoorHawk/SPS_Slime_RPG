@@ -1,4 +1,6 @@
 using DG.Tweening;
+using Project.Code.Infrastructure.Services.UpdateBehavior;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +12,7 @@ namespace Project.Code.UI.Units
         [SerializeField] private Image _fullbarImage;
         [SerializeField] private Image _tweenBarImage;
         [SerializeField] private float _tweenBarDuration = 0.35f;
+        [SerializeField] private TMP_Text _healthText;
 
         private Image[] _images;
         private RectTransform _targetCanvas;
@@ -20,12 +23,16 @@ namespace Project.Code.UI.Units
         private Camera _mainCamera;
         private Tween _tweenBarDamage;
         private Tween _tweenBarHeal;
+        private IUpdateBehaviourService _updateBehaviourService;
 
-        public void Init()
+        public void Init(IUpdateBehaviourService updateBehaviourService)
         {
+            _updateBehaviourService = updateBehaviourService;
             _healthBarRectTransform = GetComponent<RectTransform>();
             _mainCamera = Camera.main;
             _images = GetComponentsInChildren<Image>();
+            if (_healthText!= null) 
+                _healthText.gameObject.SetActive(true);
         }
 
         public void SetTargetToFollow(Transform targetTransform, RectTransform targetCanvas)
@@ -35,11 +42,12 @@ namespace Project.Code.UI.Units
             transform.SetParent(_targetCanvas, false);
             gameObject.SetActive(true);
             _tweenBarImage.fillAmount = 1;
+            _updateBehaviourService.UpdateEvent += Tick;
         }
 
-        private void Update()
+        private void Tick()
         {
-            if (_targetCanvas != null)
+            if (_targetCanvas != null && _mainCamera != null)
                 RepositionHealthBar();
         }
 
@@ -49,6 +57,12 @@ namespace Project.Code.UI.Units
                 DoHealTween(healthPercent);
             else
                 DoDamageTween(healthPercent);
+        }
+
+        public void UpdateHealthText(float health)
+        {
+            if (_healthText!= null) 
+                _healthText.text = health.ToString("0");
         }
 
         private void DoDamageTween(float healthPercent)
@@ -68,13 +82,6 @@ namespace Project.Code.UI.Units
         private void UpdateFillAmount(float healthPercent)
         {
             _fullbarImage.fillAmount = healthPercent;
-        }
-
-        public void SetVisible(bool visible)
-        {
-            foreach (var item in _images)
-                if (item != null)
-                    item.enabled = visible;
         }
 
         private void RepositionHealthBar()
@@ -98,6 +105,7 @@ namespace Project.Code.UI.Units
         private void OnDestroy()
         {
             _tweenBarDamage?.Kill();
+            _updateBehaviourService.UpdateEvent -= Tick;
         }
     }
 }

@@ -2,6 +2,7 @@ using Project.Code.Infrastructure.Data;
 using Project.Code.Infrastructure.Services.StaticData;
 using Project.Code.Infrastructure.Services.ZenjectFactory;
 using Project.Code.Infrastructure.StaticData;
+using Project.Code.UI.Windows.PlayerHUD;
 using UnityEngine;
 
 namespace Project.Code.Infrastructure.Services.UI
@@ -17,17 +18,19 @@ namespace Project.Code.Infrastructure.Services.UI
             _staticDataService = staticDataService;
             _zenjectFactory = zenjectFactory;
         }
-        
+
         public GameObject CreateWindow(WindowID id)
         {
             WindowConfig config = _staticDataService.GetWindow(id);
             return _zenjectFactory.Instantiate(config.WindowPrefab.gameObject, _uiRoot);
         }
 
-        public void CreatePlayerHUD()
+        public PlayerHUDWindow CreatePlayerHUD()
         {
             WindowConfig config = _staticDataService.GetWindow(WindowID.PlayerHUD);
-            _zenjectFactory.Instantiate(config.WindowPrefab.gameObject, _uiRoot);
+
+            return _zenjectFactory.Instantiate(config.WindowPrefab.gameObject, _uiRoot)
+                .GetComponent<PlayerHUDWindow>();
         }
 
         public void CreateUiRoot()

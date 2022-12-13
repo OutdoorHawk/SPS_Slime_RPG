@@ -1,4 +1,5 @@
-﻿using Project.Code.Infrastructure.Services.CoroutineRunner;
+﻿using System;
+using Project.Code.Infrastructure.Services.CoroutineRunner;
 using Project.Code.Infrastructure.Services.SaveLoadService;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Infrastructure.Services.SceneContext;
@@ -7,6 +8,8 @@ using Project.Code.Runtime.Roads;
 using Project.Code.Runtime.Units.PlayerUnit;
 using Project.Code.Runtime.World;
 using Project.Code.StaticData.World;
+using Project.Code.UI.Windows.PlayerHUD;
+using Object = UnityEngine.Object;
 
 namespace Project.Code.Infrastructure.StateMachine.States
 {
@@ -26,6 +29,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private ISaveLoadService _saveLoadService;
         private PlayerLevelsProgress _levelsProgress;
         private LevelStaticData _levelStaticData;
+        private PlayerHUDWindow _playerHUD;
 
         public GameLoopState(ISceneContextService sceneContextService, IStaticDataService staticDataService,
             ICoroutineRunner coroutineRunner, IPersistentProgressService progressService,
@@ -57,23 +61,24 @@ namespace Project.Code.Infrastructure.StateMachine.States
             _enemySpawner = _sceneContextService.EnemySpawner;
             _levelsProgress = _progressService.Progress.PlayerLevelsProgress;
             _levelStaticData = _staticDataService.GetLevelStaticData(_levelsProgress.CurrentLevel);
+            _playerHUD = _sceneContextService.PlayerHUD;
         }
 
         private void StartGame()
         {
-            _roadSpawner.DoWalking(OnWalkingDone);
+            _roadSpawner.DoWalking(EnableFight);
             _playerSlime.SetWalkingState();
             _playerSlime.OnUnitDead += RestartLevel;
         }
 
         private void RestartLevel(BaseUnit player)
         {
+            _playerHUD.EnableDefeatTitle(() =>  _gameStateMachine.Enter<LoadLevelState>());
             _levelsProgress.ResetFights();
-            _gameStateMachine.Enter<LoadLevelState>();
             //  _saveLoadService.SaveProgress(); // TODO ACTIVATE LATER
         }
 
-        private void OnWalkingDone()
+        private void EnableFight()
         {
             _enemySpawner.SpawnWave(OnFightCompleted);
             _playerSlime.SetFightState();
@@ -82,18 +87,18 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private void OnFightCompleted()
         {
             _levelsProgress.PassFight();
-            
+
             if (AllFightsPassed())
-                EnterBossFight();
+                ContinueWalking(EnterBossFight);
             else
-                ContinueWalking();
+                ContinueWalking(EnableFight);
 
             //  _saveLoadService.SaveProgress(); // TODO ACTIVATE LATER
         }
 
-        private void ContinueWalking()
+        private void ContinueWalking(Action onDone)
         {
-            _roadSpawner.DoWalking(OnWalkingDone);
+            _roadSpawner.DoWalking(onDone);
             _playerSlime.SetWalkingState();
         }
 
@@ -104,7 +109,9 @@ namespace Project.Code.Infrastructure.StateMachine.States
 
         private void EnterBossFight()
         {
+            _playerHUD.EnableBossTitle();
             _enemySpawner.SpawnBoss(CompleteLevel);
+            _playerSlime.SetFightState();
         }
 
         private void CompleteLevel()

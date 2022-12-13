@@ -101,6 +101,8 @@ namespace Project.Code.Runtime.Roads
 
         private bool PlayerTouchedTrigger()
         {
+            if (_playerTransform == null)
+                return false;
             return Vector3.Distance(_playerTransform.position, _activeRoads[1].TriggerPoint.position) <
                    _minTriggerDistance;
         }

@@ -1,4 +1,5 @@
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
+using Project.Code.Infrastructure.Services.UpdateBehavior;
 using Project.Code.Runtime.Units.Components.Animation;
 using Project.Code.Runtime.Units.Components.Damage;
 using Project.Code.Runtime.Units.PlayerUnit;
@@ -43,10 +44,12 @@ namespace Project.Code.Runtime.Units.EnemyUnit
             UnitCollector.AddUnit(this);
         }
 
-        private void Update()
+        protected override void Tick()
         {
-            if (!enabled || _player == null)
+            base.Tick();
+            if (!CanMove())
                 return;
+            
             if (FarFromPlayer())
                 MoveToPlayer();
             else
@@ -54,6 +57,9 @@ namespace Project.Code.Runtime.Units.EnemyUnit
             
             _animator.UpdatePlayerAnim(_navMeshAgent.velocity.magnitude);
         }
+
+        private bool CanMove() => 
+            enabled && _player != null;
 
         private bool FarFromPlayer()
             => Vector3.Distance(_player.transform.position, transform.position) >

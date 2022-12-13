@@ -15,7 +15,8 @@ namespace Project.Code.Runtime.Units.Components
 
         private float _maxHealth;
         private bool _isDead;
-        public float HealthPercent => _currentHealth / _maxHealth;
+        public float HealthPercent => CurrentHealth / _maxHealth;
+        public float CurrentHealth => _currentHealth;
 
         public void Init(float healthAmount)
         {
@@ -46,15 +47,15 @@ namespace Project.Code.Runtime.Units.Components
         {
             if (attackDetails.Crit > Random.Range(0, 99)) 
                 attackDetails.Damage *= AttackDetails.CritValue;
-            _currentHealth -= attackDetails.Damage;
-            if (_currentHealth < 0 ) 
+            _currentHealth = CurrentHealth - attackDetails.Damage;
+            if (CurrentHealth < 0 ) 
                 _currentHealth = 0;
             CheckIsAlive(attackDetails);
         }
 
         private void CheckIsAlive(AttackDetails attackDetails)
         {
-            if (_currentHealth <= 0)
+            if (CurrentHealth <= 0)
             {
                 OnReceivedDamage?.Invoke(attackDetails);
                 OnDeath?.Invoke();
@@ -66,8 +67,8 @@ namespace Project.Code.Runtime.Units.Components
 
         public void TakeHeal(float _hpCount)
         {
-            _currentHealth += _hpCount;
-            if (_currentHealth > _maxHealth)
+            _currentHealth = CurrentHealth + _hpCount;
+            if (CurrentHealth > _maxHealth)
             {
                 _currentHealth = _maxHealth;
             }

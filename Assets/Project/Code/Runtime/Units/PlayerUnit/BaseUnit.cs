@@ -1,5 +1,6 @@
 ﻿using System;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
+using Project.Code.Infrastructure.Services.UpdateBehavior;
 using Project.Code.Runtime.CustomData;
 using Project.Code.Runtime.Units.Components;
 using Project.Code.Runtime.Units.Components.Animation;
@@ -8,6 +9,7 @@ using Project.Code.Runtime.Units.FloatingText;
 using Project.Code.StaticData.Units;
 using Project.Code.UI.Units;
 using UnityEngine;
+using Zenject;
 
 namespace Project.Code.Runtime.Units.PlayerUnit
 {
@@ -23,11 +25,20 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         private HitColorComponent _hitColorComponent;
         protected HealthBar _healthBar;
         private RectTransform _hpPanel;
+        private IUpdateBehaviourService _updateBehaviourService;
+
+        private const float FLOATING_TEXT_OFFSET = 0.5f;
 
         public event Action<BaseUnit> OnUnitDead;
         protected PlayerProgress Progress { get; private set; }
         public HealthComponent HealthComponent { get; private set; }
         protected UnitStaticData UnitStaticData { get; private set; }
+
+        [Inject]
+        private void Construct(IUpdateBehaviourService updateBehaviourService)
+        {
+            _updateBehaviourService = updateBehaviourService;
+        }
 
         public virtual void Init(UnitStaticData unitStaticData, PlayerProgress progress, RectTransform hpPanel)
         {
@@ -43,8 +54,19 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         private void InitHealthBar()
         {
             _healthBar = Instantiate(_healthBarPrefab);
-            _healthBar.Init();
+            _healthBar.Init(_updateBehaviourService);
             _healthBar.SetTargetToFollow(transform, _hpPanel);
+            _healthBar.UpdateHealthText(HealthComponent.CurrentHealth);
+        }
+
+        private void OnEnable()
+        {
+            _updateBehaviourService.UpdateEvent += Tick;
+        }
+
+        private void OnDisable()
+        {
+            _updateBehaviourService.UpdateEvent -= Tick;
         }
 
         protected virtual void Subscribe()
@@ -58,13 +80,20 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         {
             _healthBar.UpdateHealth(HealthComponent.HealthPercent);
             _hitColorComponent.DoHitFlash();
+            _healthBar.UpdateHealthText(HealthComponent.CurrentHealth);
             SpawnFloatingText(details);
         }
 
         private void SpawnFloatingText(AttackDetails details)
         {
-            HitText text = Instantiate(_floatingTextPrefab, transform.position, Quaternion.identity);
+            HitText text = Instantiate(_floatingTextPrefab,
+                transform.position + Vector3.up * FLOATING_TEXT_OFFSET,
+                Quaternion.identity);
             text.Init(details.Damage);
+        }
+
+        protected virtual void Tick()
+        {
         }
 
         private void HandleHeal(float obj)

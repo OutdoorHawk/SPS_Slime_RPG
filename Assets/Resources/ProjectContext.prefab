@@ -202,6 +202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1596255765547013114}
   - component: {fileID: 7919040912612589775}
+  - component: {fileID: 1535005690492627714}
   m_Layer: 0
   m_Name: ProjectContextInstaller
   m_TagString: Untagged
@@ -237,6 +238,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneLoader: {fileID: 4458689481710208033}
+  update: {fileID: 1535005690492627714}
+--- !u!114 &1535005690492627714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6645429962058421803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 505bc4384cdf01e4ab13245a763de880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9180726314336563931
 GameObject:
   m_ObjectHideFlags: 0
