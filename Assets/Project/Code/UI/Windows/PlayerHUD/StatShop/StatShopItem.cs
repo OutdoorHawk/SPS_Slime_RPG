@@ -1,6 +1,8 @@
 using System;
 using Project.Code.Infrastructure.Data;
+using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress.Stats;
+using Project.Code.StaticData.Units.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,14 +19,18 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
         [SerializeField] private TMP_Text _upgradeCost;
         [SerializeField] private TMP_Text _currentLevel;
         [SerializeField] private Button _upgradeButton;
-
-        private Color _defaultUpgradeCostColor;
+        [SerializeField] private GameObject _lockedButton;
+        
         private StatProgress _statProgress;
+        private PlayerCurrencyProgress _currencyProgress;
+        private StatData _statData;
 
-        public void Init(PlayerStatsProgress statsProgress)
+        public void Init(PlayerStatsProgress statsProgress, PlayerCurrencyProgress playerCurrencyProgress,
+            PlayerStaticData playerStaticData)
         {
+            _currencyProgress = playerCurrencyProgress;
             _statProgress = statsProgress.GetStatProgress(_statID);
-            _defaultUpgradeCostColor = _upgradeCost.color;
+            _statData = playerStaticData.GetStatData(_statID);
             UpdateItemInfo();
         }
 
@@ -32,13 +38,26 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
         {
             _statName.text = _statID.ToString();
             _statValue.text = SwitchValueFormat();
-            _upgradeCost.text = $"<sprite index=300> {_statProgress.StatUpgradeCost.ToString()}";
             _currentLevel.text = "Lv " + _statProgress.StatLvl;
+            CheckEnoughMoney();
+            CheckMaxLevel();
         }
 
-        public void CheckEnoughMoney(int currentMoney)
+        private void CheckMaxLevel()
         {
-            if (_statProgress.StatUpgradeCost > currentMoney)
+            if (_statProgress.StatLvl == _statData.MaxLvl) 
+                LockButton();
+        }
+
+        private void LockButton()
+        {
+            _lockedButton.gameObject.SetActive(true);
+            _upgradeButton.gameObject.SetActive(false);
+        }
+
+        public void CheckEnoughMoney()
+        {
+            if (_statProgress.StatUpgradeCost > _currencyProgress.MoneyAmount)
                 SetItemInactive();
             else
                 SetItemActive();
@@ -64,6 +83,8 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
                 StatID.ASPD => _statProgress.StatValue.ToString("0.00"),
                 StatID.HP => _statProgress.StatValue.ToString("0"),
                 StatID.HPREC => _statProgress.StatValue.ToString("0.0"),
+                StatID.CRIT => $"{_statProgress.StatValue:0}%",
+                StatID.DoubleShot => $"{_statProgress.StatValue:0}%",
                 _ => null
             };
         }

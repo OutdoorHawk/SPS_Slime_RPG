@@ -16,19 +16,43 @@ MonoBehaviour:
   _statConfigs:
   - StatID: 0
     StatData:
-      StatBaseValue: 7
-      StatBaseUpgradeCost: 10
-      StatValueIncrease: 5
-      StatUpgradeCostIncrease: 1
+      BaseValue: 7
+      BaseUpgradeCost: 10
+      ValueIncrease: 5
+      UpgradeCostIncrease: 1
+      MaxLvl: 100
   - StatID: 1
     StatData:
-      StatBaseValue: 1
-      StatBaseUpgradeCost: 20
-      StatValueIncrease: 0.1
-      StatUpgradeCostIncrease: 15
+      BaseValue: 1
+      BaseUpgradeCost: 25
+      ValueIncrease: 0.02
+      UpgradeCostIncrease: 5
+      MaxLvl: 100
   - StatID: 2
     StatData:
-      StatBaseValue: 45
-      StatBaseUpgradeCost: 15
-      StatValueIncrease: 5
-      StatUpgradeCostIncrease: 0
+      BaseValue: 50
+      BaseUpgradeCost: 15
+      ValueIncrease: 6
+      UpgradeCostIncrease: 1
+      MaxLvl: 100
+  - StatID: 3
+    StatData:
+      BaseValue: 5
+      BaseUpgradeCost: 20
+      ValueIncrease: 2.5
+      UpgradeCostIncrease: 2
+      MaxLvl: 100
+  - StatID: 4
+    StatData:
+      BaseValue: 0
+      BaseUpgradeCost: 20
+      ValueIncrease: 1
+      UpgradeCostIncrease: 4
+      MaxLvl: 100
+  - StatID: 5
+    StatData:
+      BaseValue: 0
+      BaseUpgradeCost: 30
+      ValueIncrease: 1
+      UpgradeCostIncrease: 1
+      MaxLvl: 100

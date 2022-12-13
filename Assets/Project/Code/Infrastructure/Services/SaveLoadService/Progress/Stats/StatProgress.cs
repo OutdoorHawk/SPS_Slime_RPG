@@ -6,7 +6,7 @@ namespace Project.Code.Infrastructure.Services.SaveLoadService.Progress.Stats
     public class StatProgress
     {
         public float StatValue;
-        public int StatLvl;
+        public int StatLvl = 1;
         public int StatUpgradeCost;
     }
 }

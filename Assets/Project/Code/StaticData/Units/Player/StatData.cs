@@ -5,10 +5,12 @@ namespace Project.Code.StaticData.Units.Player
     [Serializable]
     public class StatData
     {
-        public float StatBaseValue;
-        public int StatBaseUpgradeCost;
+        public float BaseValue;
+        public int BaseUpgradeCost;
         
-        public float StatValueIncrease;
-        public int StatUpgradeCostIncrease;
+        public float ValueIncrease;
+        public int UpgradeCostIncrease;
+        
+        public int MaxLvl = 100;
     }
 }

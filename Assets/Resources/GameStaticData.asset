@@ -22,55 +22,21 @@ MonoBehaviour:
   _units:
   - UnitID: 0
     UnitStaticData: {fileID: 11400000, guid: 5bb0895bb92151a47a0de03ee75c6202, type: 2}
-  - UnitID: 1
-    UnitStaticData: {fileID: 11400000, guid: 67ae9cc4a48ec5b44a360edbbcc15ba8, type: 2}
-  - UnitID: 2
-    UnitStaticData: {fileID: 11400000, guid: 92749d601bd9d344ca2205fac9107799, type: 2}
   _levelsStaticData:
-  - DamageMultiplier: 0.25
-    HealthMultiplier: 1.25
-    MoneyMultiplier: 0.75
-    LevelStaticData: {fileID: 11400000, guid: 5f651d341921bfd4da26d90251394c57, type: 2}
-  - DamageMultiplier: 0.5
-    HealthMultiplier: 2.5
-    MoneyMultiplier: 1.5
-    LevelStaticData: {fileID: 11400000, guid: 67e1075d72b93da41ba9c9225d8c204b, type: 2}
-  - DamageMultiplier: 0.75
-    HealthMultiplier: 3.75
-    MoneyMultiplier: 2.25
-    LevelStaticData: {fileID: 11400000, guid: 64adf21012a49f7458c9b4167dcae76c, type: 2}
-  - DamageMultiplier: 1
-    HealthMultiplier: 5
-    MoneyMultiplier: 3
-    LevelStaticData: {fileID: 11400000, guid: 6bf5ab9348920394ca0a186ee0a1bd17, type: 2}
-  - DamageMultiplier: 1.25
-    HealthMultiplier: 6.25
-    MoneyMultiplier: 3.75
-    LevelStaticData: {fileID: 11400000, guid: 0b0090f536643e542a484b69f5d3abc4, type: 2}
-  - DamageMultiplier: 1.5
-    HealthMultiplier: 7.5
-    MoneyMultiplier: 4.5
-    LevelStaticData: {fileID: 11400000, guid: 0b5076a9e6fc4b74ba5a52a064a3bafd, type: 2}
-  - DamageMultiplier: 1.75
-    HealthMultiplier: 8.75
-    MoneyMultiplier: 5.25
-    LevelStaticData: {fileID: 11400000, guid: e1ddd9dc8f799ab46ada24a212fc7c64, type: 2}
-  - DamageMultiplier: 2
-    HealthMultiplier: 10
-    MoneyMultiplier: 6
-    LevelStaticData: {fileID: 11400000, guid: 3c6ea1d20084e20479103474500878a2, type: 2}
-  - DamageMultiplier: 2.25
-    HealthMultiplier: 11.25
-    MoneyMultiplier: 6.75
-    LevelStaticData: {fileID: 11400000, guid: 2fd7eb7546ea5414daf6359f300a8d84, type: 2}
-  - DamageMultiplier: 2.5
-    HealthMultiplier: 12.5
-    MoneyMultiplier: 7.5
-    LevelStaticData: {fileID: 11400000, guid: eb82bc093aa45904885b944571a6eb45, type: 2}
+  - {fileID: 11400000, guid: 5f651d341921bfd4da26d90251394c57, type: 2}
+  - {fileID: 11400000, guid: 67e1075d72b93da41ba9c9225d8c204b, type: 2}
+  - {fileID: 11400000, guid: 64adf21012a49f7458c9b4167dcae76c, type: 2}
+  - {fileID: 11400000, guid: 6bf5ab9348920394ca0a186ee0a1bd17, type: 2}
+  - {fileID: 11400000, guid: 0b0090f536643e542a484b69f5d3abc4, type: 2}
+  - {fileID: 11400000, guid: 0b5076a9e6fc4b74ba5a52a064a3bafd, type: 2}
+  - {fileID: 11400000, guid: e1ddd9dc8f799ab46ada24a212fc7c64, type: 2}
+  - {fileID: 11400000, guid: 3c6ea1d20084e20479103474500878a2, type: 2}
+  - {fileID: 11400000, guid: 2fd7eb7546ea5414daf6359f300a8d84, type: 2}
+  - {fileID: 11400000, guid: eb82bc093aa45904885b944571a6eb45, type: 2}
   _worldStaticData:
     _roads:
     - {fileID: 34025909559052126, guid: 63f9a4d9e27056949a3b7b5968ce66e2, type: 3}
     - {fileID: 7175165334783599933, guid: 853b55f4c3251c34d9c3ac756b063b67, type: 3}
     - {fileID: 6609179255809895849, guid: 22024360ab60d2a4aa3c2c00c0a4531c, type: 3}
-    _roadMovingSpeed: 20
+    _roadMovingSpeed: 10
     _playerWalkingTime: 3

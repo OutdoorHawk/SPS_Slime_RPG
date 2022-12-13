@@ -75,8 +75,8 @@ namespace Project.Code.Infrastructure.StateMachine.States
 
         private void OnWalkingDone()
         {
-            _playerSlime.SetFightState();
             _enemySpawner.SpawnWave(OnFightCompleted);
+            _playerSlime.SetFightState();
         }
 
         private void OnFightCompleted()

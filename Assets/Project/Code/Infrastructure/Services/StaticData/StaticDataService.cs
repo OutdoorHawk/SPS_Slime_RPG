@@ -72,6 +72,6 @@ namespace Project.Code.Infrastructure.Services.StaticData
             => _stats.TryGetValue(id, out StatData statData) ? statData : null;
         
         public LevelStaticData GetLevelStaticData(int level)
-            => _data.LevelsStaticData[level].LevelStaticData;
+            => _data.LevelsStaticData[level];
     }
 }

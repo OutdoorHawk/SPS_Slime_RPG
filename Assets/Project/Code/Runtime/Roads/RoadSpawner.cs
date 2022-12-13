@@ -14,7 +14,7 @@ namespace Project.Code.Runtime.Roads
         [SerializeField] private ParticleSystem _windParticles;
         [SerializeField] private float _movingSpeed;
         [SerializeField] private float _minTriggerDistance = 1f;
-        
+
         private List<Road> _activeRoads;
         private Road[] _roadPrefabs;
         private Transform _cachedTransform;
@@ -62,7 +62,7 @@ namespace Project.Code.Runtime.Roads
         {
             StartCoroutine(WalkingRoutine(OnWalkingDone));
         }
-        
+
         private IEnumerator WalkingRoutine(Action onWalkingDone)
         {
             float t = _walkingTime;
@@ -74,10 +74,10 @@ namespace Project.Code.Runtime.Roads
                 yield return new WaitForSeconds(Time.deltaTime);
             } while (t > 0);
 
-            _windParticles.Stop();
             onWalkingDone?.Invoke();
+            _windParticles.Stop();
         }
-        
+
         private void TickMovement()
         {
             UpdateMovement();

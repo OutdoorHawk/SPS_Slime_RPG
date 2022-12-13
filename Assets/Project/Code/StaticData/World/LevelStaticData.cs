@@ -6,32 +6,35 @@ namespace Project.Code.StaticData.World
     [CreateAssetMenu(fileName = "LevelStaticData", menuName = "Static Data/LevelStaticData")]
     public class LevelStaticData : ScriptableObject
     {
-        [SerializeField] private EnemyStaticData _bossStaticData;
-        [SerializeField] private EnemyStaticData[] _enemiesStaticData;
-        [SerializeField] private float _damageIncrease = 10f;
-        [SerializeField] private float _healthIncrease = 50;
-        [SerializeField] private int _moneyIncrease = 5;
+        [SerializeField] private EnemyMultipliers _multipliers;
         [SerializeField] private int _maxFightsOnLevel = 3;
+        [SerializeField] private int _minEnemiesOnFight = 2;
+        [SerializeField] private int _maxEnemiesOnFight = 3;
 
-        public float DamageIncrease => _damageIncrease;
-        public float HealthIncrease => _healthIncrease;
-        public int MoneyIncrease => _moneyIncrease;
+        [SerializeField] private EnemyStaticData[] _enemiesStaticData;
+        [SerializeField] private EnemyStaticData _bossStaticData;
+
         public int MaxFightsOnLevel => _maxFightsOnLevel;
-        public EnemyStaticData BossStaticData => _bossStaticData;
-        public EnemyStaticData[] EnemiesStaticData => _enemiesStaticData;
+        public EnemyMultipliers Multipliers => _multipliers;
+        public int MaxEnemiesOnFight => _maxEnemiesOnFight;
+        public int MinEnemiesOnFight => _minEnemiesOnFight;
 
-        public void ResetToDefaultValues()
+        public void UpdateMultipliers(EnemyMultipliers multipliersForLevelData)
         {
-            _damageIncrease = 4;
-            _healthIncrease = 10;
-            _moneyIncrease = 5;
+            _multipliers = multipliersForLevelData;
         }
 
-        public void IncreaseValue(float configDamageMultiplier, float configHealthMultiplier, float configMoneyMultiplier)
+        public EnemyStaticData GetEnemyStaticData()
         {
-            _damageIncrease *= configDamageMultiplier;
-            _healthIncrease *= configHealthMultiplier;
-            _moneyIncrease = (int)(configMoneyMultiplier * _moneyIncrease);
+            EnemyStaticData staticData = _enemiesStaticData[Random.Range(0, _enemiesStaticData.Length - 1)];
+            staticData.UpdateEnemyStats(Multipliers);
+            return staticData;
+        }
+
+        public EnemyStaticData GetBossStaticData()
+        {
+            _bossStaticData.UpdateEnemyStats(Multipliers);
+            return _bossStaticData;
         }
     }
 }

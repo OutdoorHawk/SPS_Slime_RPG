@@ -12,10 +12,10 @@ namespace Project.Code.StaticData.Units.Player
         public StatData GetStatData(StatID id) => GetStatDataFromConfig(id, _statConfigs);
 
         public float GetStatValueIncrease(StatID id) =>
-            GetStatDataFromConfig(id, _statConfigs).StatValueIncrease;
+            GetStatDataFromConfig(id, _statConfigs).ValueIncrease;
 
         public int GetStatCostIncrease(StatID id) =>
-            GetStatDataFromConfig(id, _statConfigs).StatUpgradeCostIncrease;
+            GetStatDataFromConfig(id, _statConfigs).UpgradeCostIncrease;
 
         public StatConfig[] StatConfigs => _statConfigs;
     }

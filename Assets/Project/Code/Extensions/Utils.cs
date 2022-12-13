@@ -30,6 +30,12 @@ namespace Project.Code.Extensions
 
             return nearestObject;
         }
+        
+        public static Enemy[] FindTargets()
+        {
+            Enemy[] enemies = UnitCollector.AliveEnemies.ToArray();
+            return enemies;
+        }
 
         public static StatData GetStatDataFromConfig(StatID id, StatConfig[] statConfigs)
         {

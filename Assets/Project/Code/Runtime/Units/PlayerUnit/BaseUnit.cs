@@ -2,6 +2,7 @@
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Runtime.CustomData;
 using Project.Code.Runtime.Units.Components;
+using Project.Code.Runtime.Units.Components.Animation;
 using Project.Code.Runtime.Units.Components.Damage;
 using Project.Code.Runtime.Units.FloatingText;
 using Project.Code.StaticData.Units;
@@ -13,27 +14,28 @@ namespace Project.Code.Runtime.Units.PlayerUnit
     [SelectionBase]
     [RequireComponent(typeof(DealDamageComponent))]
     [RequireComponent(typeof(HealthComponent))]
+    [RequireComponent(typeof(HitColorComponent))]
     public class BaseUnit : MonoBehaviour
     {
         [SerializeField] private HitText _floatingTextPrefab;
         [SerializeField] private HealthBar _healthBarPrefab;
 
-        private HealthBar _healthBar;
+        private HitColorComponent _hitColorComponent;
+        protected HealthBar _healthBar;
         private RectTransform _hpPanel;
 
         public event Action<BaseUnit> OnUnitDead;
         protected PlayerProgress Progress { get; private set; }
         public HealthComponent HealthComponent { get; private set; }
         protected UnitStaticData UnitStaticData { get; private set; }
-        protected DealDamageComponent DealDamageComponent { get; private set; }
 
         public virtual void Init(UnitStaticData unitStaticData, PlayerProgress progress, RectTransform hpPanel)
         {
             _hpPanel = hpPanel;
             Progress = progress;
             UnitStaticData = unitStaticData;
-            DealDamageComponent = GetComponent<DealDamageComponent>();
             HealthComponent = GetComponent<HealthComponent>();
+            _hitColorComponent = GetComponent<HitColorComponent>();
             InitHealthBar();
             Subscribe();
         }
@@ -55,6 +57,12 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         protected virtual void HandleDamageTaken(AttackDetails details)
         {
             _healthBar.UpdateHealth(HealthComponent.HealthPercent);
+            _hitColorComponent.DoHitFlash();
+            SpawnFloatingText(details);
+        }
+
+        private void SpawnFloatingText(AttackDetails details)
+        {
             HitText text = Instantiate(_floatingTextPrefab, transform.position, Quaternion.identity);
             text.Init(details.Damage);
         }

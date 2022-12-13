@@ -18,7 +18,8 @@ namespace Project.Code.UI.Units
         private Transform _objectToFollow;
 
         private Camera _mainCamera;
-        private Tween _tweenBar;
+        private Tween _tweenBarDamage;
+        private Tween _tweenBarHeal;
 
         public void Init()
         {
@@ -33,6 +34,7 @@ namespace Project.Code.UI.Units
             _objectToFollow = targetTransform;
             transform.SetParent(_targetCanvas, false);
             gameObject.SetActive(true);
+            _tweenBarImage.fillAmount = 1;
         }
 
         private void Update()
@@ -43,7 +45,7 @@ namespace Project.Code.UI.Units
 
         public void UpdateHealth(float healthPercent)
         {
-            if (healthPercent >_fullbarImage.fillAmount) 
+            if (healthPercent > _fullbarImage.fillAmount)
                 DoHealTween(healthPercent);
             else
                 DoDamageTween(healthPercent);
@@ -52,14 +54,15 @@ namespace Project.Code.UI.Units
         private void DoDamageTween(float healthPercent)
         {
             UpdateFillAmount(healthPercent);
-            _tweenBar?.Kill();
-            _tweenBar = _tweenBarImage.DOFillAmount(healthPercent, _tweenBarDuration);
-        } 
-        
+            _tweenBarDamage?.Kill();
+            _tweenBarDamage = _tweenBarImage.DOFillAmount(healthPercent, _tweenBarDuration);
+        }
+
         private void DoHealTween(float healthPercent)
         {
-            _tweenBar?.Kill();
-            _tweenBar = _tweenBarImage.DOFillAmount(healthPercent, _tweenBarDuration).OnComplete(() => UpdateFillAmount(healthPercent));
+            _tweenBarDamage?.Kill();
+            _tweenBarDamage = _tweenBarImage.DOFillAmount(healthPercent, _tweenBarDuration)
+                .OnComplete(() => UpdateFillAmount(healthPercent));
         }
 
         private void UpdateFillAmount(float healthPercent)
@@ -94,7 +97,7 @@ namespace Project.Code.UI.Units
 
         private void OnDestroy()
         {
-            _tweenBar?.Kill();
+            _tweenBarDamage?.Kill();
         }
     }
 }
