@@ -2,6 +2,7 @@ using System.Collections;
 using Project.Code.Infrastructure.Data;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress.Stats;
+using Project.Code.Runtime.CustomData;
 using Project.Code.Runtime.Units.Components.Animation;
 using Project.Code.Runtime.Units.Components.Damage;
 using Project.Code.Runtime.World;
@@ -48,6 +49,12 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             _damageComponent.Init(loadedAttack, loadedAtkSpeed, loadedCRIT, loadedDoubleShot);
             HealthComponent.UpdateMaxHealth(loadedHP);
             _animatorComponent.SpawnUpgradeParticles();
+        }
+
+        protected override void HandleDamageTaken(AttackDetails details)
+        {
+            base.HandleDamageTaken(details);
+            Handheld.Vibrate();
         }
 
         public void SetWalkingState()

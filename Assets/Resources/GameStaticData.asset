@@ -40,3 +40,6 @@ MonoBehaviour:
     - {fileID: 6609179255809895849, guid: 22024360ab60d2a4aa3c2c00c0a4531c, type: 3}
     _roadMovingSpeed: 10
     _playerWalkingTime: 2
+  _damageLevelScale: 1.3
+  _healthLevelScale: 1.6
+  _moneyLevelScale: 1.3

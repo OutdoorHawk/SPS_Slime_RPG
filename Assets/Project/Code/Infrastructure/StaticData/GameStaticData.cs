@@ -12,7 +12,10 @@ namespace Project.Code.Infrastructure.StaticData
         [SerializeField] private UnitConfig[] _units;
         [SerializeField] private LevelStaticData[] _levelsStaticData;
         [SerializeField] private WorldStaticData _worldStaticData;
-
+        
+        [SerializeField] private float _damageLevelScale = 1.3f;
+        [SerializeField] private float _healthLevelScale = 1.6f;
+        [SerializeField] private float _moneyLevelScale = 1.3f;
         public IEnumerable<WindowConfig> Windows => _windows;
 
         public UnitConfig[] Units => _units;
@@ -30,9 +33,9 @@ namespace Project.Code.Infrastructure.StaticData
                 EnemyMultipliers multipliers = _levelsStaticData[i - 1].Multipliers;
                 EnemyMultipliers updatedMultipliers = new EnemyMultipliers
                 {
-                    DamageMultiplier = multipliers.DamageMultiplier * 1.3f,
-                    HealthMultiplier = multipliers.HealthMultiplier * 1.6f,
-                    MoneyMultiplier = multipliers.MoneyMultiplier * 1.2f
+                    DamageMultiplier = multipliers.DamageMultiplier * _damageLevelScale,
+                    HealthMultiplier = multipliers.HealthMultiplier * _healthLevelScale,
+                    MoneyMultiplier = multipliers.MoneyMultiplier * _moneyLevelScale
                 };
 
                 _levelsStaticData[i].UpdateMultipliers(updatedMultipliers);
