@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Project.Code.StaticData.World;
+using Project.Code.UI.BG;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,6 +15,7 @@ namespace Project.Code.Runtime.Roads
         [SerializeField] private ParticleSystem _windParticles;
         [SerializeField] private float _movingSpeed;
         [SerializeField] private float _minTriggerDistance = 1f;
+        [SerializeField] private Parallax _parallax;
 
         private List<Road> _activeRoads;
         private Road[] _roadPrefabs;
@@ -82,6 +84,7 @@ namespace Project.Code.Runtime.Roads
         {
             UpdateMovement();
             CheckNewRoadSpawn();
+            _parallax.UpdateParallax();
         }
 
         private void UpdateMovement()

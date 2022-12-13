@@ -33,7 +33,7 @@ namespace Project.Code.Runtime.Units.Components.Damage
         private void DealDamage()
         {
             _playerHealth.TakeDamage(_attackDetails);
-            _hitParticles.gameObject.SetActive(true);
+            //_hitParticles.gameObject.SetActive(true);
         }
     }
 }
