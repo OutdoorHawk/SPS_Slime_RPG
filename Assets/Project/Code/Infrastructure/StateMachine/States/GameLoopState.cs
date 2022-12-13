@@ -9,7 +9,6 @@ using Project.Code.Runtime.Units.PlayerUnit;
 using Project.Code.Runtime.World;
 using Project.Code.StaticData.World;
 using Project.Code.UI.Windows.PlayerHUD;
-using Object = UnityEngine.Object;
 
 namespace Project.Code.Infrastructure.StateMachine.States
 {
@@ -73,9 +72,9 @@ namespace Project.Code.Infrastructure.StateMachine.States
 
         private void RestartLevel(BaseUnit player)
         {
-            _playerHUD.EnableDefeatTitle(() =>  _gameStateMachine.Enter<LoadLevelState>());
+            _playerHUD.EnableDefeatTitle(() => _gameStateMachine.Enter<LoadLevelState>());
             _levelsProgress.ResetFights();
-            //  _saveLoadService.SaveProgress(); // TODO ACTIVATE LATER
+            _saveLoadService.SaveProgress(); // TODO ACTIVATE LATER
         }
 
         private void EnableFight()
@@ -93,7 +92,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
             else
                 ContinueWalking(EnableFight);
 
-            //  _saveLoadService.SaveProgress(); // TODO ACTIVATE LATER
+            _saveLoadService.SaveProgress(); // TODO ACTIVATE LATER
         }
 
         private void ContinueWalking(Action onDone)
