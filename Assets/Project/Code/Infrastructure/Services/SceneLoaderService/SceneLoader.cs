@@ -32,7 +32,7 @@ namespace Project.Code.Infrastructure.Services.SceneLoaderService
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
             while (operation != null && !operation.isDone)
                 yield return 0;
-Debug.Log("OnLoaded");
+
             onLoaded?.Invoke();
             _loadingRoutine = null;
             _imageTween = _canvasGroup.DOFade(0, _fadeTime);

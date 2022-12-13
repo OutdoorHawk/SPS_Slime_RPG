@@ -27,11 +27,13 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         private RectTransform _hpPanel;
         private IUpdateBehaviourService _updateBehaviourService;
 
+        private const float FLOATING_TEXT_OFFSET = 0.5f;
+
         public event Action<BaseUnit> OnUnitDead;
         protected PlayerProgress Progress { get; private set; }
         public HealthComponent HealthComponent { get; private set; }
         protected UnitStaticData UnitStaticData { get; private set; }
-        
+
         [Inject]
         private void Construct(IUpdateBehaviourService updateBehaviourService)
         {
@@ -54,6 +56,7 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             _healthBar = Instantiate(_healthBarPrefab);
             _healthBar.Init(_updateBehaviourService);
             _healthBar.SetTargetToFollow(transform, _hpPanel);
+            _healthBar.UpdateHealthText(HealthComponent.CurrentHealth);
         }
 
         private void OnEnable()
@@ -77,18 +80,20 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         {
             _healthBar.UpdateHealth(HealthComponent.HealthPercent);
             _hitColorComponent.DoHitFlash();
+            _healthBar.UpdateHealthText(HealthComponent.CurrentHealth);
             SpawnFloatingText(details);
         }
 
         private void SpawnFloatingText(AttackDetails details)
         {
-            HitText text = Instantiate(_floatingTextPrefab, transform.position, Quaternion.identity);
+            HitText text = Instantiate(_floatingTextPrefab,
+                transform.position + Vector3.up * FLOATING_TEXT_OFFSET,
+                Quaternion.identity);
             text.Init(details.Damage);
         }
 
         protected virtual void Tick()
         {
-            
         }
 
         private void HandleHeal(float obj)

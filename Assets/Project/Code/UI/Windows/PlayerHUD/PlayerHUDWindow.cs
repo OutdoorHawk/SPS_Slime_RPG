@@ -1,3 +1,4 @@
+using System;
 using Project.Code.Extensions;
 using Project.Code.Infrastructure.Data;
 using Project.Code.Infrastructure.Services.SaveLoadService;
@@ -80,13 +81,14 @@ namespace Project.Code.UI.Windows.PlayerHUD
             _settingsMenuContainer.OnProgressDeleted += ResetProgress;
         }
 
-        private void ResetProgress()
+        public void EnableBossTitle()
         {
-            var progress = new PlayerProgress();
-            Utils.LoadDefaultValuesToProgress(progress, _staticDataService);
-            _progressService.Progress = progress;
-            _saveLoadService.SaveProgress();
-            _gameStateMachine.Enter<LoadLevelState>();
+            _levelProgressContainer.EnableBossTitle();
+        }
+        
+        public void EnableDefeatTitle(Action onDone)
+        {
+            _levelProgressContainer.EnableDefeatTitle(onDone);
         }
 
         private void CheckStatCosts()
@@ -116,6 +118,15 @@ namespace Project.Code.UI.Windows.PlayerHUD
             _shopContainer.UpdateShopItems();
             _currencyContainer.UpdateMoney();
             _playerSlime.UpdateComponents();
+        }
+
+        private void ResetProgress()
+        {
+            var progress = new PlayerProgress();
+            Utils.LoadDefaultValuesToProgress(progress, _staticDataService);
+            _progressService.Progress = progress;
+            _saveLoadService.SaveProgress();
+            _gameStateMachine.Enter<LoadLevelState>();
         }
 
         private void OnDestroy()

@@ -47,8 +47,9 @@ namespace Project.Code.Runtime.Units.EnemyUnit
         protected override void Tick()
         {
             base.Tick();
-            if (!enabled || _player == null)
+            if (!CanMove())
                 return;
+            
             if (FarFromPlayer())
                 MoveToPlayer();
             else
@@ -56,6 +57,9 @@ namespace Project.Code.Runtime.Units.EnemyUnit
             
             _animator.UpdatePlayerAnim(_navMeshAgent.velocity.magnitude);
         }
+
+        private bool CanMove() => 
+            enabled && _player != null;
 
         private bool FarFromPlayer()
             => Vector3.Distance(_player.transform.position, transform.position) >

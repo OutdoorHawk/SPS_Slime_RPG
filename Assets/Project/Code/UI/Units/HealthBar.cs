@@ -1,5 +1,6 @@
 using DG.Tweening;
 using Project.Code.Infrastructure.Services.UpdateBehavior;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ namespace Project.Code.UI.Units
         [SerializeField] private Image _fullbarImage;
         [SerializeField] private Image _tweenBarImage;
         [SerializeField] private float _tweenBarDuration = 0.35f;
+        [SerializeField] private TMP_Text _healthText;
 
         private Image[] _images;
         private RectTransform _targetCanvas;
@@ -29,6 +31,8 @@ namespace Project.Code.UI.Units
             _healthBarRectTransform = GetComponent<RectTransform>();
             _mainCamera = Camera.main;
             _images = GetComponentsInChildren<Image>();
+            if (_healthText!= null) 
+                _healthText.gameObject.SetActive(true);
         }
 
         public void SetTargetToFollow(Transform targetTransform, RectTransform targetCanvas)
@@ -55,6 +59,12 @@ namespace Project.Code.UI.Units
                 DoDamageTween(healthPercent);
         }
 
+        public void UpdateHealthText(float health)
+        {
+            if (_healthText!= null) 
+                _healthText.text = health.ToString("0");
+        }
+
         private void DoDamageTween(float healthPercent)
         {
             UpdateFillAmount(healthPercent);
@@ -73,7 +83,7 @@ namespace Project.Code.UI.Units
         {
             _fullbarImage.fillAmount = healthPercent;
         }
-        
+
         private void RepositionHealthBar()
         {
             if (_objectToFollow == null)

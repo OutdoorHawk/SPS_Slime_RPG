@@ -30,10 +30,11 @@ namespace Project.Code.Infrastructure.Services.Factory
         public Enemy SpawnEnemy(Vector3 position, Quaternion rotation, RectTransform hpPanel)
         {
             int currentLevel = _progressService.Progress.PlayerLevelsProgress.CurrentLevel;
+            Transform unitParent = _sceneContextService.UnitParent;
             LevelStaticData levelStaticData = _staticDataService.GetLevelStaticData(currentLevel);
             EnemyStaticData staticData = levelStaticData.GetEnemyStaticData();
             BaseUnit unitPrefab = staticData.UnitPrefab;
-            Enemy enemy = _zenjectFactory.Instantiate(unitPrefab, position, rotation).GetComponent<Enemy>();
+            Enemy enemy =_zenjectFactory.Instantiate(unitPrefab, position, rotation, unitParent).GetComponent<Enemy>();
             PlayerSlime slime = _sceneContextService.Player;
             enemy.SetupPlayer(slime);
             enemy.Init(staticData, _progressService.Progress, hpPanel);
@@ -43,9 +44,11 @@ namespace Project.Code.Infrastructure.Services.Factory
 
         public PlayerSlime SpawnPlayer(Vector3 position, Quaternion rotation, RectTransform hpPanel)
         {
+            Transform unitParent = _sceneContextService.UnitParent;
             UnitStaticData staticData = _staticDataService.GetUnit(UnitID.Player);
             BaseUnit unitPrefab = staticData.UnitPrefab;
-            PlayerSlime player = _zenjectFactory.Instantiate(unitPrefab, position, rotation).GetComponent<PlayerSlime>();
+            PlayerSlime player = _zenjectFactory.Instantiate(unitPrefab, position, rotation, unitParent)
+                .GetComponent<PlayerSlime>();
             player.Init(staticData, _progressService.Progress, hpPanel);
             _sceneContextService.SetPlayer(player);
             return player;
@@ -53,11 +56,12 @@ namespace Project.Code.Infrastructure.Services.Factory
 
         public Enemy SpawnBoss(Vector3 position, Quaternion rotation, RectTransform hpPanel)
         {
+            Transform unitParent = _sceneContextService.UnitParent;
             int currentLevel = _progressService.Progress.PlayerLevelsProgress.CurrentLevel;
             LevelStaticData levelStaticData = _staticDataService.GetLevelStaticData(currentLevel);
             EnemyStaticData staticData = levelStaticData.GetBossStaticData();
             BaseUnit unitPrefab = staticData.UnitPrefab;
-            Enemy enemy = _zenjectFactory.Instantiate(unitPrefab, position, rotation).GetComponent<Enemy>();
+            Enemy enemy = _zenjectFactory.Instantiate(unitPrefab, position, rotation, unitParent).GetComponent<Enemy>();
             PlayerSlime slime = _sceneContextService.Player;
             enemy.SetupPlayer(slime);
             enemy.Init(staticData, _progressService.Progress, hpPanel);

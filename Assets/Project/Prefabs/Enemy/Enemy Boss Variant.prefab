@@ -963,6 +963,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 386439092222573583, guid: 5600c2731d4095c4893a37d800ef1247, type: 3}
+      propertyPath: _healthBarPrefab
+      value: 
+      objectReference: {fileID: 885411000838996819, guid: 691ee01ca5127ab48a48c88a2294142f, type: 3}
     - target: {fileID: 3583039072619291632, guid: 5600c2731d4095c4893a37d800ef1247, type: 3}
       propertyPath: m_Avatar
       value: 
@@ -1014,6 +1018,10 @@ PrefabInstance:
     - target: {fileID: 4020860323635619742, guid: 5600c2731d4095c4893a37d800ef1247, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4020860323635619743, guid: 5600c2731d4095c4893a37d800ef1247, type: 3}
+      propertyPath: m_Speed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4020860323635619808, guid: 5600c2731d4095c4893a37d800ef1247, type: 3}
       propertyPath: m_Name

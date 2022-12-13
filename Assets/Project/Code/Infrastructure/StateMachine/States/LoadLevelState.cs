@@ -7,7 +7,7 @@ using Project.Code.Infrastructure.Services.StaticData;
 using Project.Code.Infrastructure.Services.UI;
 using Project.Code.Runtime.Roads;
 using Project.Code.Runtime.World;
-using Project.Code.StaticData.World;
+using Project.Code.UI.Windows.PlayerHUD;
 using UnityEngine;
 
 namespace Project.Code.Infrastructure.StateMachine.States
@@ -48,7 +48,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
             InitGameWorld();
             _gameStateMachine.Enter<GameLoopState>();
         }
-        
+
         private void InitGameWorld()
         {
             InitUI();
@@ -60,8 +60,9 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private void InitUI()
         {
             _uiFactory.CreateUiRoot();
-            _uiFactory.CreatePlayerHUD();
+            PlayerHUDWindow playerHUD = _uiFactory.CreatePlayerHUD();
             _hpPanel = _uiFactory.CreateWindow(WindowID.HealthBars).GetComponent<RectTransform>();
+            _sceneContextService.SetPlayerHUD(playerHUD);
         }
 
         private void CreatePlayer()
