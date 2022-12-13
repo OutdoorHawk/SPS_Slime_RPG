@@ -55,7 +55,8 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         protected override void HandleDamageTaken(AttackDetails details)
         {
             base.HandleDamageTaken(details);
-            Handheld.Vibrate();
+            if (PlayerPrefs.GetInt(Constants.VIBRATION) == 1) 
+                Handheld.Vibrate();
         }
 
         public void SetWalkingState()

@@ -103,7 +103,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
 
         private bool AllFightsPassed()
         {
-            return _levelsProgress.CurrentFight == _levelStaticData.MaxFightsOnLevel;
+            return _levelsProgress.CurrentFight >= _levelStaticData.MaxFightsOnLevel;
         }
 
         private void EnterBossFight()
