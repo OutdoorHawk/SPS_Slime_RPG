@@ -15,7 +15,7 @@ MonoBehaviour:
   _unitPrefab: {fileID: 5952983733338281636, guid: 9d165ccb8cb02034bbd75ddee3c8d772, type: 3}
   _attackSpeedBase: 0.8
   _damageAmountBase: 9
-  _healthAmountBase: 80
-  _moneyDropBase: 20
+  _healthAmountBase: 65
+  _moneyDropBase: 25
   _minSpeed: 0.85
   _maxSpeed: 0.9

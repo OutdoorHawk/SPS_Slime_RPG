@@ -48,7 +48,7 @@ namespace Project.Code.UI.Windows.PlayerHUD.Settings
 
         private void NotifyProgressDeleted() => OnProgressDeleted?.Invoke();
 
-        private void CheckVibrationSettings(bool value) => PlayerPrefs.SetInt(Constants.VIBRATION, value ? 1 : 0);
+        private void CheckVibrationSettings(bool value) => PlayerPrefs.SetInt(Constants.VIBRATION, value ? 0 : 1);
 
         private void OnDestroy()
         {
