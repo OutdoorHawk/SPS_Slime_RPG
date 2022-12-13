@@ -30,6 +30,8 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private LevelStaticData _levelStaticData;
         private PlayerHUDWindow _playerHUD;
 
+        private const int MAX_LEVEL = 10;
+
         public GameLoopState(ISceneContextService sceneContextService, IStaticDataService staticDataService,
             ICoroutineRunner coroutineRunner, IPersistentProgressService progressService,
             ISaveLoadService saveLoadService)
@@ -113,10 +115,18 @@ namespace Project.Code.Infrastructure.StateMachine.States
             _playerSlime.SetFightState();
         }
 
+        private bool IsGameFinished()
+        {
+            return (_levelsProgress.CurrentLevel == MAX_LEVEL);
+        }
+
         private void CompleteLevel()
         {
             _levelsProgress.PassLevel();
-            _gameStateMachine.Enter<LoadLevelState>();
+            if (IsGameFinished())
+                _playerHUD.EnableEndGameTitle();
+            else
+                _gameStateMachine.Enter<LoadLevelState>();
         }
 
         public void Exit()

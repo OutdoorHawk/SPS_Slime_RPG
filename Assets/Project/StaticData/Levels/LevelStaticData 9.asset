@@ -17,8 +17,8 @@ MonoBehaviour:
     HealthMultiplier: 32.036133
     MoneyMultiplier: 2.572307
   _maxFightsOnLevel: 6
-  _minEnemiesOnFight: 3
-  _maxEnemiesOnFight: 5
+  _minEnemiesOnFight: 4
+  _maxEnemiesOnFight: 6
   _enemiesStaticData:
   - {fileID: 11400000, guid: 67ae9cc4a48ec5b44a360edbbcc15ba8, type: 2}
   - {fileID: 11400000, guid: 1140e845743131446b0fc3342f515774, type: 2}

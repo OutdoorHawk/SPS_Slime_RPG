@@ -66,6 +66,16 @@ namespace Project.Code.UI.Windows.PlayerHUD.LevelProgress
                     .OnComplete(() => _actionTitleText.gameObject.SetActive(false)).OnComplete(onDone.Invoke));
         }
 
+        public void EnableEndGameTitle()
+        {
+            _actionTitleText.DOFade(1, 0);
+            _actionTitleText.gameObject.SetActive(true);
+            _actionTitleText.text = "CONGRATULATIONS!\n YOU FINISHED THE GAME";
+            _actionTitleText.transform.localScale = Vector3.zero;
+            _actionTextDuration = 0.5f;
+            _actionTitleText.transform.DOScale(Vector3.one, _actionTextDuration);
+        }
+
         private void OnDestroy()
         {
             _levelBarTween?.Kill();
