@@ -43,7 +43,7 @@ namespace Project.Code.UI.Units
 
         private void Tick()
         {
-            if (_targetCanvas != null)
+            if (_targetCanvas != null && _mainCamera != null)
                 RepositionHealthBar();
         }
 

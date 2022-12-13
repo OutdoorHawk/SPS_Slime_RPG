@@ -1,13 +1,17 @@
+using Project.Code.Extensions;
 using Project.Code.Infrastructure.Data;
 using Project.Code.Infrastructure.Services.SaveLoadService;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress.Stats;
 using Project.Code.Infrastructure.Services.SceneContext;
 using Project.Code.Infrastructure.Services.StaticData;
+using Project.Code.Infrastructure.StateMachine;
+using Project.Code.Infrastructure.StateMachine.States;
 using Project.Code.Runtime.Units.PlayerUnit;
 using Project.Code.StaticData.Units.Player;
 using Project.Code.UI.Windows.PlayerHUD.Currency;
 using Project.Code.UI.Windows.PlayerHUD.LevelProgress;
+using Project.Code.UI.Windows.PlayerHUD.Settings;
 using Project.Code.UI.Windows.PlayerHUD.StatShop;
 using UnityEngine;
 using Zenject;
@@ -19,6 +23,7 @@ namespace Project.Code.UI.Windows.PlayerHUD
         [SerializeField] private StatsShopContainer _shopContainer;
         [SerializeField] private CurrencyContainer _currencyContainer;
         [SerializeField] private LevelProgressContainer _levelProgressContainer;
+        [SerializeField] private SettingsMenuContainer _settingsMenuContainer;
 
         private IPersistentProgressService _progressService;
         private IStaticDataService _staticDataService;
@@ -29,11 +34,13 @@ namespace Project.Code.UI.Windows.PlayerHUD
         private ISceneContextService _sceneContextService;
         private PlayerSlime _playerSlime;
         private PlayerLevelsProgress _levelsProgress;
+        private IGameStateMachine _gameStateMachine;
 
         [Inject]
         private void Construct(IStaticDataService staticDataService, IPersistentProgressService progressService,
-            ISaveLoadService saveLoadService, ISceneContextService sceneContextService)
+            ISaveLoadService saveLoadService, ISceneContextService sceneContextService, IGameStateMachine gameStateMachine)
         {
+            _gameStateMachine = gameStateMachine;
             _sceneContextService = sceneContextService;
             _progressService = progressService;
             _saveLoadService = saveLoadService;
@@ -70,6 +77,16 @@ namespace Project.Code.UI.Windows.PlayerHUD
             _shopContainer.OnUpgradeButtonPressed += HandleUpgradeButtonClicked;
             _currencyProgress.OnMoneyChanged += CheckStatCosts;
             _levelsProgress.OnFightPassed += _levelProgressContainer.UpdateFightProgress;
+            _settingsMenuContainer.OnProgressDeleted += ResetProgress;
+        }
+
+        private void ResetProgress()
+        {
+            var progress = new PlayerProgress();
+            Utils.LoadDefaultValuesToProgress(progress, _staticDataService);
+            _progressService.Progress = progress;
+            _saveLoadService.SaveProgress();
+            _gameStateMachine.Enter<LoadLevelState>();
         }
 
         private void CheckStatCosts()
@@ -106,6 +123,7 @@ namespace Project.Code.UI.Windows.PlayerHUD
             _shopContainer.OnUpgradeButtonPressed -= HandleUpgradeButtonClicked;
             _currencyProgress.OnMoneyChanged -= CheckStatCosts;
             _levelsProgress.OnFightPassed -= _levelProgressContainer.UpdateFightProgress;
+            _settingsMenuContainer.OnProgressDeleted -= ResetProgress;
             _shopContainer.Cleanup();
         }
     }

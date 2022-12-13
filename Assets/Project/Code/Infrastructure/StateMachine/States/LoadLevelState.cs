@@ -15,13 +15,13 @@ namespace Project.Code.Infrastructure.StateMachine.States
     public class LoadLevelState : IState
     {
         private IGameStateMachine _gameStateMachine;
+        private readonly IPersistentProgressService _progressService;
         private readonly ISceneLoader _sceneLoader;
         private readonly IStaticDataService _staticDataService;
         private readonly ISceneContextService _sceneContextService;
         private readonly IUnitFactory _unitFactory;
         private readonly IUIFactory _uiFactory;
         private RectTransform _hpPanel;
-        private IPersistentProgressService _progressService;
 
         private LoadLevelState(ISceneLoader sceneLoader, IStaticDataService staticDataService,
             ISceneContextService sceneContextService, IUnitFactory unitFactory, IUIFactory uiFactory,

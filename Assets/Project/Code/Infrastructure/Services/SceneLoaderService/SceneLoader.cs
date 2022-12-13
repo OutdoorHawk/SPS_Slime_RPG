@@ -14,30 +14,28 @@ namespace Project.Code.Infrastructure.Services.SceneLoaderService
         private IEnumerator _loadingRoutine;
         private Tween _imageTween;
 
-        public void LoadScene(string sceneName, Action onLoaded = null, Action onReadyToPlay = null)
+        public void LoadScene(string sceneName, Action onLoaded = null)
         {
             _imageTween?.Kill();
             _imageTween = _canvasGroup.DOFade(1, _fadeTime)
-                .OnComplete(() => StartLoadingOperation(sceneName, onLoaded, onReadyToPlay));
+                .OnComplete(() => StartLoadingOperation(sceneName, onLoaded));
         }
 
-        private void StartLoadingOperation(string sceneName, Action onLoaded, Action onReadyToPlay)
+        private void StartLoadingOperation(string sceneName, Action onLoaded)
         {
-            _loadingRoutine = LoadingScreenStartRoutine(sceneName, onLoaded, onReadyToPlay);
+            _loadingRoutine = LoadingScreenStartRoutine(sceneName, onLoaded);
             StartCoroutine(_loadingRoutine);
         }
 
-        private IEnumerator LoadingScreenStartRoutine(string sceneName, Action onLoaded, Action onReadyToPlay)
+        private IEnumerator LoadingScreenStartRoutine(string sceneName, Action onLoaded)
         {
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
             while (operation != null && !operation.isDone)
                 yield return 0;
-
+Debug.Log("OnLoaded");
             onLoaded?.Invoke();
-            yield return new WaitForSeconds(0.25f);
             _loadingRoutine = null;
             _imageTween = _canvasGroup.DOFade(0, _fadeTime);
-            onReadyToPlay?.Invoke();
         }
 
         private void OnDestroy()

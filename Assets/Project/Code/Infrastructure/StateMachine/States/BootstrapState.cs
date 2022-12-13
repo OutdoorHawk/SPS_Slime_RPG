@@ -1,4 +1,5 @@
-﻿using Project.Code.Infrastructure.Services.AssetProvider;
+﻿using Project.Code.Extensions;
+using Project.Code.Infrastructure.Services.AssetProvider;
 using Project.Code.Infrastructure.Services.SaveLoadService;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Infrastructure.Services.StaticData;
@@ -41,14 +42,8 @@ namespace Project.Code.Infrastructure.StateMachine.States
         private PlayerProgress NewProgress()
         {
             var progress = new PlayerProgress();
-            LoadDefaultValuesToProgress(progress);
+            Utils.LoadDefaultValuesToProgress(progress, _staticDataService);
             return progress;
-        }
-
-        private void LoadDefaultValuesToProgress(PlayerProgress playerProgress)
-        {
-            PlayerStaticData playerStaticData = _staticDataService.GetPlayerStaticData();
-            playerProgress.PlayerStatsProgress.SetDefaultStatValues(playerStaticData.StatConfigs);
         }
 
         public void Exit()

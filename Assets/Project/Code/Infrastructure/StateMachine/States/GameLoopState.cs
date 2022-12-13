@@ -7,6 +7,7 @@ using Project.Code.Runtime.Roads;
 using Project.Code.Runtime.Units.PlayerUnit;
 using Project.Code.Runtime.World;
 using Project.Code.StaticData.World;
+using UnityEngine;
 
 namespace Project.Code.Infrastructure.StateMachine.States
 {
@@ -115,6 +116,9 @@ namespace Project.Code.Infrastructure.StateMachine.States
 
         public void Exit()
         {
+            Object.Destroy(_playerSlime.gameObject);
+            for (int i = 0; i < UnitCollector.AliveEnemies.Count; i++)
+                Object.Destroy(UnitCollector.AliveEnemies[i].gameObject);
             _playerSlime.OnUnitDead -= RestartLevel;
             _unitCollector.Cleanup();
         }
