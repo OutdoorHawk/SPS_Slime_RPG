@@ -31,6 +31,7 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             _staticData = unitStaticData as PlayerStaticData;
             _damageComponent = GetComponent<PlayerDealDamageComponent>();
             _healSystem = new PlayerHealSystem(this, HealthComponent);
+            _animatorComponent.Init();
             UpdateComponents();
             HealthComponent.Respawn();
             _healthBar.UpdateHealth(HealthComponent.HealthPercent);
@@ -54,7 +55,8 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         protected override void HandleDamageTaken(AttackDetails details)
         {
             base.HandleDamageTaken(details);
-            Handheld.Vibrate();
+            if (PlayerPrefs.GetInt(Constants.VIBRATION) == 0) 
+                Handheld.Vibrate();
         }
 
         public void SetWalkingState()

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Project.Code.StaticData.World;
+using Project.Code.UI.BG;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,6 +15,7 @@ namespace Project.Code.Runtime.Roads
         [SerializeField] private ParticleSystem _windParticles;
         [SerializeField] private float _movingSpeed;
         [SerializeField] private float _minTriggerDistance = 1f;
+        [SerializeField] private Parallax _parallax;
 
         private List<Road> _activeRoads;
         private Road[] _roadPrefabs;
@@ -22,14 +24,16 @@ namespace Project.Code.Runtime.Roads
 
         private static readonly Vector3 NextRoadOffset = new(50, 0, 0);
         private float _walkingTime;
+        private LevelStaticData _levelStaticData;
 
         private const float MAX_ROAD_AMOUNT = 4;
 
-        public void Init(WorldStaticData worldStaticData, Transform playerTransform)
+        public void Init(WorldStaticData worldStaticData, Transform playerTransform, LevelStaticData levelStaticData)
         {
+            _levelStaticData = levelStaticData;
             _playerTransform = playerTransform;
             _movingSpeed = worldStaticData.RoadMovingSpeed;
-            _roadPrefabs = worldStaticData.Roads;
+            _roadPrefabs = levelStaticData.Roads;
             _walkingTime = worldStaticData.PlayerWalkingTime;
             _cachedTransform = transform;
             _activeRoads = new List<Road>();
@@ -82,6 +86,7 @@ namespace Project.Code.Runtime.Roads
         {
             UpdateMovement();
             CheckNewRoadSpawn();
+            _parallax.UpdateParallax();
         }
 
         private void UpdateMovement()

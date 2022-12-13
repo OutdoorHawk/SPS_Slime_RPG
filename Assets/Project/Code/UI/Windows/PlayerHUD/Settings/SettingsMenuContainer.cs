@@ -1,14 +1,14 @@
 using System;
+using Project.Code.Infrastructure.Data;
 using UnityEngine;
-using UnityEngine.UIElements;
-using Button = UnityEngine.UI.Button;
+using UnityEngine.UI;
 
 namespace Project.Code.UI.Windows.PlayerHUD.Settings
 {
     public class SettingsMenuContainer : MonoBehaviour
     {
         public event Action OnProgressDeleted;
-        
+
         [SerializeField] private Button _openSettingsButton;
         [SerializeField] private Button _exitSettingsButton;
         [SerializeField] private Button _deleteProgressButton;
@@ -19,6 +19,7 @@ namespace Project.Code.UI.Windows.PlayerHUD.Settings
         [SerializeField] private GameObject _mainPanel;
         [SerializeField] private GameObject _surePanel;
         [SerializeField] private GameObject _creditsPanel;
+        [SerializeField] private Toggle _vibrationToggle;
 
         private void Awake()
         {
@@ -29,7 +30,9 @@ namespace Project.Code.UI.Windows.PlayerHUD.Settings
             _yesButton.onClick.AddListener(NotifyProgressDeleted);
             _creditsButton.onClick.AddListener(OpenCredits);
             _exitCreditsButton.onClick.AddListener(CloseCredits);
+            _vibrationToggle.onValueChanged.AddListener(CheckVibrationSettings);
         }
+
 
         private void CloseCredits() => _creditsPanel.SetActive(false);
 
@@ -45,6 +48,8 @@ namespace Project.Code.UI.Windows.PlayerHUD.Settings
 
         private void NotifyProgressDeleted() => OnProgressDeleted?.Invoke();
 
+        private void CheckVibrationSettings(bool value) => PlayerPrefs.SetInt(Constants.VIBRATION, value ? 0 : 1);
+
         private void OnDestroy()
         {
             _openSettingsButton.onClick.RemoveListener(EnableSettingsMenu);
@@ -54,6 +59,7 @@ namespace Project.Code.UI.Windows.PlayerHUD.Settings
             _yesButton.onClick.RemoveListener(NotifyProgressDeleted);
             _creditsButton.onClick.RemoveListener(OpenCredits);
             _exitCreditsButton.onClick.RemoveListener(CloseCredits);
+            _vibrationToggle.onValueChanged.RemoveListener(CheckVibrationSettings);
         }
     }
 }

@@ -47,8 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _roadsParent: {fileID: 0}
   _windParticles: {fileID: 3252164539943567461}
-  _movingSpeed: 10
-  _minTriggerDistance: 5
+  _movingSpeed: 8
+  _minTriggerDistance: 10
 --- !u!1001 &1070804784333403294
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Project.Code.Runtime.Roads
@@ -7,11 +8,6 @@ namespace Project.Code.Runtime.Roads
     {
         [SerializeField] private Transform _triggerPoint;
         public Transform TriggerPoint => _triggerPoint;
-
-        private void Awake()
-        {
-
-        }
 
         public void Move(Vector3 movementVector)
         {

@@ -89,6 +89,11 @@ namespace Project.Code.UI.Windows.PlayerHUD
         public void EnableDefeatTitle(Action onDone)
         {
             _levelProgressContainer.EnableDefeatTitle(onDone);
+        }  
+        
+        public void EnableEndGameTitle()
+        {
+            _levelProgressContainer.EnableEndGameTitle();
         }
 
         private void CheckStatCosts()

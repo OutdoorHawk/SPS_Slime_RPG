@@ -34,12 +34,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2fd7eb7546ea5414daf6359f300a8d84, type: 2}
   - {fileID: 11400000, guid: eb82bc093aa45904885b944571a6eb45, type: 2}
   _worldStaticData:
-    _roads:
-    - {fileID: 34025909559052126, guid: 63f9a4d9e27056949a3b7b5968ce66e2, type: 3}
-    - {fileID: 7175165334783599933, guid: 853b55f4c3251c34d9c3ac756b063b67, type: 3}
-    - {fileID: 6609179255809895849, guid: 22024360ab60d2a4aa3c2c00c0a4531c, type: 3}
     _roadMovingSpeed: 10
     _playerWalkingTime: 2
   _damageLevelScale: 1.3
   _healthLevelScale: 1.6
-  _moneyLevelScale: 1.3
+  _moneyLevelScale: 1.275

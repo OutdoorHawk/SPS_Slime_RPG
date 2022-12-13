@@ -1,3 +1,4 @@
+using Project.Code.Runtime.Roads;
 using Project.Code.StaticData.Units;
 using UnityEngine;
 
@@ -13,11 +14,13 @@ namespace Project.Code.StaticData.World
 
         [SerializeField] private EnemyStaticData[] _enemiesStaticData;
         [SerializeField] private EnemyStaticData _bossStaticData;
+        [SerializeField] private Road[] _roads;
 
         public int MaxFightsOnLevel => _maxFightsOnLevel;
         public EnemyMultipliers Multipliers => _multipliers;
         public int MaxEnemiesOnFight => _maxEnemiesOnFight;
         public int MinEnemiesOnFight => _minEnemiesOnFight;
+        public Road[] Roads => _roads;
 
         public void UpdateMultipliers(EnemyMultipliers multipliersForLevelData)
         {
