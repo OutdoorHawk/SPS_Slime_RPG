@@ -66,6 +66,7 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
                 StatID.HP => _statProgress.StatValue.ToString("0"),
                 StatID.HPREC => _statProgress.StatValue.ToString("0.0"),
                 StatID.CRIT => $"{_statProgress.StatValue:0}%",
+                StatID.DoubleShot => $"{_statProgress.StatValue:0}%",
                 _ => null
             };
         }

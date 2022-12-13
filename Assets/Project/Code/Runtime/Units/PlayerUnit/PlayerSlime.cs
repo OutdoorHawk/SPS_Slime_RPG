@@ -30,7 +30,6 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             _staticData = unitStaticData as PlayerStaticData;
             _damageComponent = GetComponent<PlayerDealDamageComponent>();
             _healSystem = new PlayerHealSystem(this, HealthComponent);
-            _fightRoutine = FightingRoutine();
             UpdateComponents();
             HealthComponent.Respawn();
             _healthBar.UpdateHealth(HealthComponent.HealthPercent);
@@ -43,16 +42,18 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             float loadedHP = _statsProgress.GetStatProgress(StatID.HP).StatValue;
             float loadedHPREC = _statsProgress.GetStatProgress(StatID.HPREC).StatValue;
             float loadedCRIT = _statsProgress.GetStatProgress(StatID.CRIT).StatValue;
+            float loadedDoubleShot = _statsProgress.GetStatProgress(StatID.DoubleShot).StatValue;
 
             _healSystem.UpdateStats(loadedHPREC);
-            _damageComponent.Init(loadedAttack, loadedAtkSpeed, loadedCRIT);
+            _damageComponent.Init(loadedAttack, loadedAtkSpeed, loadedCRIT, loadedDoubleShot);
             HealthComponent.Init(loadedHP);
             _animatorComponent.SpawnUpgradeParticles();
         }
 
         public void SetWalkingState()
         {
-            StopCoroutine(_fightRoutine);
+            if (_fightRoutine != null)
+                StopCoroutine(_fightRoutine);
             _animatorComponent.EnableWalkAnim();
         }
 
@@ -68,7 +69,7 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             while (UnitCollector.AliveEnemies.Count > 0)
             {
                 _damageComponent.UpdateTarget();
-                _damageComponent.UpdateAttack(Time.deltaTime);
+                _damageComponent.UpdateAttack();
                 yield return new WaitForSeconds(Time.deltaTime);
             }
         }

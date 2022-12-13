@@ -50,7 +50,7 @@ namespace Project.Code.Runtime.Units.EnemyUnit
             if (FarFromPlayer())
                 MoveToPlayer();
             else
-                _damageComponent.UpdateAttack(Time.deltaTime);
+                _damageComponent.UpdateAttack();
             
             _animator.UpdatePlayerAnim(_navMeshAgent.velocity.magnitude);
         }

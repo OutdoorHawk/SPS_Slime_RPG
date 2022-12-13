@@ -22,7 +22,6 @@ namespace Project.Code.Runtime.Roads
 
         private static readonly Vector3 NextRoadOffset = new(50, 0, 0);
         private float _walkingTime;
-        private float _fightDelay = 0.35f;
 
         private const float MAX_ROAD_AMOUNT = 4;
 
@@ -76,14 +75,6 @@ namespace Project.Code.Runtime.Roads
             } while (t > 0);
 
             onWalkingDone?.Invoke();
-            t = _fightDelay;
-            do
-            {
-                TickMovement();
-                t -= Time.deltaTime;
-                yield return new WaitForSeconds(Time.deltaTime);
-            } while (t > 0);
-
             _windParticles.Stop();
         }
 

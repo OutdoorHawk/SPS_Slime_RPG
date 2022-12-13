@@ -21,6 +21,7 @@ namespace Project.Code.Infrastructure.Data
         ASPD,
         HP,
         HPREC,
-        CRIT
+        CRIT,
+        DoubleShot
     }
 }

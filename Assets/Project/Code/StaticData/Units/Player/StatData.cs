@@ -10,5 +10,7 @@ namespace Project.Code.StaticData.Units.Player
         
         public float ValueIncrease;
         public int UpgradeCostIncrease;
+        
+        public int MaxLvl = 100;
     }
 }

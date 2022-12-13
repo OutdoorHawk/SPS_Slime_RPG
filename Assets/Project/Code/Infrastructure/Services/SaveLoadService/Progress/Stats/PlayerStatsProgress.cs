@@ -18,7 +18,8 @@ namespace Project.Code.Infrastructure.Services.SaveLoadService.Progress.Stats
                 { StatID.ASPD, new StatProgress() },
                 { StatID.HP, new StatProgress() },
                 { StatID.HPREC, new StatProgress() },
-                { StatID.CRIT, new StatProgress() }
+                { StatID.CRIT, new StatProgress() },
+                { StatID.DoubleShot, new StatProgress() }
             };
         }
 

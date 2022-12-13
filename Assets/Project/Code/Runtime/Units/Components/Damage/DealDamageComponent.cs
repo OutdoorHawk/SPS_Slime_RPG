@@ -16,12 +16,12 @@ namespace Project.Code.Runtime.Units.Components.Damage
             _attackSpeed = atkSpeed;
         }
 
-        public virtual void UpdateAttack(float deltaTime)
+        public virtual void UpdateAttack()
         {
             if (_countDown <= 0)
                 Attack();
 
-            _countDown -= deltaTime;
+            _countDown -= Time.deltaTime;
         }
 
         protected virtual void Attack()
