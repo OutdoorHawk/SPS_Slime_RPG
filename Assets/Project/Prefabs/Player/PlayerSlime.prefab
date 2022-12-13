@@ -79,6 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attackDetails:
     Damage: 0
+    Crit: 0
   _attackSpeed: 0
   _projectilePrefab: {fileID: 949682339468087043, guid: c9c00dbb088fadb4e9f01415c51d3a40, type: 3}
 --- !u!114 &4354990924899416257
@@ -223,7 +224,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5e20463e1312b8f43b99301c132f0122, type: 2}
+  - {fileID: 2100000, guid: 66e61b77a51ca0e449307911e91026db, type: 2}
   - {fileID: 2100000, guid: e87432d941f922045bf68ea065c1fa2c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0

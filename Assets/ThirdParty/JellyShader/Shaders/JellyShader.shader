@@ -19,7 +19,7 @@ Shader "Custom/JellyShader" {
 		_WaveSpeed ("Wave Speed", Range(-10, 10)) = -5
 	}
 	SubShader {
-		Tags { "RenderType"="Opaque" }
+		Tags { "RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" "IgnoreProjector" = "True"}
 		LOD 200
 		
 		CGPROGRAM

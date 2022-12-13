@@ -17,6 +17,7 @@ namespace Project.Code.Infrastructure
 
         private void Awake()
         {
+            Application.targetFrameRate = 90;
             _gameStateMachine.Enter<BootstrapState>();
             DontDestroyOnLoad(gameObject);
         }
