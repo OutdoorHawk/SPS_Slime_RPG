@@ -27,7 +27,7 @@ namespace Project.Code.Runtime.Units.Components.Animation
         private void InitCachedMaterials()
         {
             _cachedMaterials = new Material[_renderers.Length];
-            for (var i = 0; i < _renderers.Length; i++)
+            for (var i = 0; i < _renderers.Length; i++) 
                 _cachedMaterials[i] = _renderers[i].material;
         }
 

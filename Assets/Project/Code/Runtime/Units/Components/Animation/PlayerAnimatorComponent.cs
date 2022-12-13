@@ -26,8 +26,9 @@ namespace Project.Code.Runtime.Units.Components.Animation
 
         private const float RESET_TIME = 0.25f;
 
-        private void Awake()
+        public void Init()
         {
+            _movingParticles.gameObject.SetActive(true);
             CollectScales();
             _upgradeParticlesGO = Instantiate(_upgradeParticles, transform.position, Quaternion.identity);
         }

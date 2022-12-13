@@ -282,6 +282,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlimeMovingParticles
       objectReference: {fileID: 0}
+    - target: {fileID: 102099789982921442, guid: 46207cb9d6d853542b66a032134074fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 102099789982921519, guid: 46207cb9d6d853542b66a032134074fd, type: 3}
       propertyPath: m_RootOrder
       value: 1
