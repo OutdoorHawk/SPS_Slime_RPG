@@ -1820,7 +1820,7 @@ PrefabInstance:
     - target: {fileID: 8750956092342507815, guid: 5b51f082f910c194f90f028e1113cf4e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -707174990, guid: 20e7204d426fd8b41acfc541ad6940bd, type: 3}
+      objectReference: {fileID: 1334808520, guid: 20e7204d426fd8b41acfc541ad6940bd, type: 3}
     - target: {fileID: 8794957092308884098, guid: 5b51f082f910c194f90f028e1113cf4e, type: 3}
       propertyPath: m_text
       value: Double_Shot

@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Project.Code.Infrastructure.Services.UpdateBehavior;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,9 +21,11 @@ namespace Project.Code.UI.Units
         private Camera _mainCamera;
         private Tween _tweenBarDamage;
         private Tween _tweenBarHeal;
+        private IUpdateBehaviourService _updateBehaviourService;
 
-        public void Init()
+        public void Init(IUpdateBehaviourService updateBehaviourService)
         {
+            _updateBehaviourService = updateBehaviourService;
             _healthBarRectTransform = GetComponent<RectTransform>();
             _mainCamera = Camera.main;
             _images = GetComponentsInChildren<Image>();
@@ -35,9 +38,10 @@ namespace Project.Code.UI.Units
             transform.SetParent(_targetCanvas, false);
             gameObject.SetActive(true);
             _tweenBarImage.fillAmount = 1;
+            _updateBehaviourService.UpdateEvent += Tick;
         }
 
-        private void Update()
+        private void Tick()
         {
             if (_targetCanvas != null)
                 RepositionHealthBar();
@@ -69,14 +73,7 @@ namespace Project.Code.UI.Units
         {
             _fullbarImage.fillAmount = healthPercent;
         }
-
-        public void SetVisible(bool visible)
-        {
-            foreach (var item in _images)
-                if (item != null)
-                    item.enabled = visible;
-        }
-
+        
         private void RepositionHealthBar()
         {
             if (_objectToFollow == null)
@@ -98,6 +95,7 @@ namespace Project.Code.UI.Units
         private void OnDestroy()
         {
             _tweenBarDamage?.Kill();
+            _updateBehaviourService.UpdateEvent -= Tick;
         }
     }
 }
