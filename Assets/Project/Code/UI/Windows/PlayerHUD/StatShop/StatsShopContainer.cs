@@ -36,7 +36,7 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
         {
             _shopItems = _shopItemsParent.GetComponentsInChildren<StatShopItem>().ToList();
             foreach (var item in _shopItems)
-                item.Init(_statsProgress,_currencyProgress);
+                item.Init(_statsProgress,_currencyProgress,_staticData);
         }
         
         public void UpdateShopItems()

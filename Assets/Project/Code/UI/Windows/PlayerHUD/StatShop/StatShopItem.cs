@@ -2,6 +2,7 @@ using System;
 using Project.Code.Infrastructure.Data;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress.Stats;
+using Project.Code.StaticData.Units.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,14 +19,18 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
         [SerializeField] private TMP_Text _upgradeCost;
         [SerializeField] private TMP_Text _currentLevel;
         [SerializeField] private Button _upgradeButton;
+        [SerializeField] private GameObject _lockedButton;
         
         private StatProgress _statProgress;
         private PlayerCurrencyProgress _currencyProgress;
+        private StatData _statData;
 
-        public void Init(PlayerStatsProgress statsProgress, PlayerCurrencyProgress playerCurrencyProgress)
+        public void Init(PlayerStatsProgress statsProgress, PlayerCurrencyProgress playerCurrencyProgress,
+            PlayerStaticData playerStaticData)
         {
             _currencyProgress = playerCurrencyProgress;
             _statProgress = statsProgress.GetStatProgress(_statID);
+            _statData = playerStaticData.GetStatData(_statID);
             UpdateItemInfo();
         }
 
@@ -35,6 +40,19 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
             _statValue.text = SwitchValueFormat();
             _currentLevel.text = "Lv " + _statProgress.StatLvl;
             CheckEnoughMoney();
+            CheckMaxLevel();
+        }
+
+        private void CheckMaxLevel()
+        {
+            if (_statProgress.StatLvl == _statData.MaxLvl) 
+                LockButton();
+        }
+
+        private void LockButton()
+        {
+            _lockedButton.gameObject.SetActive(true);
+            _upgradeButton.gameObject.SetActive(false);
         }
 
         public void CheckEnoughMoney()
