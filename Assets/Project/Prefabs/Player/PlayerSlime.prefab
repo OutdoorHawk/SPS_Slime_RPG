@@ -113,8 +113,8 @@ MonoBehaviour:
   _slimeModel: {fileID: 3976526555009012924}
   _walkingScaleMax: 1.1
   _walkingScaleMin: 0.85
-  _idleScaleMax: 1.1
-  _idleScaleMin: 0.9
+  _idleScaleMax: 1.075
+  _idleScaleMin: 0.925
   _idleTime: 0.4
   _walkingTime: 0.35
 --- !u!1 &5063829292395205004
