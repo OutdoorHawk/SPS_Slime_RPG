@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: GameStaticData
   m_EditorClassIdentifier: 
   _windows:
-  - ID: 3
-    WindowPrefab: {fileID: 7370455005571362830, guid: c04a1d393872b11499a565bfe614c094, type: 3}
   - ID: 2
-    WindowPrefab: {fileID: 7989589896614023824, guid: ee2676c65876f574eacf9fc68e22a1d9, type: 3}
+    WindowPrefab: {fileID: 7370455005571362830, guid: c04a1d393872b11499a565bfe614c094, type: 3}
   - ID: 1
+    WindowPrefab: {fileID: 7989589896614023824, guid: ee2676c65876f574eacf9fc68e22a1d9, type: 3}
+  - ID: 0
     WindowPrefab: {fileID: 2656138073115000086, guid: ba8a4b0ff1ff26048b9153da6cefcaa3, type: 3}
   _units:
   - UnitID: 0

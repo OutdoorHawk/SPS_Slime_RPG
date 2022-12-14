@@ -238,7 +238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sceneLoader: {fileID: 4458689481710208033}
-  update: {fileID: 1535005690492627714}
+  _update: {fileID: 1535005690492627714}
 --- !u!114 &1535005690492627714
 MonoBehaviour:
   m_ObjectHideFlags: 0

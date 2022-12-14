@@ -20,24 +20,12 @@ namespace Project.Code.Runtime.Units.Components.Animation
         private Sequence _walkingSeq;
         private Sequence _resetSeq;
 
-        private float _defaultZScale;
-        private float _defaultYScale;
-        private float _defaultXScale;
-
         private const float RESET_TIME = 0.25f;
 
         public void Init()
         {
             _movingParticles.gameObject.SetActive(true);
-            CollectScales();
             _upgradeParticlesGO = Instantiate(_upgradeParticles, transform.position, Quaternion.identity);
-        }
-
-        private void CollectScales()
-        {
-            _defaultZScale = _slimeModel.localScale.z;
-            _defaultYScale = _slimeModel.localScale.y;
-            _defaultXScale = _slimeModel.localScale.x;
         }
 
         public void EnableIdleAnim()

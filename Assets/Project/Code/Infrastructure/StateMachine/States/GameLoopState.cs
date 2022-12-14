@@ -1,5 +1,4 @@
 ﻿using System;
-using Project.Code.Infrastructure.Services.CoroutineRunner;
 using Project.Code.Infrastructure.Services.SaveLoadService;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Infrastructure.Services.SceneContext;
@@ -16,31 +15,26 @@ namespace Project.Code.Infrastructure.StateMachine.States
     {
         private readonly ISceneContextService _sceneContextService;
         private readonly IStaticDataService _staticDataService;
-        private readonly ICoroutineRunner _coroutineRunner;
         private readonly UnitCollector _unitCollector;
         private readonly IPersistentProgressService _progressService;
+        private readonly ISaveLoadService _saveLoadService;
 
         private IGameStateMachine _gameStateMachine;
         private EnemySpawner _enemySpawner;
         private PlayerSlime _playerSlime;
         private RoadSpawner _roadSpawner;
-        private WorldStaticData _worldStaticData;
-        private ISaveLoadService _saveLoadService;
         private PlayerLevelsProgress _levelsProgress;
         private LevelStaticData _levelStaticData;
         private PlayerHUDWindow _playerHUD;
 
-        private const int MAX_LEVEL = 10;
-
         public GameLoopState(ISceneContextService sceneContextService, IStaticDataService staticDataService,
-            ICoroutineRunner coroutineRunner, IPersistentProgressService progressService,
+            IPersistentProgressService progressService,
             ISaveLoadService saveLoadService)
         {
             _progressService = progressService;
             _saveLoadService = saveLoadService;
             _sceneContextService = sceneContextService;
             _staticDataService = staticDataService;
-            _coroutineRunner = coroutineRunner;
             _unitCollector = new UnitCollector();
         }
 
@@ -57,7 +51,6 @@ namespace Project.Code.Infrastructure.StateMachine.States
         {
             _unitCollector.InitUnitLists();
             _playerSlime = _sceneContextService.Player;
-            _worldStaticData = _staticDataService.GetWorldStaticData();
             _roadSpawner = _sceneContextService.RoadSpawner;
             _enemySpawner = _sceneContextService.EnemySpawner;
             _levelsProgress = _progressService.Progress.PlayerLevelsProgress;
@@ -70,13 +63,6 @@ namespace Project.Code.Infrastructure.StateMachine.States
             _roadSpawner.DoWalking(EnableFight);
             _playerSlime.SetWalkingState();
             _playerSlime.OnUnitDead += RestartLevel;
-        }
-
-        private void RestartLevel(BaseUnit player)
-        {
-            _playerHUD.EnableDefeatTitle(() => _gameStateMachine.Enter<LoadLevelState>());
-            _levelsProgress.ResetFights();
-            _saveLoadService.SaveProgress(); // TODO ACTIVATE LATER
         }
 
         private void EnableFight()
@@ -94,7 +80,12 @@ namespace Project.Code.Infrastructure.StateMachine.States
             else
                 ContinueWalking(EnableFight);
 
-            _saveLoadService.SaveProgress(); // TODO ACTIVATE LATER
+            _saveLoadService.SaveProgress();
+        }
+
+        private bool AllFightsPassed()
+        {
+            return _levelsProgress.CurrentFight >= _levelStaticData.MaxFightsOnLevel;
         }
 
         private void ContinueWalking(Action onDone)
@@ -103,9 +94,11 @@ namespace Project.Code.Infrastructure.StateMachine.States
             _playerSlime.SetWalkingState();
         }
 
-        private bool AllFightsPassed()
+        private void RestartLevel(BaseUnit player)
         {
-            return _levelsProgress.CurrentFight >= _levelStaticData.MaxFightsOnLevel;
+            _playerHUD.EnableDefeatTitle(() => _gameStateMachine.Enter<LoadLevelState>());
+            _levelsProgress.ResetFights();
+            _saveLoadService.SaveProgress();
         }
 
         private void EnterBossFight()
@@ -113,11 +106,6 @@ namespace Project.Code.Infrastructure.StateMachine.States
             _playerHUD.EnableBossTitle();
             _enemySpawner.SpawnBoss(CompleteLevel);
             _playerSlime.SetFightState();
-        }
-
-        private bool IsGameFinished()
-        {
-            return (_levelsProgress.CurrentLevel == MAX_LEVEL);
         }
 
         private void CompleteLevel()
@@ -128,6 +116,9 @@ namespace Project.Code.Infrastructure.StateMachine.States
             else
                 _gameStateMachine.Enter<LoadLevelState>();
         }
+
+        private bool IsGameFinished() 
+            => _levelsProgress.CurrentLevel == _staticDataService.GetLevelsAmount();
 
         public void Exit()
         {

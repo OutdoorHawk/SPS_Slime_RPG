@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Project.Code.StaticData.World;
 using Project.Code.UI.BG;
 using UnityEngine;
@@ -13,9 +12,8 @@ namespace Project.Code.Runtime.Roads
     {
         [SerializeField] private Transform _roadsParent;
         [SerializeField] private ParticleSystem _windParticles;
-        [SerializeField] private float _movingSpeed;
-        [SerializeField] private float _minTriggerDistance = 1f;
         [SerializeField] private Parallax _parallax;
+        [SerializeField] private float _minTriggerDistance = 10f;
 
         private List<Road> _activeRoads;
         private Road[] _roadPrefabs;
@@ -23,14 +21,14 @@ namespace Project.Code.Runtime.Roads
         private Transform _playerTransform;
 
         private static readonly Vector3 NextRoadOffset = new(50, 0, 0);
+        private float _movingSpeed;
         private float _walkingTime;
-        private LevelStaticData _levelStaticData;
 
         private const float MAX_ROAD_AMOUNT = 4;
 
-        public void Init(WorldStaticData worldStaticData, Transform playerTransform, LevelStaticData levelStaticData)
+        public void Init(WorldStaticData worldStaticData, Transform playerTransform,
+            LevelStaticData levelStaticData)
         {
-            _levelStaticData = levelStaticData;
             _playerTransform = playerTransform;
             _movingSpeed = worldStaticData.RoadMovingSpeed;
             _roadPrefabs = levelStaticData.Roads;
@@ -38,13 +36,13 @@ namespace Project.Code.Runtime.Roads
             _cachedTransform = transform;
             _activeRoads = new List<Road>();
             _windParticles.Stop();
-            CollectExistingRoads();
+            DestroyExistingRoads();
             SpawnFirstRoads();
         }
 
-        private void CollectExistingRoads()
+        private void DestroyExistingRoads()
         {
-            for (int i = 0; i < _roadsParent.childCount; i++) 
+            for (int i = 0; i < _roadsParent.childCount; i++)
                 Destroy(_roadsParent.GetChild(i).gameObject);
         }
 

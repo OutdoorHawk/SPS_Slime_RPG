@@ -22,6 +22,8 @@ namespace Project.Code.Infrastructure.StaticData
         public LevelStaticData[] LevelsStaticData => _levelsStaticData;
         public WorldStaticData WorldStaticData => _worldStaticData;
 
+        #region Editor
+
         [ContextMenu("EraseProgress")]
         private void EraseProgress() => PlayerPrefs.DeleteAll();
 
@@ -47,5 +49,7 @@ namespace Project.Code.Infrastructure.StaticData
         {
             Time.timeScale = Time.timeScale < 2 ? 2 : 1;
         }
+
+        #endregion
     }
 }

@@ -13,10 +13,8 @@ namespace Project.Code.UI.Units
         [SerializeField] private Image _tweenBarImage;
         [SerializeField] private float _tweenBarDuration = 0.35f;
         [SerializeField] private TMP_Text _healthText;
-
-        private Image[] _images;
+        
         private RectTransform _targetCanvas;
-
         private RectTransform _healthBarRectTransform;
         private Transform _objectToFollow;
 
@@ -30,7 +28,6 @@ namespace Project.Code.UI.Units
             _updateBehaviourService = updateBehaviourService;
             _healthBarRectTransform = GetComponent<RectTransform>();
             _mainCamera = Camera.main;
-            _images = GetComponentsInChildren<Image>();
             if (_healthText!= null) 
                 _healthText.gameObject.SetActive(true);
         }
@@ -91,11 +88,6 @@ namespace Project.Code.UI.Units
             else
             {
                 Vector2 screenPoint = _mainCamera.WorldToViewportPoint(_objectToFollow.position);
-
-                // Vector2 screenPosition = new Vector2(
-                //  ((targetPosition.x * _targetCanvas.sizeDelta.x) - (_targetCanvas.sizeDelta.x * 0.5f)),
-                //  ((targetPosition.y * _targetCanvas.sizeDelta.y) - (_targetCanvas.sizeDelta.y * 0.5f)));
-
 
                 _healthBarRectTransform.anchoredPosition =
                     (screenPoint - _targetCanvas.sizeDelta / 2f) * 1000 + _offsetTest;

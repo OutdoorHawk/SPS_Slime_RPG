@@ -39,7 +39,8 @@ namespace Project.Code.UI.Windows.PlayerHUD
 
         [Inject]
         private void Construct(IStaticDataService staticDataService, IPersistentProgressService progressService,
-            ISaveLoadService saveLoadService, ISceneContextService sceneContextService, IGameStateMachine gameStateMachine)
+            ISaveLoadService saveLoadService, ISceneContextService sceneContextService,
+            IGameStateMachine gameStateMachine)
         {
             _gameStateMachine = gameStateMachine;
             _sceneContextService = sceneContextService;
@@ -66,10 +67,10 @@ namespace Project.Code.UI.Windows.PlayerHUD
 
         private void InitContainers()
         {
-            _shopContainer.Init(_playerData, _statsProgress,_currencyProgress);
+            _shopContainer.Init(_playerData, _statsProgress, _currencyProgress);
             _currencyContainer.Init(_currencyProgress);
+            _levelProgressContainer.Init(_levelsProgress, _staticDataService);
             CheckStatCosts();
-            _levelProgressContainer.Init(_levelsProgress,_staticDataService);
         }
 
         private void Subscribe()
@@ -81,19 +82,13 @@ namespace Project.Code.UI.Windows.PlayerHUD
             _settingsMenuContainer.OnProgressDeleted += ResetProgress;
         }
 
-        public void EnableBossTitle()
+        private void CleanUp()
         {
-            _levelProgressContainer.EnableBossTitle();
-        }
-        
-        public void EnableDefeatTitle(Action onDone)
-        {
-            _levelProgressContainer.EnableDefeatTitle(onDone);
-        }  
-        
-        public void EnableEndGameTitle()
-        {
-            _levelProgressContainer.EnableEndGameTitle();
+            _shopContainer.OnUpgradeButtonPressed -= HandleUpgradeButtonClicked;
+            _currencyProgress.OnMoneyChanged -= CheckStatCosts;
+            _levelsProgress.OnFightPassed -= _levelProgressContainer.UpdateFightProgress;
+            _settingsMenuContainer.OnProgressDeleted -= ResetProgress;
+            _shopContainer.Cleanup();
         }
 
         private void CheckStatCosts()
@@ -102,11 +97,20 @@ namespace Project.Code.UI.Windows.PlayerHUD
             _shopContainer.CheckStatCosts();
         }
 
+        public void EnableBossTitle() => 
+            _levelProgressContainer.EnableBossTitle();
+
+        public void EnableDefeatTitle(Action onDone) => 
+            _levelProgressContainer.EnableDefeatTitle(onDone);
+
+        public void EnableEndGameTitle() => 
+            _levelProgressContainer.EnableEndGameTitle();
+
         private void HandleUpgradeButtonClicked(StatID id)
         {
             UpdatePlayerProgress(id);
             UpdatePlayerView();
-            _saveLoadService.SaveProgress(); //TODO ACTIVATE LATER
+            _saveLoadService.SaveProgress();
         }
 
         private void UpdatePlayerProgress(StatID id)
@@ -133,13 +137,6 @@ namespace Project.Code.UI.Windows.PlayerHUD
             _gameStateMachine.Enter<LoadLevelState>();
         }
 
-        private void OnDestroy()
-        {
-            _shopContainer.OnUpgradeButtonPressed -= HandleUpgradeButtonClicked;
-            _currencyProgress.OnMoneyChanged -= CheckStatCosts;
-            _levelsProgress.OnFightPassed -= _levelProgressContainer.UpdateFightProgress;
-            _settingsMenuContainer.OnProgressDeleted -= ResetProgress;
-            _shopContainer.Cleanup();
-        }
+        private void OnDestroy() => CleanUp();
     }
 }

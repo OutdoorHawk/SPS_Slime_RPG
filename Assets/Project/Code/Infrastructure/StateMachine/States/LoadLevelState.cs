@@ -7,6 +7,7 @@ using Project.Code.Infrastructure.Services.StaticData;
 using Project.Code.Infrastructure.Services.UI;
 using Project.Code.Runtime.Roads;
 using Project.Code.Runtime.World;
+using Project.Code.StaticData.World;
 using Project.Code.UI.Windows.PlayerHUD;
 using UnityEngine;
 
@@ -53,7 +54,7 @@ namespace Project.Code.Infrastructure.StateMachine.States
         {
             InitUI();
             CreatePlayer();
-            InitRoads();
+            InitRoadSpawner();
             InitEnemySpawner();
         }
 
@@ -72,11 +73,13 @@ namespace Project.Code.Infrastructure.StateMachine.States
             _unitFactory.SpawnPlayer(playerSpawnPosition, playerSpawnRotation, _hpPanel);
         }
 
-        private void InitRoads()
+        private void InitRoadSpawner()
         {
             int currentLevel = _progressService.Progress.PlayerLevelsProgress.CurrentLevel;
+            LevelStaticData levelStaticData = _staticDataService.GetLevelStaticData(currentLevel);
             RoadSpawner roadSpawner = _sceneContextService.RoadSpawner;
-            roadSpawner.Init(_staticDataService.GetWorldStaticData(), _sceneContextService.Player.transform, _staticDataService.GetLevelStaticData(currentLevel));
+            WorldStaticData worldStaticData = _staticDataService.GetWorldStaticData();
+            roadSpawner.Init(worldStaticData, _sceneContextService.Player.transform, levelStaticData);
         }
 
         private void InitEnemySpawner()

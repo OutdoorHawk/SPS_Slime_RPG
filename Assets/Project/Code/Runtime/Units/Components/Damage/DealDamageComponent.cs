@@ -8,9 +8,9 @@ namespace Project.Code.Runtime.Units.Components.Damage
         [SerializeField] protected AttackDetails _attackDetails;
         [SerializeField] protected float _attackSpeed;
 
-        private float _countDown = 0;
+        private float _countDown;
 
-        public virtual void Init(float attack, float atkSpeed)
+        protected virtual void Init(float attack, float atkSpeed)
         {
             _attackDetails = new AttackDetails(attack);
             _attackSpeed = atkSpeed;

@@ -30,10 +30,7 @@ namespace Project.Code.Runtime.Units.Components.Damage
        /// <summary>
        /// AnimationEvent
        /// </summary>
-        private void DealDamage()
-        {
-            _playerHealth.TakeDamage(_attackDetails);
-            //_hitParticles.gameObject.SetActive(true);
-        }
+        private void DealDamage() 
+           => _playerHealth.TakeDamage(_attackDetails);
     }
 }

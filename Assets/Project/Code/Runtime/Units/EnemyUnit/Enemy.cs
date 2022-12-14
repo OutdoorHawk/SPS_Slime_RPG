@@ -21,12 +21,11 @@ namespace Project.Code.Runtime.Units.EnemyUnit
         private EnemyStaticData _enemyStaticData;
         private EnemyAnimator _animator;
 
-        public void SetupPlayer(PlayerSlime slime) => _player = slime;
-
-        public override void Init(UnitStaticData unitStaticData, PlayerProgress playerProgress,
-            RectTransform hpPanel)
+        public void InitEnemy(UnitStaticData unitStaticData, PlayerProgress playerProgress,
+            RectTransform hpPanel, PlayerSlime slime)
         {
             base.Init(unitStaticData, playerProgress, hpPanel);
+            _player = slime;
             _enemyStaticData = unitStaticData as EnemyStaticData;
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _damageComponent = GetComponent<EnemyDealDamageComponent>();
@@ -34,14 +33,14 @@ namespace Project.Code.Runtime.Units.EnemyUnit
             _navMeshAgent.speed = Random.Range(_enemyStaticData.MinSpeed, _enemyStaticData.MaxSpeed);
             _damageComponent.SetPlayer(_player.HealthComponent);
             _damageComponent.Init(_enemyStaticData.DamageAmount, _enemyStaticData.AttackSpeed, _animator);
-            HealthComponent.UpdateMaxHealth(_enemyStaticData.HealthAmount);
-            HealthComponent.Respawn();
-            enabled = true;
-            _healthBar.UpdateHealthText(HealthComponent.CurrentHealth);
         }
 
         public void OnSpawn()
         {
+            HealthComponent.UpdateMaxHealth(_enemyStaticData.HealthAmount);
+            HealthComponent.Respawn();
+            enabled = true;
+            HPBar.UpdateHealthText(HealthComponent.CurrentHealth);
             UnitCollector.AddUnit(this);
         }
 
@@ -56,7 +55,7 @@ namespace Project.Code.Runtime.Units.EnemyUnit
             else
                 _damageComponent.UpdateAttack();
             
-            _animator.UpdatePlayerAnim(_navMeshAgent.velocity.magnitude);
+            _animator.UpdateUnitAnimation(_navMeshAgent.velocity.magnitude);
         }
 
         private bool CanMove() => 

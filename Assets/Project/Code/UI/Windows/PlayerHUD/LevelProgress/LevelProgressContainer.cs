@@ -76,9 +76,7 @@ namespace Project.Code.UI.Windows.PlayerHUD.LevelProgress
             _actionTitleText.transform.DOScale(Vector3.one, _actionTextDuration);
         }
 
-        private void OnDestroy()
-        {
+        private void OnDestroy() => 
             _levelBarTween?.Kill();
-        }
     }
 }

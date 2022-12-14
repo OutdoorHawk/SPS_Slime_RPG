@@ -17,7 +17,7 @@ namespace Project.Code.Runtime.Units.Components.Animation
             _animator = GetComponent<Animator>();
         }
 
-        public void UpdatePlayerAnim(float speed)
+        public void UpdateUnitAnimation(float speed)
         {
             if (speed > MIN_MOVE_VALUE) 
                 EnableWalk();

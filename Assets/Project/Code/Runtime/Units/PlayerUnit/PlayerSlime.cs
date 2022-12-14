@@ -1,4 +1,5 @@
 using System.Collections;
+using Project.Code.Extensions;
 using Project.Code.Infrastructure.Data;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress;
 using Project.Code.Infrastructure.Services.SaveLoadService.Progress.Stats;
@@ -15,26 +16,24 @@ namespace Project.Code.Runtime.Units.PlayerUnit
     [RequireComponent(typeof(PlayerAnimatorComponent))]
     public class PlayerSlime : BaseUnit
     {
-        private PlayerStaticData _staticData;
         private PlayerDealDamageComponent _damageComponent;
         private PlayerStatsProgress _statsProgress;
         private PlayerAnimatorComponent _animatorComponent;
         private PlayerHealSystem _healSystem;
         private IEnumerator _fightRoutine;
 
-        public override void Init(UnitStaticData unitStaticData, PlayerProgress playerProgress,
+        public void InitPlayer(UnitStaticData unitStaticData, PlayerProgress playerProgress,
             RectTransform hpPanel)
         {
             base.Init(unitStaticData, playerProgress, hpPanel);
             _animatorComponent = GetComponent<PlayerAnimatorComponent>();
             _statsProgress = playerProgress.PlayerStatsProgress;
-            _staticData = unitStaticData as PlayerStaticData;
             _damageComponent = GetComponent<PlayerDealDamageComponent>();
             _healSystem = new PlayerHealSystem(this, HealthComponent);
             _animatorComponent.Init();
             UpdateComponents();
             HealthComponent.Respawn();
-            _healthBar.UpdateHealth(HealthComponent.HealthPercent);
+            HPBar.UpdateHealth(HealthComponent.HealthPercent);
         }
 
         public void UpdateComponents()
@@ -55,10 +54,10 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         protected override void HandleDamageTaken(AttackDetails details)
         {
             base.HandleDamageTaken(details);
-            if (PlayerPrefs.GetInt(Constants.VIBRATION) == 0) 
+            if (Utils.VibrationEnabled()) 
                 Handheld.Vibrate();
         }
-
+        
         public void SetWalkingState()
         {
             if (_fightRoutine != null)

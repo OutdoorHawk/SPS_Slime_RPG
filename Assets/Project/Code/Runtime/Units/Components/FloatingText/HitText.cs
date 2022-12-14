@@ -1,12 +1,13 @@
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 namespace Project.Code.Runtime.Units.FloatingText
 {
-    [RequireComponent(typeof(TextMesh))]
+ 
     public class HitText : MonoBehaviour
     {
-        [SerializeField] private TextMesh _textMesh;
+        [SerializeField] private TextMeshPro _textMesh;
         [SerializeField] private Renderer _renderer;
         [SerializeField] private float _appearScaleTime = 0.2f;
         [SerializeField] private float _flyUpTime = 1f;
@@ -29,10 +30,9 @@ namespace Project.Code.Runtime.Units.FloatingText
         private void EnableTextSequence()
         {
             _textSequence = DOTween.Sequence();
-            Material textMat = _renderer.material;
             _textSequence.Append(_textMesh.transform.DOScale(_defaultScale, _appearScaleTime));
             _textSequence.Append(_textMesh.transform.DOBlendableMoveBy(Vector3.up * _flyUpStrength, _flyUpTime));
-            _textSequence.Insert(_appearScaleTime, textMat.DOFade(0, _fadeTime))
+            _textSequence.Insert(_appearScaleTime, _textMesh.DOFade(0, _fadeTime))
                 .OnComplete(() => Destroy(gameObject));
         }
 

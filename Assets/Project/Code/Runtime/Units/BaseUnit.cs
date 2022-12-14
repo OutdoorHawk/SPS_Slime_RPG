@@ -19,21 +19,21 @@ namespace Project.Code.Runtime.Units.PlayerUnit
     [RequireComponent(typeof(HitColorComponent))]
     public class BaseUnit : MonoBehaviour
     {
+        public event Action<BaseUnit> OnUnitDead;
+
         [SerializeField] private HitText _floatingTextPrefab;
         [SerializeField] private HealthBar _healthBarPrefab;
         [SerializeField] private GameObject _deadParticlesPrefab;
 
         private HitColorComponent _hitColorComponent;
-        protected HealthBar _healthBar;
         private RectTransform _hpPanel;
         private IUpdateBehaviourService _updateBehaviourService;
 
-        private const float FLOATING_TEXT_OFFSET = 0.5f;
-
-        public event Action<BaseUnit> OnUnitDead;
-        protected PlayerProgress Progress { get; private set; }
         public HealthComponent HealthComponent { get; private set; }
-        protected UnitStaticData UnitStaticData { get; private set; }
+        protected HealthBar HPBar { get; private set; }
+        protected PlayerProgress Progress { get; private set; }
+
+        private const float FLOATING_TEXT_OFFSET_RATE = 0.5f;
 
         [Inject]
         private void Construct(IUpdateBehaviourService updateBehaviourService)
@@ -41,11 +41,10 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             _updateBehaviourService = updateBehaviourService;
         }
 
-        public virtual void Init(UnitStaticData unitStaticData, PlayerProgress progress, RectTransform hpPanel)
+        protected virtual void Init(UnitStaticData unitStaticData, PlayerProgress progress, RectTransform hpPanel)
         {
             _hpPanel = hpPanel;
             Progress = progress;
-            UnitStaticData = unitStaticData;
             HealthComponent = GetComponent<HealthComponent>();
             _hitColorComponent = GetComponent<HitColorComponent>();
             InitHealthBar();
@@ -54,20 +53,16 @@ namespace Project.Code.Runtime.Units.PlayerUnit
 
         private void InitHealthBar()
         {
-            _healthBar = Instantiate(_healthBarPrefab);
-            _healthBar.Init(_updateBehaviourService);
-            _healthBar.SetTargetToFollow(transform, _hpPanel);
+            HPBar = Instantiate(_healthBarPrefab);
+            HPBar.Init(_updateBehaviourService);
+            HPBar.SetTargetToFollow(transform, _hpPanel);
         }
 
-        private void OnEnable()
-        {
+        private void OnEnable() => 
             _updateBehaviourService.UpdateEvent += Tick;
-        }
 
-        private void OnDisable()
-        {
+        private void OnDisable() => 
             _updateBehaviourService.UpdateEvent -= Tick;
-        }
 
         protected virtual void Subscribe()
         {
@@ -76,29 +71,24 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             HealthComponent.OnDeath += HandleDeath;
         }
 
+        protected virtual void CleanUp()
+        {
+            HealthComponent.OnReceivedDamage -= HandleDamageTaken;
+            HealthComponent.OnHeal -= HandleHeal;
+            HealthComponent.OnDeath -= HandleDeath;
+        }
+
         protected virtual void HandleDamageTaken(AttackDetails details)
         {
-            _healthBar.UpdateHealth(HealthComponent.HealthPercent);
+            HPBar.UpdateHealth(HealthComponent.HealthPercent);
             _hitColorComponent.DoHitFlash();
-            _healthBar.UpdateHealthText(HealthComponent.CurrentHealth);
+            HPBar.UpdateHealthText(HealthComponent.CurrentHealth);
             SpawnFloatingText(details);
-        }
-
-        private void SpawnFloatingText(AttackDetails details)
-        {
-            HitText text = Instantiate(_floatingTextPrefab,
-                transform.position + Vector3.up * FLOATING_TEXT_OFFSET,
-                Quaternion.identity);
-            text.Init(details.Damage);
-        }
-
-        protected virtual void Tick()
-        {
         }
 
         private void HandleHeal(float obj)
         {
-            _healthBar.UpdateHealth(HealthComponent.HealthPercent);
+            HPBar.UpdateHealth(HealthComponent.HealthPercent);
         }
 
         protected virtual void HandleDeath()
@@ -109,16 +99,19 @@ namespace Project.Code.Runtime.Units.PlayerUnit
             OnUnitDead?.Invoke(this);
         }
 
-        protected virtual void CleanUp()
+        private void SpawnFloatingText(AttackDetails details)
         {
-            HealthComponent.OnReceivedDamage -= HandleDamageTaken;
-            HealthComponent.OnHeal -= HandleHeal;
-            HealthComponent.OnDeath -= HandleDeath;
+            HitText text = Instantiate(_floatingTextPrefab,
+                transform.position + Vector3.up * FLOATING_TEXT_OFFSET_RATE,
+                Quaternion.identity);
+            text.Init(details.Damage);
         }
 
-        private void OnDestroy()
+        protected virtual void Tick()
         {
-            CleanUp();
         }
+
+        private void OnDestroy() 
+            => CleanUp();
     }
 }

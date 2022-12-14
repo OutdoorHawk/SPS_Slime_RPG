@@ -51,21 +51,19 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
                 item.OnUpgradeButtonPressed += NotifyUpgradeButtonClicked;
         }
 
-        public void CheckStatCosts()
-        {
-            foreach (var item in _shopItems)
-                item.CheckEnoughMoney();
-        }
-
         public void Cleanup()
         {
             foreach (var item in _shopItems)
                 item.OnUpgradeButtonPressed += NotifyUpgradeButtonClicked;
         }
 
-        private void NotifyUpgradeButtonClicked(StatID id)
+        public void CheckStatCosts()
         {
-            OnUpgradeButtonPressed?.Invoke(id);
+            foreach (var item in _shopItems)
+                item.CheckEnoughMoney();
         }
+
+        private void NotifyUpgradeButtonClicked(StatID id) => 
+            OnUpgradeButtonPressed?.Invoke(id);
     }
 }

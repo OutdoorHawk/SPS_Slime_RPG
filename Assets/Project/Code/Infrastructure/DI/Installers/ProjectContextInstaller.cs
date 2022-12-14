@@ -18,7 +18,7 @@ namespace Project.Code.Infrastructure.DI.Installers
     public class ProjectContextInstaller : MonoInstaller, ICoroutineRunner
     {
         [SerializeField] private SceneLoader _sceneLoader;
-        [SerializeField] private UpdateBehaviour update;
+        [SerializeField] private UpdateBehaviour _update;
         
         public override void InstallBindings()
         {
@@ -36,7 +36,7 @@ namespace Project.Code.Infrastructure.DI.Installers
             Container.Bind<ICoroutineRunner>().FromInstance(this).AsSingle();
             Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
             Container.Bind<IPersistentProgressService>().To<PersistentProgressService>().AsSingle();
-            Container.Bind<IUpdateBehaviourService>().FromInstance(update).AsSingle();
+            Container.Bind<IUpdateBehaviourService>().FromInstance(_update).AsSingle();
             
         }
 

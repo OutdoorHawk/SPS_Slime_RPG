@@ -7,24 +7,24 @@ namespace Project.Code.Runtime.Units.Components.Health
 {
     public class HealthComponent : MonoBehaviour
     {
-        [SerializeField] private float _currentHealth;
-
         public event Action OnDeath;
         public event Action<AttackDetails> OnReceivedDamage;
         public event Action<float> OnHeal;
 
+        private float _currentHealth;
         private float _maxHealth;
         private bool _isDead;
+
         public float HealthPercent => CurrentHealth / _maxHealth;
         public float CurrentHealth => _currentHealth;
-        
+
         public void UpdateMaxHealth(float newHealthAmount)
         {
             float hpDiff = newHealthAmount - _maxHealth;
             _maxHealth = newHealthAmount;
             TakeHeal(hpDiff);
         }
-        
+
         public void Respawn()
         {
             _currentHealth = _maxHealth;
@@ -32,16 +32,16 @@ namespace Project.Code.Runtime.Units.Components.Health
 
         public void TakeDamage(AttackDetails attackDetails)
         {
-            if (!_isDead) 
+            if (!_isDead)
                 CheckDamageTaken(attackDetails);
         }
 
         private void CheckDamageTaken(AttackDetails attackDetails)
         {
-            if (attackDetails.Crit > Random.Range(0, 99)) 
+            if (attackDetails.Crit > Random.Range(0, 99))
                 attackDetails.Damage *= AttackDetails.CritValue;
             _currentHealth = CurrentHealth - attackDetails.Damage;
-            if (CurrentHealth < 0 ) 
+            if (CurrentHealth < 0)
                 _currentHealth = 0;
             CheckIsAlive(attackDetails);
         }
@@ -61,7 +61,7 @@ namespace Project.Code.Runtime.Units.Components.Health
         public void TakeHeal(float _hpCount)
         {
             _currentHealth = CurrentHealth + _hpCount;
-            if (CurrentHealth > _maxHealth) 
+            if (CurrentHealth > _maxHealth)
                 _currentHealth = _maxHealth;
 
             OnHeal?.Invoke(_hpCount);

@@ -22,7 +22,6 @@ namespace Project.Code.StaticData.Units
         public float HealthAmount => _healthAmount;
         public float DamageAmount => _damageAmount;
         public int MoneyDrop => _moneyDrop;
-
         public float MinSpeed => _minSpeed;
         public float MaxSpeed => _maxSpeed;
 

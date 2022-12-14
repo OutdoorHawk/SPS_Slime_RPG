@@ -16,11 +16,13 @@ namespace Project.Code.Runtime.Units.Components.Damage
         private List<Projectile> _projectiles;
         private float _doubleShotChance;
         private int _shotCount;
+        
+        private const float SHOT_DELAY = 0.15F;
 
         public void Init(float attack, float atkSpeed, float loadedCRIT, float loadedDoubleShot)
         {
-            _doubleShotChance = loadedDoubleShot;
             base.Init(attack, atkSpeed);
+            _doubleShotChance = loadedDoubleShot;
             _attackDetails.Crit = loadedCRIT;
             _currentTargets = new Enemy[1];
             _projectiles = new List<Projectile>();
@@ -56,7 +58,7 @@ namespace Project.Code.Runtime.Units.Components.Damage
                 ShootProjectile(_currentTargets[i]);
                 i = Random.Range(0, _currentTargets.Length);
                 currentShots++;
-                yield return new WaitForSeconds(0.15f);
+                yield return new WaitForSeconds(SHOT_DELAY);
             } while (currentShots < shotCount);
         }
 

@@ -8,7 +8,7 @@ namespace Project.Code.Infrastructure.Services.SceneContext
 {
     public interface ISceneContextService
     {
-        Transform UnitParent { get; }
+        Transform UnitsParent { get; }
         PlayerHUDWindow PlayerHUD { get; }
         PlayerSlime Player { get; }
         EnemySpawner EnemySpawner { get; }
@@ -19,6 +19,6 @@ namespace Project.Code.Infrastructure.Services.SceneContext
         void SetEnemySpawner(EnemySpawner enemySpawner);
         void SetPlayer(PlayerSlime player);
         public void SetPlayerHUD(PlayerHUDWindow playerHUD);
-        void SetUnitParent(Transform unitParent);
+        void SetUnitsParent(Transform unitParent);
     }
 }

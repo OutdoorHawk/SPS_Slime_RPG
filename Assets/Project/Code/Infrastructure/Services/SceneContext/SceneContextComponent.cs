@@ -21,7 +21,7 @@ namespace Project.Code.Infrastructure.Services.SceneContext
             _sceneContextService.SetSpawnPoint(_playerSpawnPoint);
             _sceneContextService.SetRoadSpawner(_roadSpawner);
             _sceneContextService.SetEnemySpawner(_enemySpawner);
-            _sceneContextService.SetUnitParent(_unitParent);
+            _sceneContextService.SetUnitsParent(_unitParent);
         }
     }
 }
