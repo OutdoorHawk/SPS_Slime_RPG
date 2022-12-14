@@ -44,7 +44,8 @@ namespace Project.Code.Runtime.Roads
 
         private void CollectExistingRoads()
         {
-            _activeRoads = _roadsParent.GetComponentsInChildren<Road>().ToList();
+            for (int i = 0; i < _roadsParent.childCount; i++) 
+                Destroy(_roadsParent.GetChild(i).gameObject);
         }
 
         private void SpawnFirstRoads()
