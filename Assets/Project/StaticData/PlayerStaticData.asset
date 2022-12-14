@@ -17,8 +17,8 @@ MonoBehaviour:
   - StatID: 0
     StatData:
       BaseValue: 7
-      BaseUpgradeCost: 10
-      ValueIncrease: 5
+      BaseUpgradeCost: 9
+      ValueIncrease: 3.5
       UpgradeCostIncrease: 1
       MaxLvl: 100
   - StatID: 1
@@ -37,9 +37,9 @@ MonoBehaviour:
       MaxLvl: 100
   - StatID: 3
     StatData:
-      BaseValue: 5
+      BaseValue: 2
       BaseUpgradeCost: 20
-      ValueIncrease: 2.5
+      ValueIncrease: 1.5
       UpgradeCostIncrease: 2
       MaxLvl: 100
   - StatID: 4

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: GameStaticData
   m_EditorClassIdentifier: 
   _windows:
-  - ID: 3
-    WindowPrefab: {fileID: 7370455005571362830, guid: c04a1d393872b11499a565bfe614c094, type: 3}
   - ID: 2
-    WindowPrefab: {fileID: 7989589896614023824, guid: ee2676c65876f574eacf9fc68e22a1d9, type: 3}
+    WindowPrefab: {fileID: 7370455005571362830, guid: c04a1d393872b11499a565bfe614c094, type: 3}
   - ID: 1
+    WindowPrefab: {fileID: 7989589896614023824, guid: ee2676c65876f574eacf9fc68e22a1d9, type: 3}
+  - ID: 0
     WindowPrefab: {fileID: 2656138073115000086, guid: ba8a4b0ff1ff26048b9153da6cefcaa3, type: 3}
   _units:
   - UnitID: 0
@@ -34,9 +34,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2fd7eb7546ea5414daf6359f300a8d84, type: 2}
   - {fileID: 11400000, guid: eb82bc093aa45904885b944571a6eb45, type: 2}
   _worldStaticData:
-    _roads:
-    - {fileID: 34025909559052126, guid: 63f9a4d9e27056949a3b7b5968ce66e2, type: 3}
-    - {fileID: 7175165334783599933, guid: 853b55f4c3251c34d9c3ac756b063b67, type: 3}
-    - {fileID: 6609179255809895849, guid: 22024360ab60d2a4aa3c2c00c0a4531c, type: 3}
     _roadMovingSpeed: 10
-    _playerWalkingTime: 3
+    _playerWalkingTime: 2
+  _damageLevelScale: 1.3
+  _healthLevelScale: 1.6
+  _moneyLevelScale: 1.275

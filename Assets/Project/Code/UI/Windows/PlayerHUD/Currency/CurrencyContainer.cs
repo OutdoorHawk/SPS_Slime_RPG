@@ -16,9 +16,7 @@ namespace Project.Code.UI.Windows.PlayerHUD.Currency
             UpdateMoney();
         }
 
-        public void UpdateMoney()
-        {
+        public void UpdateMoney() => 
             _coinsAmount.text = _currencyProgress.MoneyAmount.ToString();
-        }
     }
 }

@@ -3,31 +3,25 @@ using Project.Code.Runtime.CustomData;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Project.Code.Runtime.Units.Components
+namespace Project.Code.Runtime.Units.Components.Health
 {
     public class HealthComponent : MonoBehaviour
     {
-        [SerializeField] private float _currentHealth;
-
         public event Action OnDeath;
         public event Action<AttackDetails> OnReceivedDamage;
         public event Action<float> OnHeal;
 
+        private float _currentHealth;
         private float _maxHealth;
         private bool _isDead;
-        public float HealthPercent => _currentHealth / _maxHealth;
 
-        public void Init(float healthAmount)
-        {
-            CheckHealthUpdate(healthAmount);
-            _maxHealth = healthAmount;
-        }
+        public float HealthPercent => CurrentHealth / _maxHealth;
+        public float CurrentHealth => _currentHealth;
 
-        private void CheckHealthUpdate(float healthAmount)
+        public void UpdateMaxHealth(float newHealthAmount)
         {
-            if (_maxHealth == 0) 
-                return;
-            float hpDiff = healthAmount - _maxHealth;
+            float hpDiff = newHealthAmount - _maxHealth;
+            _maxHealth = newHealthAmount;
             TakeHeal(hpDiff);
         }
 
@@ -38,23 +32,23 @@ namespace Project.Code.Runtime.Units.Components
 
         public void TakeDamage(AttackDetails attackDetails)
         {
-            if (!_isDead) 
+            if (!_isDead)
                 CheckDamageTaken(attackDetails);
         }
 
         private void CheckDamageTaken(AttackDetails attackDetails)
         {
-            if (attackDetails.Crit > Random.Range(0, 99)) 
+            if (attackDetails.Crit > Random.Range(0, 99))
                 attackDetails.Damage *= AttackDetails.CritValue;
-            _currentHealth -= attackDetails.Damage;
-            if (_currentHealth < 0 ) 
+            _currentHealth = CurrentHealth - attackDetails.Damage;
+            if (CurrentHealth < 0)
                 _currentHealth = 0;
             CheckIsAlive(attackDetails);
         }
 
         private void CheckIsAlive(AttackDetails attackDetails)
         {
-            if (_currentHealth <= 0)
+            if (CurrentHealth <= 0)
             {
                 OnReceivedDamage?.Invoke(attackDetails);
                 OnDeath?.Invoke();
@@ -66,11 +60,9 @@ namespace Project.Code.Runtime.Units.Components
 
         public void TakeHeal(float _hpCount)
         {
-            _currentHealth += _hpCount;
-            if (_currentHealth > _maxHealth)
-            {
+            _currentHealth = CurrentHealth + _hpCount;
+            if (CurrentHealth > _maxHealth)
                 _currentHealth = _maxHealth;
-            }
 
             OnHeal?.Invoke(_hpCount);
         }

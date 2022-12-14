@@ -12,9 +12,9 @@ namespace Project.Code.Infrastructure.Services.StaticData
     {
         void Load();
         WindowConfig GetWindow(WindowID id);
-        UnitStaticData GetUnit(UnitID unitID);
         WorldStaticData GetWorldStaticData();
         PlayerStaticData GetPlayerStaticData();
         LevelStaticData GetLevelStaticData(int level);
+        int GetLevelsAmount();
     }
 }

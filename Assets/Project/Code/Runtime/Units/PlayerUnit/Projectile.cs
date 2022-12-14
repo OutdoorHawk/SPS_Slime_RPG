@@ -16,13 +16,15 @@ namespace Project.Code.Runtime.Units.PlayerUnit
         [SerializeField] private float _scaleTime = 0.5f;
 
         private Transform _model;
+        private Enemy _currentTarget;
         private Tween _projectileTween;
         private Tween _scaleTween;
+        
         private Vector3 _defaultLocalPosition;
-        private Enemy _currentTarget;
+        private Vector3 _defaultScale;
+        
         private float _jumpTime;
         private float _jumpPower = 1;
-        private Vector3 _defaultScale;
 
         private void Awake()
         {

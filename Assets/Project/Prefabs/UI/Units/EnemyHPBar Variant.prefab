@@ -7,6 +7,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 13121389798407358, guid: a815b60a6c327b64c85712a9a1cf1c97, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 2288.685
+      objectReference: {fileID: 0}
+    - target: {fileID: 13121389798407358, guid: a815b60a6c327b64c85712a9a1cf1c97, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 269.295
+      objectReference: {fileID: 0}
     - target: {fileID: 3931364261560501861, guid: a815b60a6c327b64c85712a9a1cf1c97, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -90,6 +98,22 @@ PrefabInstance:
     - target: {fileID: 3931364261560501861, guid: a815b60a6c327b64c85712a9a1cf1c97, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6481533139296237616, guid: a815b60a6c327b64c85712a9a1cf1c97, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 2288.685
+      objectReference: {fileID: 0}
+    - target: {fileID: 6481533139296237616, guid: a815b60a6c327b64c85712a9a1cf1c97, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 269.295
+      objectReference: {fileID: 0}
+    - target: {fileID: 7642083319801971557, guid: a815b60a6c327b64c85712a9a1cf1c97, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 2288.685
+      objectReference: {fileID: 0}
+    - target: {fileID: 7642083319801971557, guid: a815b60a6c327b64c85712a9a1cf1c97, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 269.295
       objectReference: {fileID: 0}
     - target: {fileID: 7713047999622046324, guid: a815b60a6c327b64c85712a9a1cf1c97, type: 3}
       propertyPath: m_Name

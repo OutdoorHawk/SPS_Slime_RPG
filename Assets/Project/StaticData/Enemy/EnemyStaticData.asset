@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unitPrefab: {fileID: 6923485338110987073, guid: 04da0e4baf8142844a0adab371c31fd9, type: 3}
   _attackSpeedBase: 1
-  _damageAmountBase: 3
-  _healthAmountBase: 15
-  _moneyDropBase: 5
+  _damageAmountBase: 5
+  _healthAmountBase: 12
+  _moneyDropBase: 6
+  _minSpeed: 0.95
+  _maxSpeed: 1.3

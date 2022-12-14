@@ -32,9 +32,7 @@ namespace Project.Code.Infrastructure.Services.SaveLoadService.Progress
             OnFightPassed?.Invoke();
         }
         
-        public void ResetFights()
-        {
-            _currentFight = 0;
-        }
+        public void ResetFights() 
+            => _currentFight = 0;
     }
 }

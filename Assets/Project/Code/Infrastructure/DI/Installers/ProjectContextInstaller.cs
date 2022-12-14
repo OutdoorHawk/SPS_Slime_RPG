@@ -6,6 +6,7 @@ using Project.Code.Infrastructure.Services.SceneContext;
 using Project.Code.Infrastructure.Services.SceneLoaderService;
 using Project.Code.Infrastructure.Services.StaticData;
 using Project.Code.Infrastructure.Services.UI;
+using Project.Code.Infrastructure.Services.UpdateBehavior;
 using Project.Code.Infrastructure.Services.ZenjectFactory;
 using Project.Code.Infrastructure.StateMachine;
 using Project.Code.Infrastructure.StateMachine.States;
@@ -17,6 +18,7 @@ namespace Project.Code.Infrastructure.DI.Installers
     public class ProjectContextInstaller : MonoInstaller, ICoroutineRunner
     {
         [SerializeField] private SceneLoader _sceneLoader;
+        [SerializeField] private UpdateBehaviour _update;
         
         public override void InstallBindings()
         {
@@ -34,6 +36,8 @@ namespace Project.Code.Infrastructure.DI.Installers
             Container.Bind<ICoroutineRunner>().FromInstance(this).AsSingle();
             Container.Bind<ISaveLoadService>().To<SaveLoadService>().AsSingle();
             Container.Bind<IPersistentProgressService>().To<PersistentProgressService>().AsSingle();
+            Container.Bind<IUpdateBehaviourService>().FromInstance(_update).AsSingle();
+            
         }
 
         private void BindGameStateMachine()

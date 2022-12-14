@@ -13,8 +13,6 @@ namespace Project.Code.Infrastructure.Services.StaticData
     {
         private readonly Dictionary<WindowID, WindowConfig> _windows = new();
         private readonly Dictionary<UnitID, UnitStaticData> _units = new();
-        private readonly Dictionary<StatID, StatData> _stats = new();
-        private GameObject[] _roads;
 
         private readonly IAssetProvider _assetProvider;
         private GameStaticData _data;
@@ -29,7 +27,6 @@ namespace Project.Code.Infrastructure.Services.StaticData
             _data = _assetProvider.GetGameStaticData();
             LoadWindows();
             LoadUnits();
-            LoadStats();
         }
 
         private void LoadWindows()
@@ -44,18 +41,8 @@ namespace Project.Code.Infrastructure.Services.StaticData
                 _units.Add(unit.UnitID, unit.UnitStaticData);
         }
 
-        private void LoadStats()
-        {
-            PlayerStaticData staticData = _units[UnitID.Player] as PlayerStaticData;
-            foreach (var config in staticData.StatConfigs)
-                _stats.Add(config.StatID, config.StatData);
-        }
-
         public WindowConfig GetWindow(WindowID id) =>
             _windows.TryGetValue(id, out var windowConfig) ? windowConfig : null;
-
-        public UnitStaticData GetUnit(UnitID unitID) =>
-            _units.TryGetValue(unitID, out UnitStaticData unitStaticData) ? unitStaticData : null;
 
         public PlayerStaticData GetPlayerStaticData()
         {
@@ -68,10 +55,10 @@ namespace Project.Code.Infrastructure.Services.StaticData
         public WorldStaticData GetWorldStaticData()
             => _data.WorldStaticData;
 
-        public StatData GetStatData(StatID id)
-            => _stats.TryGetValue(id, out StatData statData) ? statData : null;
-        
         public LevelStaticData GetLevelStaticData(int level)
             => _data.LevelsStaticData[level];
+
+        public int GetLevelsAmount() 
+            => _data.LevelsStaticData.Length;
     }
 }

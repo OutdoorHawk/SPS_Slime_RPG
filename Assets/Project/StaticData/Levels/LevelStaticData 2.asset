@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: LevelStaticData 2
   m_EditorClassIdentifier: 
   _multipliers:
-    DamageMultiplier: 1.43
-    HealthMultiplier: 1.875
-    MoneyMultiplier: 1.32
+    DamageMultiplier: 1.3
+    HealthMultiplier: 1.6
+    MoneyMultiplier: 1.2
   _maxFightsOnLevel: 3
   _minEnemiesOnFight: 2
   _maxEnemiesOnFight: 3
@@ -24,3 +24,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1140e845743131446b0fc3342f515774, type: 2}
   - {fileID: 11400000, guid: 9d59426b3d4e099439afa7b6efb3e518, type: 2}
   _bossStaticData: {fileID: 11400000, guid: 92749d601bd9d344ca2205fac9107799, type: 2}
+  _roads:
+  - {fileID: 34025909559052126, guid: 63f9a4d9e27056949a3b7b5968ce66e2, type: 3}
+  - {fileID: 7175165334783599933, guid: 853b55f4c3251c34d9c3ac756b063b67, type: 3}
+  - {fileID: 6609179255809895849, guid: 22024360ab60d2a4aa3c2c00c0a4531c, type: 3}

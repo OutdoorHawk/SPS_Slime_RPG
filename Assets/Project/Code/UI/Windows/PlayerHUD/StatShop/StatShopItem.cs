@@ -95,9 +95,7 @@ namespace Project.Code.UI.Windows.PlayerHUD.StatShop
         private void OnDisable() =>
             _upgradeButton.onClick.RemoveListener(NotifyButtonClicked);
 
-        private void NotifyButtonClicked()
-        {
+        private void NotifyButtonClicked() => 
             OnUpgradeButtonPressed?.Invoke(_statID);
-        }
     }
 }

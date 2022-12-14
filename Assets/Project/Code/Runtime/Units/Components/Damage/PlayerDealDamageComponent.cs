@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Project.Code.Runtime.Units.EnemyUnit;
 using Project.Code.Runtime.Units.PlayerUnit;
 using UnityEngine;
@@ -12,15 +13,19 @@ namespace Project.Code.Runtime.Units.Components.Damage
 
         private Enemy _currentTarget;
         private Enemy[] _currentTargets;
+        private List<Projectile> _projectiles;
         private float _doubleShotChance;
         private int _shotCount;
+        
+        private const float SHOT_DELAY = 0.15F;
 
         public void Init(float attack, float atkSpeed, float loadedCRIT, float loadedDoubleShot)
         {
-            _doubleShotChance = loadedDoubleShot;
             base.Init(attack, atkSpeed);
+            _doubleShotChance = loadedDoubleShot;
             _attackDetails.Crit = loadedCRIT;
             _currentTargets = new Enemy[1];
+            _projectiles = new List<Projectile>();
         }
 
         public void UpdateTarget()
@@ -53,7 +58,7 @@ namespace Project.Code.Runtime.Units.Components.Damage
                 ShootProjectile(_currentTargets[i]);
                 i = Random.Range(0, _currentTargets.Length);
                 currentShots++;
-                yield return new WaitForSeconds(0.15f);
+                yield return new WaitForSeconds(SHOT_DELAY);
             } while (currentShots < shotCount);
         }
 
@@ -63,6 +68,7 @@ namespace Project.Code.Runtime.Units.Components.Damage
                 return;
             Projectile projectile = SpawnProjectile();
             projectile.SeekTarget(target, OnHit);
+            _projectiles.Add(projectile);
         }
 
         private Projectile SpawnProjectile()
@@ -70,6 +76,26 @@ namespace Project.Code.Runtime.Units.Components.Damage
             return Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
         }
 
-        private void OnHit(Enemy target) => target.HealthComponent.TakeDamage(_attackDetails);
+        private void OnHit(Enemy target)
+        {
+            target.HealthComponent.TakeDamage(_attackDetails);
+            UpdateProjectilesList();
+        }
+
+        private void UpdateProjectilesList()
+        {
+            for (int i = 0; i < _projectiles.Count; i++)
+                if (_projectiles[i] == null)
+                    _projectiles.Remove(_projectiles[i]);
+        }
+
+        private void OnDestroy()
+        {
+            for (var i = 0; i < _projectiles.Count; i++)
+                if (_projectiles[i] != null)
+                    Destroy(_projectiles[i].gameObject);
+
+            _projectiles.Clear();
+        }
     }
 }

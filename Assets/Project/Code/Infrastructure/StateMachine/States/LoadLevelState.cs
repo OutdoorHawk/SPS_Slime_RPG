@@ -8,6 +8,7 @@ using Project.Code.Infrastructure.Services.UI;
 using Project.Code.Runtime.Roads;
 using Project.Code.Runtime.World;
 using Project.Code.StaticData.World;
+using Project.Code.UI.Windows.PlayerHUD;
 using UnityEngine;
 
 namespace Project.Code.Infrastructure.StateMachine.States
@@ -15,13 +16,13 @@ namespace Project.Code.Infrastructure.StateMachine.States
     public class LoadLevelState : IState
     {
         private IGameStateMachine _gameStateMachine;
+        private readonly IPersistentProgressService _progressService;
         private readonly ISceneLoader _sceneLoader;
         private readonly IStaticDataService _staticDataService;
         private readonly ISceneContextService _sceneContextService;
         private readonly IUnitFactory _unitFactory;
         private readonly IUIFactory _uiFactory;
         private RectTransform _hpPanel;
-        private IPersistentProgressService _progressService;
 
         private LoadLevelState(ISceneLoader sceneLoader, IStaticDataService staticDataService,
             ISceneContextService sceneContextService, IUnitFactory unitFactory, IUIFactory uiFactory,
@@ -48,20 +49,21 @@ namespace Project.Code.Infrastructure.StateMachine.States
             InitGameWorld();
             _gameStateMachine.Enter<GameLoopState>();
         }
-        
+
         private void InitGameWorld()
         {
             InitUI();
             CreatePlayer();
-            InitRoads();
+            InitRoadSpawner();
             InitEnemySpawner();
         }
 
         private void InitUI()
         {
             _uiFactory.CreateUiRoot();
-            _uiFactory.CreatePlayerHUD();
+            PlayerHUDWindow playerHUD = _uiFactory.CreatePlayerHUD();
             _hpPanel = _uiFactory.CreateWindow(WindowID.HealthBars).GetComponent<RectTransform>();
+            _sceneContextService.SetPlayerHUD(playerHUD);
         }
 
         private void CreatePlayer()
@@ -71,10 +73,13 @@ namespace Project.Code.Infrastructure.StateMachine.States
             _unitFactory.SpawnPlayer(playerSpawnPosition, playerSpawnRotation, _hpPanel);
         }
 
-        private void InitRoads()
+        private void InitRoadSpawner()
         {
+            int currentLevel = _progressService.Progress.PlayerLevelsProgress.CurrentLevel;
+            LevelStaticData levelStaticData = _staticDataService.GetLevelStaticData(currentLevel);
             RoadSpawner roadSpawner = _sceneContextService.RoadSpawner;
-            roadSpawner.Init(_staticDataService.GetWorldStaticData(), _sceneContextService.Player.transform);
+            WorldStaticData worldStaticData = _staticDataService.GetWorldStaticData();
+            roadSpawner.Init(worldStaticData, _sceneContextService.Player.transform, levelStaticData);
         }
 
         private void InitEnemySpawner()

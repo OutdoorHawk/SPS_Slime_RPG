@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Project.Code.StaticData.World;
+using Project.Code.UI.BG;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,8 +12,8 @@ namespace Project.Code.Runtime.Roads
     {
         [SerializeField] private Transform _roadsParent;
         [SerializeField] private ParticleSystem _windParticles;
-        [SerializeField] private float _movingSpeed;
-        [SerializeField] private float _minTriggerDistance = 1f;
+        [SerializeField] private Parallax _parallax;
+        [SerializeField] private float _minTriggerDistance = 10f;
 
         private List<Road> _activeRoads;
         private Road[] _roadPrefabs;
@@ -21,26 +21,29 @@ namespace Project.Code.Runtime.Roads
         private Transform _playerTransform;
 
         private static readonly Vector3 NextRoadOffset = new(50, 0, 0);
+        private float _movingSpeed;
         private float _walkingTime;
 
         private const float MAX_ROAD_AMOUNT = 4;
 
-        public void Init(WorldStaticData worldStaticData, Transform playerTransform)
+        public void Init(WorldStaticData worldStaticData, Transform playerTransform,
+            LevelStaticData levelStaticData)
         {
             _playerTransform = playerTransform;
             _movingSpeed = worldStaticData.RoadMovingSpeed;
-            _roadPrefabs = worldStaticData.Roads;
+            _roadPrefabs = levelStaticData.Roads;
             _walkingTime = worldStaticData.PlayerWalkingTime;
             _cachedTransform = transform;
             _activeRoads = new List<Road>();
             _windParticles.Stop();
-            CollectExistingRoads();
+            DestroyExistingRoads();
             SpawnFirstRoads();
         }
 
-        private void CollectExistingRoads()
+        private void DestroyExistingRoads()
         {
-            _activeRoads = _roadsParent.GetComponentsInChildren<Road>().ToList();
+            for (int i = 0; i < _roadsParent.childCount; i++)
+                Destroy(_roadsParent.GetChild(i).gameObject);
         }
 
         private void SpawnFirstRoads()
@@ -82,6 +85,7 @@ namespace Project.Code.Runtime.Roads
         {
             UpdateMovement();
             CheckNewRoadSpawn();
+            _parallax.UpdateParallax();
         }
 
         private void UpdateMovement()
@@ -101,6 +105,8 @@ namespace Project.Code.Runtime.Roads
 
         private bool PlayerTouchedTrigger()
         {
+            if (_playerTransform == null)
+                return false;
             return Vector3.Distance(_playerTransform.position, _activeRoads[1].TriggerPoint.position) <
                    _minTriggerDistance;
         }

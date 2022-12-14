@@ -1,9 +1,12 @@
 ﻿using Project.Code.Runtime.Units.Components.Animation;
+using Project.Code.Runtime.Units.Components.Health;
+using UnityEngine;
 
 namespace Project.Code.Runtime.Units.Components.Damage
 {
     public class EnemyDealDamageComponent : DealDamageComponent
     {
+        [SerializeField] private GameObject _hitParticles;
         private HealthComponent _playerHealth;
         private EnemyAnimator _enemyAnimator;
 
@@ -27,9 +30,7 @@ namespace Project.Code.Runtime.Units.Components.Damage
        /// <summary>
        /// AnimationEvent
        /// </summary>
-        private void DealDamage()
-        {
-            _playerHealth.TakeDamage(_attackDetails);
-        }
+        private void DealDamage() 
+           => _playerHealth.TakeDamage(_attackDetails);
     }
 }
