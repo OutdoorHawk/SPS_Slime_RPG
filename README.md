@@ -2,6 +2,7 @@
 
 Project was complete in 3 days. The task was to create a 3D clone of the Legend of slime RPG game.
 https://play.google.com/store/apps/details?id=com.loadcomplete.slimeidle&hl=en_US&gl=US
+
 Create basic shooting mechanics and stat upgrades, as well as any other mechanics from the reference.
 
 From the libraries containing C# code, only Zenject, Dotween and NavMesh were used. 
