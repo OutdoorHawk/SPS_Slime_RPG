@@ -10,7 +10,6 @@ The architecture of the game was built to accurately control the moment of loadi
 predisposed to expanding and adding new mechanics. When creating entities and units, a component-oriented approach was used.
 
 The following free assets and art were used:
-![MDYNtcxVEIk](https://user-images.githubusercontent.com/81248763/233441363-3a0aa704-2a89-4bbe-9499-0f1c43a9f340.jpg)
 
 ## 3D
 https://assetstore.unity.com/packages/3d/characters/toon-rts-units-demo-69687
