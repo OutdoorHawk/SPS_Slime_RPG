@@ -9,6 +9,11 @@ From the libraries containing C# code, only Zenject, Dotween and NavMesh were us
 The architecture of the game was built to accurately control the moment of loading and the game cycle, as well as it is 
 predisposed to expanding and adding new mechanics. When creating entities and units, a component-oriented approach was used.
 
+![image](https://github.com/OutdoorHawk/SPS_Slime_RPG/assets/81248763/13968e3c-013d-4f47-b1b7-f04ded9ba2b3)
+![image](https://github.com/OutdoorHawk/SPS_Slime_RPG/assets/81248763/ad1f380d-e3ed-4f1e-b16d-1d9d60d5bbd1)
+![image](https://github.com/OutdoorHawk/SPS_Slime_RPG/assets/81248763/898bd97f-a683-40e3-a1c5-a463b14c2b2e)
+
+
 The following free assets and art were used:
 
 ## 3D
